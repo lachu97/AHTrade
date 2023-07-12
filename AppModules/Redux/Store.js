@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import homeReducer from './Reducers/HomeReducer';
-import rootSaga from './AppSagas/Appsaga';
+import combineSaga from './AppSagas/Appsaga';
 import createSagaMiddleware from 'redux-saga';
 import reactotron from 'reactotron-react-native'; // <- From the Library
 import AppReactotron from '../DevConfig/ReactotronConfig'; // <-- From My Dev File
@@ -20,5 +20,5 @@ const store = configureStore({
   enhancers: [AppReactotron.createEnhancer()], // <- Comment while Taking Build
 });
 // Running And Configuring Saga
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(combineSaga);
 export default store;

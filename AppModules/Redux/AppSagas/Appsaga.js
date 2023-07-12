@@ -1,6 +1,7 @@
 import {delay, takeLatest, put, all} from 'redux-saga/effects';
 import {addHome} from '../Reducers/HomeReducer';
 import reactotron from 'reactotron-react-native';
+import {authRootSaga} from './AuthSaga';
 
 function* addHomeSaga() {
   try {
@@ -23,7 +24,7 @@ function* addSomething(action) {
     reactotron.log('Iam inside saga and i ran');
   } catch (e) {
     reactotron.error(
-      'Iam inside saga and i ran with a problem == \n' + e.message
+      'Iam inside saga and i ran with a problem == \n' + e.message,
     );
   }
 }
@@ -33,4 +34,7 @@ function* rootSaga() {
     takeLatest('SOMETHI', addSomething),
   ]);
 }
-export default rootSaga;
+function* combineSaga() {
+  yield all([rootSaga(), authRootSaga()]);
+}
+export default combineSaga;

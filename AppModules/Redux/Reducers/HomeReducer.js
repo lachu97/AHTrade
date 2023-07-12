@@ -1,6 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
 const INITIAL_STATE = {
-  vHome: "undefined",
+  vHome: 'undefined',
+  height: null,
+  width: null,
+  loggedIn: false,
 };
 const homeReducer = createSlice({
   name: 'Home',
@@ -9,8 +12,15 @@ const homeReducer = createSlice({
     addHome: (state, action) => {
       state.vHome = action.payload;
     },
+    addDimensions: (state, action) => {
+      state.height = action.payload.height;
+      state.width = action.payload.width;
+    },
+    addLogIn: (state, action) => {
+      state.loggedIn = action.payload;
+    },
   },
 });
 
-export const {addHome} = homeReducer.actions;
+export const {addHome, addDimensions, addLogIn} = homeReducer.actions;
 export default homeReducer.reducer;

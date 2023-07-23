@@ -4,6 +4,9 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {addDimensions} from '../Redux/Reducers/HomeReducer';
+import ShimmerText from '../Components/GradientText';
+import {useQuery, useRealm} from '../Storage/Realm/RealmConfig';
+import Auth from '../Storage/Realm/RealmConfig';
 const height = Math.floor(Dimensions.get('window').height);
 const width = Math.floor(Dimensions.get('window').width);
 const SplashScreen = () => {
@@ -11,13 +14,15 @@ const SplashScreen = () => {
   const loggedIn = useSelector(state => state.home.loggedIn);
   const scaleValue = useRef(new Animated.Value(1)).current;
   const navigation = useNavigation();
+  // const realm = useRealm();
+  // const authData = useQuery(Auth);
   useEffect(() => {
-    dispatch({type:'GET_LOGIN'});
+    dispatch({type: 'GET_LOGIN'});
     dispatch(addDimensions({height: height, width: width}));
     const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(scaleValue, {
-          toValue: 1.1,
+          toValue: 1.01,
           duration: 1900,
           useNativeDriver: true,
         }),
@@ -36,20 +41,23 @@ const SplashScreen = () => {
       } else {
         navigation.navigate('AuthStack');
       }
-    }, 2200);
+    }, 1200);
     return () => {
       clearTimeout(timer);
       animation.stop();
     };
   }, []);
   return (
-    <Animated.View
-      style={[styles.container, {transform: [{scale: scaleValue}]}]}>
-      <Image
-        style={styles.logo}
-        source={require('../assets/Images/appLogo.png')}
-      />
-    </Animated.View>
+    <View style={styles.container}>
+      <Animated.View
+        style={[styles.container, {transform: [{scale: scaleValue}]}]}>
+        <Image
+          style={styles.logo}
+          source={require('../assets/Images/appLogo.png')}
+        />
+        <ShimmerText text={'ATLASHORIZON'} style={styles.gradientText} />
+      </Animated.View>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -62,6 +70,9 @@ const styles = StyleSheet.create({
   logo: {
     width: width / 4,
     height: width / 5,
+  },
+  gradientText: {
+    fontSize: 24,
   },
 });
 export default React.memo(SplashScreen);

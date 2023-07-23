@@ -12,4 +12,9 @@ export default StyleSheet.create({
     fontFamily: 'sans-serif',
     color: Colors.light,
   },
+  buttonContainer: {
+    width: 150,
+    height: 33,
+    alignSelf:'center'
+  },
 });

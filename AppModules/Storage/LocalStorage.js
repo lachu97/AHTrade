@@ -11,10 +11,9 @@ export const storeIsLoggedIn = async (value = false) => {
 export const getLoggedIn = async () => {
   try {
     const value = await AsyncStorage.getItem(loginKey);
-    if (value !== null) {
-      return value === 'true';
-    }
+    return value !== null;
   } catch (e) {
     reactotron.log('Error in Async Storage =' + e.message);
+    return false;
   }
 };

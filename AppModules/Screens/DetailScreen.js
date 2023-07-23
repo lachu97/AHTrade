@@ -17,7 +17,7 @@ const DetailScreen = () => {
   }, []);
   const handlePress = () => {
     console.log('pressed');
-    navigation.popToTop();
+    navigation.goBack();
   };
   return (
     <View style={styles.container}>

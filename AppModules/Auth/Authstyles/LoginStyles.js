@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
   textInput: {
     backgroundColor: Colors.light,
-    marginVertical:10,
+    marginVertical: 10,
     fontSize: 19,
     width: width * 0.8,
     height: 54,

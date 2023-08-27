@@ -17,7 +17,7 @@ const SplashScreen = () => {
   // const realm = useRealm();
   // const authData = useQuery(Auth);
   useEffect(() => {
-    dispatch({type: 'GET_LOGIN'});
+    //dispatch({type: 'GET_LOGIN'});
     dispatch(addDimensions({height: height, width: width}));
     const animation = Animated.loop(
       Animated.sequence([
@@ -55,7 +55,7 @@ const SplashScreen = () => {
           style={styles.logo}
           source={require('../assets/Images/appLogo.png')}
         />
-        <ShimmerText text={'ATLASHORIZON'} style={styles.gradientText} />
+        {/*<ShimmerText text={'ATLASHORIZON'} style={styles.gradientText} />*/}
       </Animated.View>
     </View>
   );

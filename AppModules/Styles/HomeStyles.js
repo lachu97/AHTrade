@@ -10,11 +10,15 @@ export default StyleSheet.create({
   },
   textStyle: {
     fontFamily: 'sans-serif',
-    color: Colors.light,
+    color: Colors.lightingColor,
   },
   buttonContainer: {
     width: 150,
     height: 33,
     alignSelf:'center'
   },
+  categoryListHeader:{
+    marginTop:20,
+    marginVertical:10
+  }
 });

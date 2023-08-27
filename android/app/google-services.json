@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "222939751028",
+    "project_id": "ahtrade-adb75",
+    "storage_bucket": "ahtrade-adb75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222939751028:android:eaad35e2ca681b9be82721",
+        "android_client_info": {
+          "package_name": "com.ahtrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222939751028-q4dpv4un3gp2v68e8pr4gm8mbbule2sb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARweHkoDmGMYLXZ7GkhphHiP1O_ISiPsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222939751028-q4dpv4un3gp2v68e8pr4gm8mbbule2sb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

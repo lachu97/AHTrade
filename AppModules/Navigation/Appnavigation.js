@@ -36,16 +36,9 @@ const AppNavigation = () => {
       <Stack.Navigator
         screenOptions={{headerShown: false}}
         initialRouteName={'Splash'}>
-        {screens.map((screen, idx) => {
-          return (
-            <Stack.Screen
-              key={idx}
-              name={screen.name}
-              component={screen.component}
-              options={{animation: 'slide_from_right'}}
-            />
-          );
-        })}
+        <Stack.Screen name={'Home'} component={HomeScreen} />
+        <Stack.Screen name={'Detail'} component={DetailScreen} />
+        <Stack.Screen name={'Splash'} component={SplashScreen} />
         <Stack.Screen name={'AuthStack'} component={AuthNavigation} />
       </Stack.Navigator>
     </NavigationContainer>

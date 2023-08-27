@@ -3,11 +3,12 @@ import {View, Pressable, KeyboardAvoidingView} from 'react-native';
 import {
   Text,
   Provider as PaperProvider,
-  DefaultTheme,
-} from 'react-native-paper';
+  DefaultTheme, MD2Colors,
+} from "react-native-paper";
 import styles from './Authstyles/LoginStyles';
 import {TextInput} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import { Colors } from "react-native/Libraries/NewAppScreen";
 const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -33,17 +34,34 @@ const Login = () => {
       </Pressable>
       <KeyboardAvoidingView behavior={'padding'} style={styles.formContainer}>
         <TextInput
-          label="Email"
+          // label="Email"
           value={email}
           placeholder={"Enter Email"}
+          placeholderTextColor={Colors.black}
           onChangeText={handleEmail}
           style={styles.textInput}
           mode={'outlined'}
           autoComplete={"email"}
+          outlineColor={MD2Colors.black}
           autoCorrect
+          textColor={MD2Colors.black}
           inputMode={'email'}
           keyboardType={'email-address'}
-          right={<TextInput.Icon icon="MailIcon" />}
+          activeOutlineColor={MD2Colors.black}
+        />
+        <TextInput
+          // label="Password"
+          value={password}
+          placeholder={"Enter Password"}
+          activeOutlineColor={MD2Colors.black}
+          placeholderTextColor={Colors.black}
+          onChangeText={handlePassword}
+          style={styles.textInput}
+          textColor={MD2Colors.black}
+          mode={'outlined'}
+          autoComplete={"email"}
+          autoCorrect
+          secureTextEntry
         />
       </KeyboardAvoidingView>
     </View>

@@ -3,10 +3,6 @@ import {View, Image, StyleSheet, Dimensions, Animated} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {addDimensions} from '../Redux/Reducers/HomeReducer';
-import ShimmerText from '../Components/GradientText';
-import {useQuery, useRealm} from '../Storage/Realm/RealmConfig';
-import Auth from '../Storage/Realm/RealmConfig';
 const height = Math.floor(Dimensions.get('window').height);
 const width = Math.floor(Dimensions.get('window').width);
 const SplashScreen = () => {
@@ -18,7 +14,7 @@ const SplashScreen = () => {
   // const authData = useQuery(Auth);
   useEffect(() => {
     //dispatch({type: 'GET_LOGIN'});
-    dispatch(addDimensions({height: height, width: width}));
+    //dispatch(addDimensions({height: height, width: width}));
     const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(scaleValue, {
@@ -55,7 +51,6 @@ const SplashScreen = () => {
           style={styles.logo}
           source={require('../assets/Images/appLogo.png')}
         />
-        {/*<ShimmerText text={'ATLASHORIZON'} style={styles.gradientText} />*/}
       </Animated.View>
     </View>
   );

@@ -4,12 +4,12 @@ const width = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.light,
+    backgroundColor: Colors.dark,
     alignItems: 'center',
     justifyContent: 'center',
   },
   textStyles: {
-    color: Colors.dark,
+    color: Colors.light,
   },
   formContainer: {
     justifyContent: 'center',

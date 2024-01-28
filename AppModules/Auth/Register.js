@@ -37,11 +37,11 @@ const Register = () => {
           />
         </Pressable>
       </View>
-      <AHText name={'Register As a new Customer'} style={styles.textStyles} />
+      <AHText name={'Sign Up'} style={styles.textStyles} />
       <KeyboardAvoidingView behavior={'padding'} style={styles.formContainer}>
         <AHTextInput
           value={name}
-          placeholder={'Enter your Name'}
+          placeholder={'Name'}
           onChangeText={e => setName(e)}
           autoFocus
           style={styles.textInput}
@@ -51,7 +51,7 @@ const Register = () => {
         />
         <AHTextInput
           value={email}
-          placeholder={'Enter your Email'}
+          placeholder={'Email'}
           onChangeText={e => setEmail(e)}
           style={styles.textInput}
           inputMode={'email'}
@@ -61,14 +61,14 @@ const Register = () => {
         />
         <AHTextInput
           value={company}
-          placeholder={'Enter your Company Name'}
+          placeholder={'Company Name'}
           onChangeText={e => setCompany(e)}
           style={styles.textInput}
           right={<TextInput.Icon icon={'alpha-c'} />}
         />
         <AHTextInput
           value={phone}
-          placeholder={'Enter your Contact No'}
+          placeholder={'Contact No'}
           onChangeText={e => setPhone(e)}
           style={styles.textInput}
           autoComplete="tel"
@@ -78,7 +78,7 @@ const Register = () => {
         />
         <AHTextInput
           value={country}
-          placeholder={'Enter your Country'}
+          placeholder={'Country'}
           onChangeText={e => setCountry(e)}
           style={styles.textInput}
           autoComplete="country"
@@ -98,7 +98,7 @@ const Register = () => {
               color={MD2Colors.white}
             />
           </Pressable>
-          <Text style={styles.iAgreeText}>I, agree to Terms & Conditions</Text>
+          <Text style={styles.iAgreeText}>I, agree to Privacy Policy & T&C</Text>
         </View>
         <AHButton
           name={'Submit'}

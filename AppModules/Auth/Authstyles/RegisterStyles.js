@@ -11,8 +11,9 @@ export default StyleSheet.create({
   },
   textStyles: {
     color: Colors.light,
-    fontSize: 18,
+    fontSize: 27,
     alignSelf: 'center',
+    fontWeight:"bold",
     marginVertical: 10,
   },
   textInput: {

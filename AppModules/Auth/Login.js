@@ -33,12 +33,7 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.textStyles}>Login</Text>
-      <Pressable
-        onPress={() => {
-          navigation.navigate('Register');
-        }}>
-        <Text style={styles.textStyles}>Register</Text>
-      </Pressable>
+
       <KeyboardAvoidingView behavior={'padding'} style={styles.formContainer}>
         <AHTextInput
           // label="Email"
@@ -86,6 +81,11 @@ const Login = () => {
           textColor={MD2Colors.black}
           buttonColor={MD2Colors.purple100}
         />
+        <Pressable
+          style={styles.guestTextStyles}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={{color: MD2Colors.white}}>Continue as Guest</Text>
+        </Pressable>
       </KeyboardAvoidingView>
     </View>
   );

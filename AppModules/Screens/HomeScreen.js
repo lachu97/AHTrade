@@ -1,20 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import {View, Pressable, FlatList} from 'react-native';
-import {Appbar, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import styles from '../Styles/HomeStyles';
 import {data} from '../MockData/MockDatas';
-import Shimmer from '../ShimmerEffects/shimmer';
-import YourShimmer from '../ShimmerEffects/shimmer2';
-import {Header} from 'react-native/Libraries/NewAppScreen';
-import HeaderComponent from '../Components/HeaderComponent';
-import CategoryList from "../Components/Lists/CategoryList";
-import AHText from "../Components/AHText";
+
+import HeaderComponent, {
+  HomeHeaderComponent,
+} from '../Components/HeaderComponent';
+import CategoryList from '../Components/Lists/CategoryList';
+import AHText from '../Components/AHText';
+import ProductList from '../Components/Lists/ProductsLists';
+import CollapDrawer from '../Components/NavigationDrawer/Drawer';
+import BottomBar from "../Components/BottomBar/BottomBar";
 const act = () => ({type: 'ADDHOME'});
 const HomeScreen = () => {
   const navigation = useNavigation();
+
   const dispatch = useDispatch();
+  const [isDrawerVisible, setDrawerVisible] = useState(false);
+
+  const openDrawer = () => setDrawerVisible(true);
+  const closeDrawer = () => setDrawerVisible(false);
   let catData = data[0].categoryData;
   let prodData = data[1].productData;
   useEffect(() => {
@@ -26,16 +33,16 @@ const HomeScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <HeaderComponent
-        onPress={() => {}}
-        backAction={() => {}}
-        title={'Home'}
-        icon={'cart'}
-      />
-      <AHText style={styles.textStyle} name={'Category'}/>
-        <View style={{marginVertical:5,padding:1}}>
-            <CategoryList data={catData} />
-        </View>
+      <HomeHeaderComponent />
+      <AHText style={styles.textStyle} name={'Category'} />
+      <View style={{marginVertical: 5, padding: 1}}>
+        <CategoryList data={catData} />
+      </View>
+      <AHText style={styles.textStyle} name={'Products'} />
+      <View style={{marginVertical: 5, padding: 1}}>
+        <ProductList data={catData} />
+      </View>
+        <BottomBar/>
     </View>
   );
 };

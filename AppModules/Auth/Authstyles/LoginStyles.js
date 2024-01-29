@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {MD2Colors} from "react-native-paper";
+import {MD2Colors} from 'react-native-paper';
 const width = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
@@ -27,10 +27,18 @@ export default StyleSheet.create({
     width: width * 0.8,
     height: 54,
   },
-  guestTextStyles:{
+  guestTextStyles: {
     marginVertical: 15,
-    backgroundColor: MD2Colors.teal500,
+    backgroundColor: MD2Colors.teal400,
     padding: 10,
     borderRadius: 10,
-  }
+  },
+  guestText: {
+    color: MD2Colors.white,
+    fontSize: 14,
+    fontWeight: '500',
+    padding: 1,
+    alignSelf: 'center',
+    fontFamily: 'sans-serif',
+  },
 });

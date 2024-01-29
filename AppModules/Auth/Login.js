@@ -4,7 +4,7 @@ import {
   Text,
   Provider as PaperProvider,
   DefaultTheme,
-  MD2Colors,
+  MD2Colors, HelperText,
 } from 'react-native-paper';
 import styles from './Authstyles/LoginStyles';
 import {TextInput} from 'react-native-paper';
@@ -69,7 +69,7 @@ const Login = () => {
           name={'Login'}
           onPress={() => console.log('djdj')}
           mode={'contained'}
-          style={{width: width * 0.8, marginVertical: 10}}
+          style={{width: width * 0.8, marginVertical: 15}}
           textColor={MD2Colors.black}
           buttonColor={MD2Colors.purple100}
         />
@@ -84,7 +84,7 @@ const Login = () => {
         <Pressable
           style={styles.guestTextStyles}
           onPress={() => navigation.navigate('Home')}>
-          <Text style={{color: MD2Colors.white}}>Continue as Guest</Text>
+          <Text style={styles.guestText}>Continue as Guest</Text>
         </Pressable>
       </KeyboardAvoidingView>
     </View>

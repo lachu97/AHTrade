@@ -6,10 +6,12 @@ import DetailScreen from '../Screens/DetailScreen';
 import SplashScreen from '../Screens/SplashScreen';
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
+import ChatScreen from "../Screens/Miscellaneous/ChatScreen";
 const screens = [
   {name: 'Home', component: HomeScreen},
   {name: 'Detail', component: DetailScreen},
   {name: 'Splash', component: SplashScreen},
+  {name: 'Chat', component: ChatScreen},
 ];
 const Stack = createNativeStackNavigator();
 const AuthNavigation = () => {
@@ -39,6 +41,7 @@ const AppNavigation = () => {
         <Stack.Screen name={'Home'} component={HomeScreen} />
         <Stack.Screen name={'Detail'} component={DetailScreen} />
         <Stack.Screen name={'Splash'} component={SplashScreen} />
+        <Stack.Screen name={'Chat'} component={ChatScreen} />
         <Stack.Screen name={'AuthStack'} component={AuthNavigation} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -5,13 +5,12 @@ import {useDispatch} from 'react-redux';
 import styles from '../Styles/HomeStyles';
 import {data} from '../MockData/MockDatas';
 
-import HeaderComponent, {
+import  {
   HomeHeaderComponent,
 } from '../Components/HeaderComponent';
 import CategoryList from '../Components/Lists/CategoryList';
 import AHText from '../Components/AHText';
 import ProductList from '../Components/Lists/ProductsLists';
-import CollapDrawer from '../Components/NavigationDrawer/Drawer';
 import BottomBar from "../Components/BottomBar/BottomBar";
 const act = () => ({type: 'ADDHOME'});
 const HomeScreen = () => {
@@ -42,7 +41,7 @@ const HomeScreen = () => {
       <View style={{marginVertical: 5, padding: 1}}>
         <ProductList data={catData} />
       </View>
-        <BottomBar/>
+        <BottomBar  navigation={navigation}/>
     </View>
   );
 };

@@ -23,12 +23,11 @@ const bottomItems = [
   {
     name: 'Live-Chat',
     icon: 'chat',
-    route: 'Home',
+    route: 'Chat',
   },
 ];
-const BottomBar = () => {
-  const {bottom} = useSafeAreaInsets();
-  const theme = useTheme();
+const BottomBar = ({navigation}) => {
+
 
   return (
     <Surface
@@ -40,7 +39,7 @@ const BottomBar = () => {
         },
       ]}>
       {bottomItems.map((itm, idx) => (
-        <TouchableRipple onPress={() => console.log(itm.name)} style={{padding:10}}>
+        <TouchableRipple onPress={() => navigation.navigate(itm.route)} style={{padding:10}}>
           <View style={{justifyContent: 'center', alignItems: 'center'}}>
             <MaterialCommunityIcons name={itm.icon} size={25} color={MD2Colors.grey50} />
             <Text

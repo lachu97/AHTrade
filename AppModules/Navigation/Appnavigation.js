@@ -7,6 +7,7 @@ import SplashScreen from '../Screens/SplashScreen';
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
 import ChatScreen from "../Screens/Miscellaneous/ChatScreen";
+import CategorySearch from "../Screens/SearchModule/Views/CatergorySearch";
 const screens = [
   {name: 'Home', component: HomeScreen},
   {name: 'Detail', component: DetailScreen},
@@ -42,6 +43,7 @@ const AppNavigation = () => {
         <Stack.Screen name={'Detail'} component={DetailScreen} />
         <Stack.Screen name={'Splash'} component={SplashScreen} />
         <Stack.Screen name={'Chat'} component={ChatScreen} />
+        <Stack.Screen name={'CategorySearch'} component={CategorySearch} />
         <Stack.Screen name={'AuthStack'} component={AuthNavigation} />
       </Stack.Navigator>
     </NavigationContainer>

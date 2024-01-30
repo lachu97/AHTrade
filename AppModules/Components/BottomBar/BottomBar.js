@@ -12,13 +12,12 @@ import {
 } from 'react-native-paper';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const BOTTOM_APPBAR_HEIGHT = 80;
-const MEDIUM_FAB_HEIGHT = 56;
+const BOTTOM_APPBAR_HEIGHT = 70;
 const bottomItems = [
   {name: 'Home', icon: 'home', route: 'Home'},
-  {name: 'Cart', icon: 'cart', route: 'Home'},
+  {name: 'Category', icon: 'menu', route: 'Home'},
   {name: 'Account', icon: 'account', route: 'Home'},
   {
     name: 'Live-Chat',
@@ -27,26 +26,33 @@ const bottomItems = [
   },
 ];
 const BottomBar = ({navigation}) => {
-
-
   return (
     <Surface
+      elevation={6}
       style={[
         styles.bottom,
         {
           height: BOTTOM_APPBAR_HEIGHT,
-          backgroundColor: MD2Colors.transparent,
         },
       ]}>
       {bottomItems.map((itm, idx) => (
-        <TouchableRipple onPress={() => navigation.navigate(itm.route)} style={{padding:10}}>
-          <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <MaterialCommunityIcons name={itm.icon} size={25} color={MD2Colors.grey50} />
+        <TouchableRipple
+          key={idx}
+          onPress={() => navigation.navigate(itm.route)}
+          style={{padding: 10}}>
+          <View style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
+            <MaterialCommunityIcons
+              name={itm.icon}
+              size={itm.name === 'Home' ? 28 : 25}
+              color={itm.name === 'Home' ? MD2Colors.pink50 : MD2Colors.grey50}
+            />
             <Text
               style={{
                 alignSelf: 'center',
                 marginVertical: 5,
-                color: MD2Colors.white,
+                color:
+                  itm.name === 'Home' ? MD2Colors.pink50 : MD2Colors.white,
+                fontSize: itm.name === 'Home' ? 15 : 12,
               }}>
               {itm.name}
             </Text>

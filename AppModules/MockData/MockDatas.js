@@ -58,6 +58,42 @@ export const data = [
         description: 'Some Ranmdom Description',
         subCategory: null,
       },
+      {
+        id: 1,
+        name: 'Fooder',
+        image: require('../assets/Icons/food.png'),
+        description: 'Some Ranmdom Description',
+        subCategory: null,
+      },
+      {
+        id: 1,
+        name: 'Fooder',
+        image: require('../assets/Icons/food.png'),
+        description: 'Some Ranmdom Description',
+        subCategory: null,
+      },
+      {
+        id: 1,
+        name: 'Fooder',
+        image: require('../assets/Icons/food.png'),
+        description: 'Some Ranmdom Description',
+        subCategory: null,
+      },
+      {
+        id: 1,
+        name: 'Fooder',
+        image: require('../assets/Icons/food.png'),
+        description: 'Some Ranmdom Description',
+        subCategory: null,
+      },
+      {
+        id: 1,
+        name: 'Fooder',
+        image: require('../assets/Icons/food.png'),
+        description: 'Some Ranmdom Description',
+        subCategory: null,
+      },
+
     ],
   },
   {

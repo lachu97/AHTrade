@@ -1,7 +1,8 @@
 import React from 'react';
 import {Icon, MD2Colors, Text, TouchableRipple} from 'react-native-paper';
 import {FlatList, View} from 'react-native';
-import AHText from "../AHText";
+import AHText from '../AHText';
+import {useNavigation} from '@react-navigation/native';
 
 const CardComponent = ({icon, title, onPress}) => {
   return (
@@ -23,17 +24,26 @@ const CardComponent = ({icon, title, onPress}) => {
           justifyContent: 'center',
         }}>
         <Icon source={icon} size={45} />
-        <Text style={{color: MD2Colors.white, marginVertical: 10}}>{title}</Text>
+        <Text style={{color: MD2Colors.white, marginVertical: 10}}>
+          {title}
+        </Text>
       </View>
     </TouchableRipple>
   );
 };
 const CategoryList = ({data}) => {
+  const navigation = useNavigation();
+
+  const onPress = item => {
+    navigation.navigate('CategorySearch', {
+      name: item.name,
+    });
+  };
   const renderItem = ({item}) => (
     <CardComponent
       icon={item.image}
       title={item.name}
-      onPress={() => console.log('dd')}
+      onPress={() => onPress(item)}
     />
   );
   return (

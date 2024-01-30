@@ -6,6 +6,7 @@ import {
   Text,
   TouchableRipple,
   Icon,
+  Tooltip,
 } from 'react-native-paper';
 import {Pressable, View, StyleSheet} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -31,24 +32,28 @@ export const HomeHeaderComponent = () => {
           marginHorizontal: 5,
         }}>
         <TouchableRipple onPress={() => {}}>
-          <Icon
-            source={require('../assets/Images/appLogo.png')}
-            size={28}
-         //   color={MD2Colors.white}
-          />
+          <Tooltip title={'Logo'}>
+            <Icon
+              source={require('../assets/Images/appLogo.png')}
+              size={28}
+              //   color={MD2Colors.white}
+            />
+          </Tooltip>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
-          <Text
-            style={{
-              color: MD2Colors.grey50,
-              marginHorizontal: 8,
-              padding: 1,
-              alignSelf: 'center',
-              fontSize: 16.5,
-              fontWeight: 'bold',
-            }}>
-            Atlashorizon
-          </Text>
+          <Tooltip title={'Title'}>
+            <Text
+              style={{
+                color: MD2Colors.grey50,
+                marginHorizontal: 8,
+                padding: 1,
+                alignSelf: 'center',
+                fontSize: 16.5,
+                fontWeight: 'bold',
+              }}>
+              Atlashorizon
+            </Text>
+          </Tooltip>
         </TouchableRipple>
       </View>
 

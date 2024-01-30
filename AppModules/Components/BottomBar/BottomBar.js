@@ -13,19 +13,21 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useRef, useState} from 'react';
 
 const BOTTOM_APPBAR_HEIGHT = 70;
 const bottomItems = [
   {name: 'Home', icon: 'home', route: 'Home'},
   {name: 'Category', icon: 'menu', route: 'Home'},
-  {name: 'Account', icon: 'account', route: 'Home'},
+  {name: 'Account', icon: 'account', route: 'Account'},
   {
     name: 'Live-Chat',
     icon: 'chat',
     route: 'Chat',
   },
 ];
-const BottomBar = ({navigation}) => {
+const BottomBar = ({navigation,activeTab}) => {
+
   return (
     <Surface
       elevation={6}
@@ -38,21 +40,25 @@ const BottomBar = ({navigation}) => {
       {bottomItems.map((itm, idx) => (
         <TouchableRipple
           key={idx}
-          onPress={() => navigation.navigate(itm.route)}
+          onPress={() => {
+            navigation.navigate(itm.route);
+          }}
           style={{padding: 10}}>
           <View style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
             <MaterialCommunityIcons
               name={itm.icon}
-              size={itm.name === 'Home' ? 28 : 25}
-              color={itm.name === 'Home' ? MD2Colors.pink50 : MD2Colors.grey50}
+              size={itm.name === activeTab ? 28 : 25}
+              color={
+                itm.name === activeTab ? MD2Colors.pink50 : MD2Colors.grey50
+              }
             />
             <Text
               style={{
                 alignSelf: 'center',
                 marginVertical: 5,
                 color:
-                  itm.name === 'Home' ? MD2Colors.pink50 : MD2Colors.white,
-                fontSize: itm.name === 'Home' ? 15 : 12,
+                  itm.name === activeTab ? MD2Colors.pink50 : MD2Colors.white,
+                fontSize: itm.name === activeTab ? 15 : 12,
               }}>
               {itm.name}
             </Text>

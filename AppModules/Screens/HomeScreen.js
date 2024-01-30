@@ -40,7 +40,7 @@ const HomeScreen = () => {
         <ProductList data={catData} />
       </View>
       <View style={{flex: 0.15}}>
-        <BottomBar navigation={navigation} />
+        <BottomBar navigation={navigation} activeTab={'Home'}/>
       </View>
     </View>
   );

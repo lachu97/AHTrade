@@ -11,7 +11,10 @@ const cardWidth = width * 0.93;
 const cardHeight = Math.floor(height / 5);
 const SearchCardItem = ({navigation}) => {
   return (
-    <TouchableRipple onPress={() => {}}>
+    <TouchableRipple
+      onPress={() => {
+        navigation.navigate('ProductDetail');
+      }}>
       <Surface style={styles.card} elevation={5}>
         <View
           style={{

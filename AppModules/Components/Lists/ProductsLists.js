@@ -2,11 +2,12 @@ import React from 'react';
 import {Dimensions, FlatList, Image, Pressable, View} from 'react-native';
 import AHText from '../AHText';
 import {Surface, Avatar, TouchableRipple, MD2Colors} from 'react-native-paper';
+import {useNavigation} from "@react-navigation/native";
 const width = Dimensions.get('window').width;
 
-const ProductCard = ({item}) => {
+const ProductCard = ({item,navigation}) => {
   return (
-    <TouchableRipple onPress={() => {}}>
+    <TouchableRipple onPress={() => {navigation.navigate('ProductDetail')}}>
       <Surface
         style={{
           width: width * 0.47,
@@ -26,7 +27,8 @@ const ProductCard = ({item}) => {
 };
 
 const ProductList = ({data}) => {
-  const renderItems = ({item}) => <ProductCard item={item} />;
+    const navigation = useNavigation()
+  const renderItems = ({item}) => <ProductCard item={item} navigation={navigation} />;
   return (
     <FlatList
       style={{margin: 2, backgroundColor: MD2Colors.transparent}}

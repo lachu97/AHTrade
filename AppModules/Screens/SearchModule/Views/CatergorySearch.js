@@ -4,7 +4,8 @@ import styles from '../styles/CategorySearchStyles';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AHText from '../../../Components/AHText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Chip, MD2Colors, TouchableRipple} from 'react-native-paper';
+import {Card, Chip, MD2Colors, TouchableRipple} from 'react-native-paper';
+import SearchCardItem from '../MicroComponents/Card';
 
 const CategoryListChip = ({select, onChipPress}) => {
   // const [selected, setSelected] = useState(select);
@@ -18,7 +19,8 @@ const CategoryListChip = ({select, onChipPress}) => {
         mode={'outlined'}
         textStyle={{
           fontSize: select === item ? 15.2 : 14.3,
-          fontWeight: select === item ? 'bold' : 200,
+          fontWeight: select === item ? 'bold' : 500,
+          color: MD2Colors.blue900,
         }}
         icon={select === item ? 'check-decagram' : null}
         onPress={() => onChipPress(item)}>
@@ -42,6 +44,7 @@ const CategoryListChip = ({select, onChipPress}) => {
     </View>
   );
 };
+const sample = [1, 2, 3, 4, 5, 6];
 const CategoryHeader = ({name, onPress}) => {
   return (
     <View
@@ -70,6 +73,9 @@ const CategorySearch = () => {
   const route = useRoute();
   const [selected, setSelected] = useState(route.params.name);
   const onChipPress = item => setSelected(item);
+  const renderSearchItem = ({item}) => {
+    return <SearchCardItem navigation={navigation}/>;
+  };
   return (
     <View style={styles.container}>
       <CategoryHeader name={selected} onPress={() => navigation.goBack()} />
@@ -77,11 +83,13 @@ const CategorySearch = () => {
       <View
         style={{
           flex: 1,
-          backgroundColor: MD2Colors.white,
+          backgroundColor: MD2Colors.transparent,
           margin: 5,
-          padding: 5,
-        }}
-      />
+          padding: 1,
+          alignItems: 'center',
+        }}>
+        <FlatList keyExtractor={(_,idx)=>`${idx}`} contentContainerStyle={{padding:2}} data={sample} renderItem={renderSearchItem} />
+      </View>
     </View>
   );
 };

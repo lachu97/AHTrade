@@ -11,14 +11,26 @@ import {
 import {Pressable, View, StyleSheet} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AHText from './AHText';
+import {useNavigation} from '@react-navigation/native';
 
-export const HeaderComponent = ({backAction, title, icon, onPress}) => {
+export const HeaderComponent = () => {
+  const navigation = useNavigation();
   return (
-    <Appbar.Header style={{height: 54}} mode={'small'}>
-      <Appbar.BackAction onPress={backAction} />
-      <Appbar.Content title={title} />
-      <Appbar.Action icon={icon} onPress={onPress} />
-    </Appbar.Header>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 10,
+        marginVertical: 10,
+      }}>
+      <TouchableRipple onPress={() => navigation.goBack()}>
+        <MaterialCommunityIcons
+          name={'arrow-left'}
+          size={30}
+          color={MD2Colors.white}
+        />
+      </TouchableRipple>
+    </View>
   );
 };
 export const HomeHeaderComponent = () => {

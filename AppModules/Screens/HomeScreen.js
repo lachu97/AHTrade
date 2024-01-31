@@ -37,7 +37,7 @@ const HomeScreen = () => {
       </View>
       <AHText style={styles.textStyle} name={'Products'} />
       <View style={{marginVertical: 5, padding: 1, flex: 1}}>
-        <ProductList data={catData} />
+        <ProductList data={prodData} />
       </View>
       <View style={{flex: 0.15}}>
         <BottomBar navigation={navigation} activeTab={'Home'}/>

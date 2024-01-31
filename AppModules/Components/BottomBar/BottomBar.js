@@ -18,7 +18,7 @@ import {useRef, useState} from 'react';
 const BOTTOM_APPBAR_HEIGHT = 70;
 const bottomItems = [
   {name: 'Home', icon: 'home', route: 'Home'},
-  {name: 'Category', icon: 'menu', route: 'Home'},
+  {name: 'Category', icon: 'menu', route: 'CategorySearch'},
   {name: 'Account', icon: 'account', route: 'Account'},
   {
     name: 'Live-Chat',
@@ -26,8 +26,7 @@ const bottomItems = [
     route: 'Chat',
   },
 ];
-const BottomBar = ({navigation,activeTab}) => {
-
+const BottomBar = ({navigation, activeTab}) => {
   return (
     <Surface
       elevation={6}
@@ -41,6 +40,12 @@ const BottomBar = ({navigation,activeTab}) => {
         <TouchableRipple
           key={idx}
           onPress={() => {
+            if (itm.route === 'CategorySearch') {
+              navigation.navigate(itm.route, {
+                name: 'Spices',
+              });
+              return;
+            }
             navigation.navigate(itm.route);
           }}
           style={{padding: 10}}>

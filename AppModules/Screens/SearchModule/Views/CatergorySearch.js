@@ -6,6 +6,7 @@ import AHText from '../../../Components/AHText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Card, Chip, MD2Colors, TouchableRipple} from 'react-native-paper';
 import SearchCardItem from '../MicroComponents/Card';
+import BottomBar from '../../../Components/BottomBar/BottomBar';
 
 const CategoryListChip = ({select, onChipPress}) => {
   // const [selected, setSelected] = useState(select);
@@ -71,10 +72,10 @@ const CategoryHeader = ({name, onPress}) => {
 const CategorySearch = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const [selected, setSelected] = useState(route.params.name);
+  const [selected, setSelected] = useState(route.params?.name);
   const onChipPress = item => setSelected(item);
   const renderSearchItem = ({item}) => {
-    return <SearchCardItem navigation={navigation}/>;
+    return <SearchCardItem navigation={navigation} />;
   };
   return (
     <View style={styles.container}>
@@ -88,8 +89,14 @@ const CategorySearch = () => {
           padding: 1,
           alignItems: 'center',
         }}>
-        <FlatList keyExtractor={(_,idx)=>`${idx}`} contentContainerStyle={{padding:2}} data={sample} renderItem={renderSearchItem} />
+        <FlatList
+          keyExtractor={(_, idx) => `${idx}`}
+          contentContainerStyle={{padding: 2}}
+          data={sample}
+          renderItem={renderSearchItem}
+        />
       </View>
+      <BottomBar navigation={navigation} activeTab={'Category'} />
     </View>
   );
 };

@@ -7,6 +7,7 @@ import {
   TouchableRipple,
   Icon,
   Tooltip,
+  Badge,
 } from 'react-native-paper';
 import {Pressable, View, StyleSheet} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -74,7 +75,13 @@ export const HomeHeaderComponent = () => {
           onPress={() => {
             console.log('d');
           }}>
-          <Avatar.Text label={'GT'} size={30} />
+          <>
+            <MaterialCommunityIcons
+              name={'bell'}
+              size={25}
+              color={MD2Colors.white}
+            />
+          </>
         </TouchableRipple>
       </View>
     </View>

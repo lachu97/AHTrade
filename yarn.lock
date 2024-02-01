@@ -7207,6 +7207,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-country-flag@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-country-flag/-/react-native-country-flag-2.0.2.tgz#ef22a6017f3118aaeae23c0409663c18e49241bd"
+  integrity sha512-5LMWxS79ZQ0Q9ntYgDYzWp794+HcQGXQmzzZNBR1AT7z5HcJHtX7rlk8RHi7RVzfp5gW6plWSZ4dKjRpu/OafQ==
+
 react-native-fast-image@^8.6.3:
   version "8.6.3"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz#6edc3f9190092a909d636d93eecbcc54a8822255"
@@ -7248,6 +7253,11 @@ react-native-shimmer-kit@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/react-native-shimmer-kit/-/react-native-shimmer-kit-0.3.1.tgz#1930b68b10b14ff18dd02178edb3a5fe711af55b"
   integrity sha512-Y0i8Xg4gI2HXc8QEVXCq1M6JeT7gkCuP/mwhpKZ5KFOhbqcPboQ8xOfpQxcoVQy/5dHv3PxoL6C1FbG5bzEAsg==
+
+react-native-simple-toast@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-simple-toast/-/react-native-simple-toast-3.2.0.tgz#61ade1a87ffdc506855b7ecaa5a716f09b5e0e7d"
+  integrity sha512-aiv162Zr4fRAy1RY6fjrl3zZV1DVQJhvKAoS7d+Vylm7SgYEnt/MKrQcXDT21SVmunONvKx7KpDylzfSpgnDPw==
 
 react-native-vector-icons@^9.2.0:
   version "9.2.0"

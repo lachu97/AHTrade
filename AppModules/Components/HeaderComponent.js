@@ -13,7 +13,7 @@ import {Pressable, View, StyleSheet} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AHText from './AHText';
 import {useNavigation} from '@react-navigation/native';
-
+import CountryFlag from "react-native-country-flag";
 export const HeaderComponent = ({showHeader = false, name = ''}) => {
   const navigation = useNavigation();
   return (
@@ -54,7 +54,7 @@ export const HomeHeaderComponent = () => {
           marginHorizontal: 5,
         }}>
         <TouchableRipple onPress={() => {}}>
-          <Tooltip title={'Logo'}>
+          <Tooltip title={'Logo'} enterTouchDelay={1}>
             <Icon
               source={require('../assets/Images/appLogo.png')}
               size={28}
@@ -63,7 +63,7 @@ export const HomeHeaderComponent = () => {
           </Tooltip>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
-          <Tooltip title={'Title'}>
+          <Tooltip title={'Title'} enterTouchDelay={1}>
             <Text
               style={{
                 color: MD2Colors.grey50,
@@ -80,18 +80,13 @@ export const HomeHeaderComponent = () => {
       </View>
 
       <View style={{marginHorizontal: 10}}>
-        <TouchableRipple
-          onPress={() => {
-            console.log('d');
-          }}>
+        <Tooltip
+            enterTouchDelay={5}
+          title={'Country'}>
           <>
-            <MaterialCommunityIcons
-              name={'bell'}
-              size={25}
-              color={MD2Colors.white}
-            />
+            <CountryFlag isoCode={'in'} size={17} />
           </>
-        </TouchableRipple>
+        </Tooltip>
       </View>
     </View>
   );

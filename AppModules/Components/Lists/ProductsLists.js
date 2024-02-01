@@ -5,6 +5,7 @@ import {Surface, Avatar, TouchableRipple, MD2Colors} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import AHButton from '../AHButton';
 import FastImage from 'react-native-fast-image';
+import {isIos} from '../../HelperFuntions/helpers';
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
 const height = Dimensions.get('window').height;
@@ -44,8 +45,13 @@ const ProductCard = ({item, navigation}) => {
             marginHorizontal: 2,
           }}>
           <AHButton
-            icon={'clock-time-ten-outline'}
+            icon={'arrow-right'}
             style={{borderRadius: 8}}
+            labelStyle={{
+              color: MD2Colors.black,
+              fontSize: 17,
+              fontWeight: isIos() ? 'bold' : '500',
+            }}
             name={'Place Bid'}
             onPress={() =>
               navigation.navigate('PlaceBid', {

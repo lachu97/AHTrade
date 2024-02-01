@@ -1,17 +1,196 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from '../styles/PlaceBidStyles';
-import {View} from 'react-native';
-import {Text} from 'react-native-paper';
+import {Dimensions, View} from 'react-native';
+import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import AHText from '../../../Components/AHText';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {isValidElement} from '../../../HelperFuntions/helpers';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import BidDialog, {QuantityDialog} from '../MicroComponents/BidDialog';
+import AHButton from '../../../Components/AHButton';
+import {
+  showBottomFeedBack,
+  showMiddleFeedBack,
+} from '../../../Components/Toasts/ToastsFeedBack';
+const width = Dimensions.get('window').width;
 const PlaceBid = () => {
   const route = useRoute();
-  let item = route.params?.item
+  const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
+  const [qVisible, setQVisible] = useState(false);
+  const [bidPrice, setBidPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const hideDialog = () => setVisible(false);
+  const showDialog = () => setVisible(true);
+  const onSuccess = text => {
+    setBidPrice(text);
+  };
+  const hideQDialog = () => setQVisible(false);
+  const showQDialog = () => setQVisible(true);
+  const onQSuccess = text => {
+    setQuantity(text);
+  };
+  let item = route.params?.item;
+  if (isValidElement(item)) {
+    console.log(item);
+  }
+  const validateInputs = () => {
+    if (item.price >= bidPrice) {
+      showMiddleFeedBack('Bid Price should be more than Minimum Price');
+      return false;
+    }
+    if (item.quantity >= quantity) {
+      showMiddleFeedBack('Quantity should be more than Minimum Quantity');
+      return false;
+    }
+    return true;
+  };
   return (
     <View style={styles.container}>
       <HeaderComponent showHeader={true} name={'Place Bid'} />
-      <View style={styles.boxContainer} />
+      <View style={styles.boxContainer}>
+        <AHText
+          style={styles.headline}
+          numberOfLines={2}
+          variant={'headlineMedium'}
+          name={item.name}
+        />
+      </View>
+      <View style={styles.middleContainer}>
+        <View>
+          <Text style={{color: MD2Colors.white}}>Min Price ($)</Text>
+          <Text
+            style={{
+              color: MD2Colors.white,
+              textAlign: 'center',
+              margin: 5,
+              fontSize: 26,
+            }}>
+            {item?.price ? item.price : 0}
+          </Text>
+        </View>
+        <View>
+          <Text style={{color: MD2Colors.white}}>Your Bid Price($)</Text>
+          <Text
+            style={{
+              color: MD2Colors.white,
+              textAlign: 'center',
+              margin: 5,
+              fontSize: 26,
+            }}>
+            {'$ ' + bidPrice + '/MT'}
+          </Text>
+          <TouchableRipple
+            onPress={() => {
+              showDialog();
+            }}
+            style={{padding: 5}}>
+            <View style={{flexDirection: 'row', margin: 1}}>
+              <MaterialCommunityIcons
+                name={'archive-edit-outline'}
+                size={16}
+                color={MD2Colors.yellow400}
+              />
+              <Text
+                style={{
+                  color: MD2Colors.yellow400,
+                  fontSize: 12,
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  textDecorationLine: 'underline',
+                }}>
+                Edit your Bid
+              </Text>
+            </View>
+          </TouchableRipple>
+        </View>
+      </View>
+      <View style={styles.middleContainer}>
+        <View>
+          <Text style={{color: MD2Colors.white}}>Min Quantity (MT)</Text>
+          <Text
+            style={{
+              color: MD2Colors.white,
+              textAlign: 'center',
+              margin: 5,
+              fontSize: 26,
+            }}>
+            {item?.quantity ? item.quantity : 0}
+          </Text>
+        </View>
+        <View>
+          <Text style={{color: MD2Colors.white}}>Your Quantity (in MT)</Text>
+          <Text
+            style={{
+              color: MD2Colors.white,
+              textAlign: 'center',
+              margin: 5,
+              fontSize: 26,
+            }}>
+            {quantity + ' MT'}
+          </Text>
+          <TouchableRipple
+            onPress={() => {
+              showQDialog();
+            }}
+            style={{padding: 5, alignSelf: 'center'}}>
+            <View style={{flexDirection: 'row', margin: 1}}>
+              <MaterialCommunityIcons
+                name={'archive-edit-outline'}
+                size={16}
+                color={MD2Colors.yellow400}
+              />
+              <Text
+                style={{
+                  color: MD2Colors.yellow400,
+                  fontSize: 12,
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  textDecorationLine: 'underline',
+                }}>
+                Edit your Quantity
+              </Text>
+            </View>
+          </TouchableRipple>
+        </View>
+      </View>
+      <QuantityDialog
+        title={'Enter Quantity(MT)'}
+        onSuccess={onQSuccess}
+        isVisible={qVisible}
+        hideDialog={hideQDialog}
+      />
+      <BidDialog
+        title={'Enter Bid Price'}
+        onSuccess={onSuccess}
+        isVisible={visible}
+        hideDialog={hideDialog}
+      />
+      <View
+        style={{
+          bottom: 0,
+          position: 'absolute',
+          width: width,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <AHButton
+          style={{width: width * 0.94, margin: 10}}
+          icon={'clock-time-eight-outline'}
+          name={'Place Bid'}
+          onPress={() => {
+            if (validateInputs()) {
+              navigation.navigate('Success', {
+                details: {
+                  bidPrice: bidPrice,
+                  quantity: quantity,
+                },
+              });
+            }
+          }}
+        />
+      </View>
     </View>
   );
 };

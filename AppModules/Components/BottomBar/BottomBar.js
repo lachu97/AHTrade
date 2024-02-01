@@ -22,7 +22,7 @@ const bottomItems = [
   {
     name: 'My Bids',
     icon: 'gamma',
-    route: 'Chat',
+    route: 'BidHistory',
   },
   {name: 'Account', icon: 'account', route: 'Account'},
 

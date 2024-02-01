@@ -19,6 +19,7 @@
     "@react-navigation/native-stack": "^6.9.13",
     "@realm/react": "^0.5.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "@shopify/flash-list": "^1.6.3",
     "graphql": "^16.8.0",
     "react": "18.2.0",
     "react-native": "0.72.1",

@@ -14,7 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AHText from './AHText';
 import {useNavigation} from '@react-navigation/native';
 
-export const HeaderComponent = () => {
+export const HeaderComponent = ({showHeader = false, name = ''}) => {
   const navigation = useNavigation();
   return (
     <View
@@ -31,6 +31,15 @@ export const HeaderComponent = () => {
           color={MD2Colors.white}
         />
       </TouchableRipple>
+      {showHeader ? (
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <AHText
+            style={{alignSelf: 'center', color: MD2Colors.white}}
+            variant={'bodyLarge'}
+            name={name}
+          />
+        </View>
+      ) : null}
     </View>
   );
 };

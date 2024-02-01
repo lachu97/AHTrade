@@ -4,11 +4,14 @@ import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import AHText from '../../../Components/AHText';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
+import {useRoute} from '@react-navigation/native';
 const PlaceBid = () => {
+  const route = useRoute();
+  let item = route.params?.item
   return (
     <View style={styles.container}>
-      <HeaderComponent />
-      <AHText name={'PlaceBid'} />
+      <HeaderComponent showHeader={true} name={'Place Bid'} />
+      <View style={styles.boxContainer} />
     </View>
   );
 };

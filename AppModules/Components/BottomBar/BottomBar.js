@@ -19,12 +19,13 @@ const BOTTOM_APPBAR_HEIGHT = 70;
 const bottomItems = [
   {name: 'Home', icon: 'home', route: 'Home'},
   {name: 'Category', icon: 'menu', route: 'CategorySearch'},
-  {name: 'Account', icon: 'account', route: 'Account'},
   {
-    name: 'Live-Chat',
-    icon: 'chat',
+    name: 'My Bids',
+    icon: 'gamma',
     route: 'Chat',
   },
+  {name: 'Account', icon: 'account', route: 'Account'},
+
 ];
 const BottomBar = ({navigation, activeTab}) => {
   return (

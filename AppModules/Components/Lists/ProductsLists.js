@@ -4,7 +4,7 @@ import AHText from '../AHText';
 import {Surface, Avatar, TouchableRipple, MD2Colors} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import AHButton from '../AHButton';
-import FastImage from "react-native-fast-image";
+import FastImage from 'react-native-fast-image';
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
 const height = Dimensions.get('window').height;
@@ -18,7 +18,7 @@ const ProductCard = ({item, navigation}) => {
       }}>
       <Surface
         style={{
-          width:cardWidth,
+          width: cardWidth,
           alignItems: 'center',
           margin: 5,
           padding: 5,
@@ -26,10 +26,10 @@ const ProductCard = ({item, navigation}) => {
         }}
         elevation={3}>
         <FastImage
-            style={{width: cardWidth-5,height:cardHeight/2}}
+          style={{width: cardWidth - 5, height: cardHeight / 2}}
           source={{
-              uri:item.image,
-              priority:FastImage.priority.high
+            uri: item.image,
+            priority: FastImage.priority.high,
           }}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -47,7 +47,11 @@ const ProductCard = ({item, navigation}) => {
             icon={'clock-time-ten-outline'}
             style={{borderRadius: 8}}
             name={'Place Bid'}
-            onPress={() => navigation.navigate('PlaceBid')}
+            onPress={() =>
+              navigation.navigate('PlaceBid', {
+                item: item,
+              })
+            }
           />
         </View>
       </Surface>

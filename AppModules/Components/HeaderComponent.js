@@ -35,7 +35,7 @@ export const HeaderComponent = ({showHeader = false, name = ''}) => {
         <View style={{flex: 1, justifyContent: 'center'}}>
           <AHText
             style={{alignSelf: 'center', color: MD2Colors.white}}
-            variant={'bodyLarge'}
+            variant={'headlineSmall'}
             name={name}
           />
         </View>

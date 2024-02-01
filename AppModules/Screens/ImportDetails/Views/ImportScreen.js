@@ -9,7 +9,7 @@ const ImportScreen = () => {
   const route = useRoute();
   return (
     <View style={importStyles.container}>
-      <HeaderComponent />
+      <HeaderComponent showHeader={true} name={'Place Import Order'}/>
       <Text>{route.params?.item?.name}</Text>
     </View>
   );

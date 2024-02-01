@@ -61,7 +61,7 @@ const AccountScreen = () => {
         </Tooltip>
         <CountryFlag isoCode={'in'} size={14} />
       </View>
-      <BottomBar navigation={navigation} activeTab={'Account'} />
+      <BottomBar navigation={navigation} activeTab={'More'} />
     </View>
   );
 };

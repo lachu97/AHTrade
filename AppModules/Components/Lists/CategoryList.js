@@ -21,7 +21,8 @@ const CardComponent = ({icon, title, onPress}) => {
         borderWidth: 1,
         // borderColor: MD2Colors.white,
         margin: 5,
-        height: 95,
+        height: 98,
+        width: 100,
       }}>
       <Surface elevation={5}>
         <View
@@ -33,9 +34,12 @@ const CardComponent = ({icon, title, onPress}) => {
           }}>
           <Icon source={icon} size={45} />
           <Text
+            numberOfLines={1}
+            userSelect={'text'}
             style={{
               color: isIos() ? MD2Colors.black : MD2Colors.white,
               marginVertical: 10,
+              textAlign: 'center',
             }}>
             {title}
           </Text>

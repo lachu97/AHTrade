@@ -15,7 +15,9 @@ const ProductCard = ({item, navigation}) => {
   return (
     <TouchableRipple
       onPress={() => {
-        navigation.navigate('ProductDetail');
+        navigation.navigate('ProductDetail', {
+          item: item,
+        });
       }}>
       <Surface
         style={{
@@ -24,8 +26,9 @@ const ProductCard = ({item, navigation}) => {
           margin: 5,
           padding: 5,
           height: cardHeight,
+          borderRadius: 10,
         }}
-        elevation={3}>
+        elevation={4}>
         <FastImage
           style={{width: cardWidth - 5, height: cardHeight / 2}}
           source={{
@@ -34,7 +37,7 @@ const ProductCard = ({item, navigation}) => {
           }}
           resizeMode={FastImage.resizeMode.contain}
         />
-        <AHText variant={'headlineSmall'} name={item.name} />
+        <AHText variant={'bodyLarge'} numberOfLines={1} name={item.name} />
         <View
           style={{
             flex: 1,
@@ -45,12 +48,27 @@ const ProductCard = ({item, navigation}) => {
             marginHorizontal: 2,
           }}>
           <AHButton
-            icon={'arrow-right'}
+            icon={'import'}
+            style={{borderRadius: 8, marginVertical: 3}}
+            labelStyle={{
+              color: MD2Colors.black,
+              fontSize: 17,
+              fontWeight: 'bold',
+            }}
+            name={'Import'}
+            onPress={() =>
+              navigation.navigate('Import', {
+                item: item,
+              })
+            }
+          />
+          <AHButton
+            icon={'chevron-right-circle-outline'}
             style={{borderRadius: 8}}
             labelStyle={{
               color: MD2Colors.black,
               fontSize: 17,
-              fontWeight: isIos() ? 'bold' : '500',
+              fontWeight: 'bold',
             }}
             name={'Place Bid'}
             onPress={() =>

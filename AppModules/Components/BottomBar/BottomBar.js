@@ -24,7 +24,7 @@ const bottomItems = [
     icon: 'gamma',
     route: 'BidHistory',
   },
-  {name: 'Account', icon: 'account', route: 'Account'},
+  {name: 'More', icon: 'more', route: 'Account'},
 
 ];
 const BottomBar = ({navigation, activeTab}) => {

@@ -1,8 +1,15 @@
 import React from 'react';
-import {Icon, MD2Colors, Text, TouchableRipple} from 'react-native-paper';
+import {
+  Icon,
+  MD2Colors,
+  Surface,
+  Text,
+  TouchableRipple,
+} from 'react-native-paper';
 import {FlatList, View} from 'react-native';
 import AHText from '../AHText';
 import {useNavigation} from '@react-navigation/native';
+import {isIos} from '../../HelperFuntions/helpers';
 
 const CardComponent = ({icon, title, onPress}) => {
   return (
@@ -12,22 +19,28 @@ const CardComponent = ({icon, title, onPress}) => {
       style={{
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: MD2Colors.white,
+        // borderColor: MD2Colors.white,
         margin: 5,
         height: 95,
       }}>
-      <View
-        style={{
-          alignItems: 'center',
-          marginVertical: 5,
-          marginHorizontal: 5,
-          justifyContent: 'center',
-        }}>
-        <Icon source={icon} size={45} />
-        <Text style={{color: MD2Colors.white, marginVertical: 10}}>
-          {title}
-        </Text>
-      </View>
+      <Surface elevation={5}>
+        <View
+          style={{
+            alignItems: 'center',
+            marginVertical: 5,
+            marginHorizontal: 5,
+            justifyContent: 'center',
+          }}>
+          <Icon source={icon} size={45} />
+          <Text
+            style={{
+              color: isIos() ? MD2Colors.black : MD2Colors.white,
+              marginVertical: 10,
+            }}>
+            {title}
+          </Text>
+        </View>
+      </Surface>
     </TouchableRipple>
   );
 };

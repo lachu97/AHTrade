@@ -65,6 +65,7 @@ const Success = () => {
           textAlign: 'center',
           padding: 5,
           fontStyle: 'italic',
+          marginHorizontal: isIos() ? 3 : 10,
         }}>
         Import Order Placed SuccessFully !!
       </Text>

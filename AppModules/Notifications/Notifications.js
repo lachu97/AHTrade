@@ -17,24 +17,28 @@ const requestUserPermission = async () => {
   }
 };
 const createChannelAndroid = async () => {
-  await notifee.createChannel({
+  return await notifee.createChannel({
     id: 'normal',
     name: 'Notifications',
     lights: false,
     vibration: true,
+    sound: 'hollow',
     importance: AndroidImportance.DEFAULT,
   });
 };
-const displayNotifyAndroid = data => {
-  let channelId = createChannelAndroid();
+const displayNotifyAndroid = async data => {
+  let channelId = await createChannelAndroid();
   notifee.displayNotification({
     title: data.title,
     body: data.body,
     android: {
       channelId,
-      asForegroundService: true,
-      color: AndroidColor.RED,
+      //   asForegroundService: true,
+      color: AndroidColor.CYAN,
       colorized: true,
+      sound: 'hollow',
+      largeIcon: require('../assets/Icons/tick2.png'),
+      vibrationPattern: [300, 500],
     },
   });
 };
@@ -59,4 +63,9 @@ const displayNotifyiOS = data => {
   });
 };
 
-export {requestUserPermission, displayNotifyiOS, createChannelAndroid,displayNotifyAndroid};
+export {
+  requestUserPermission,
+  displayNotifyiOS,
+  createChannelAndroid,
+  displayNotifyAndroid,
+};

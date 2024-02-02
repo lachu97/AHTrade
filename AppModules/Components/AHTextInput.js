@@ -1,34 +1,33 @@
 import React from 'react';
-import {MD2Colors, TextInput} from 'react-native-paper'; // Import your color definitions
+import {StyleSheet} from "react-native";
+import {MD2Colors, TextInput} from 'react-native-paper';
+import {Dimensions} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen'; // Import your color definitions
+const width = Dimensions.get('window').width;
 
 const AHTextInput = props => {
-  const {
-    value,
-    placeholder,
-    onChangeText,
-    style,
-    keyboardType,
-    inputMode,
-    label,
-  } = props;
+  const {value, placeholder, onChangeText} = props;
+  const inputStyles = {
+    backgroundColor: Colors.light,
+    marginVertical: 10,
+    fontSize: 19,
+    width: width * 0.77,
+    height: 54,
+  };
   return (
     <TextInput
-      label={label}
       value={value}
       placeholder={placeholder}
       placeholderTextColor={MD2Colors.black}
       onChangeText={onChangeText}
-      style={style}
       mode={'outlined'}
       outlineColor={MD2Colors.black}
       autoCorrect
+      style={StyleSheet.compose(props.style, inputStyles)}
       textColor={MD2Colors.black}
-      inputMode={inputMode}
-      keyboardType={keyboardType}
       activeOutlineColor={MD2Colors.black}
       {...props}
     />
   );
 };
-
 export default React.memo(AHTextInput);

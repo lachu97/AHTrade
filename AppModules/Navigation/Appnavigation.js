@@ -6,11 +6,14 @@ import DetailScreen from '../Screens/DetailScreen';
 import SplashScreen from '../Screens/SplashScreen';
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
-import ChatScreen from "../Screens/Miscellaneous/ChatScreen";
-import CategorySearch from "../Screens/SearchModule/Views/CatergorySearch";
-import PlaceBid from "../Screens/PlaceBid/Views/PlaceBid";
-import ProductDetail from "../Screens/ProductDetail/Views/ProductDetail";
-import AccountScreen from "../Screens/AccountScreen";
+import ChatScreen from '../Screens/Miscellaneous/ChatScreen';
+import CategorySearch from '../Screens/SearchModule/Views/CatergorySearch';
+import PlaceBid from '../Screens/PlaceBid/Views/PlaceBid';
+import ProductDetail from '../Screens/ProductDetail/Views/ProductDetail';
+import AccountScreen from '../Screens/AccountScreen';
+import BidHistory from '../Screens/PlaceBid/Views/BidHistory';
+import Success from '../Screens/Checkout/Views/Success';
+import ImportScreen from '../Screens/ImportDetails/Views/ImportScreen';
 const screens = [
   {name: 'Home', component: HomeScreen},
   {name: 'Detail', component: DetailScreen},
@@ -47,8 +50,11 @@ const AppNavigation = () => {
         <Stack.Screen name={'Splash'} component={SplashScreen} />
         <Stack.Screen name={'Chat'} component={ChatScreen} />
         <Stack.Screen name={'Account'} component={AccountScreen} />
+        <Stack.Screen name={'Success'} component={Success} />
         <Stack.Screen name={'ProductDetail'} component={ProductDetail} />
         <Stack.Screen name={'PlaceBid'} component={PlaceBid} />
+        <Stack.Screen name={'Import'} component={ImportScreen} />
+        <Stack.Screen name={'BidHistory'} component={BidHistory} />
         <Stack.Screen name={'CategorySearch'} component={CategorySearch} />
         <Stack.Screen name={'AuthStack'} component={AuthNavigation} />
       </Stack.Navigator>

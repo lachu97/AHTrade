@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, View, StyleSheet} from 'react-native';
-import {Surface, Text, TouchableRipple} from 'react-native-paper';
+import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AHButton from '../../../Components/AHButton';
@@ -9,11 +9,13 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const cardWidth = width * 0.93;
 const cardHeight = Math.floor(height / 5);
-const SearchCardItem = ({navigation}) => {
+const SearchCardItem = ({navigation, item}) => {
   return (
     <TouchableRipple
       onPress={() => {
-        navigation.navigate('ProductDetail');
+        navigation.navigate('ProductDetail', {
+          item: item,
+        });
       }}>
       <Surface style={styles.card} elevation={5}>
         <View
@@ -23,8 +25,21 @@ const SearchCardItem = ({navigation}) => {
             alignItem: 'center',
             padding: 10,
           }}>
-          <View style={{width: cardWidth / 3}}>
-            <MaterialCommunityIcons name={'arrow-left'} size={20} />
+          <View style={{width: cardWidth / 3, margin: 5}}>
+            <FastImage
+              style={{
+                flex: 1,
+                margin: 1,
+                borderColor: MD2Colors.white,
+                borderWidth: 0.7,
+                borderRadius: 10,
+              }}
+              source={{
+                uri: item.image,
+                priority: FastImage.priority.high,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
           </View>
           <View style={{}}>
             <Text
@@ -32,13 +47,13 @@ const SearchCardItem = ({navigation}) => {
               variant={'headlineMedium'}
               ellipsizeMode={'tail'}
               numberOfLines={1}>
-              titledddddjddjdddddddhdh
+              {item.name}
             </Text>
             <Text
               style={{width: cardWidth / 2}}
               variant={'bodyMedium'}
               numberOfLines={2}>
-              body
+              {item.description}
             </Text>
             <View
               style={{
@@ -47,8 +62,8 @@ const SearchCardItem = ({navigation}) => {
                 alignItems: 'center',
                 marginVertical: 5,
               }}>
-              <Text variant={'bodySmall'}>MOQ</Text>
-              <Text variant={'bodySmall'}>Min Price $-</Text>
+              <Text variant={'bodySmall'}>MOQ : {item.quantity}</Text>
+              <Text variant={'bodySmall'}>Min Price $ {item.price}</Text>
             </View>
             <View
               style={{
@@ -62,7 +77,11 @@ const SearchCardItem = ({navigation}) => {
                 icon={'clock-time-ten-outline'}
                 style={{borderRadius: 8}}
                 name={'Place Bid'}
-                onPress={() => navigation.navigate('PlaceBid')}
+                onPress={() =>
+                  navigation.navigate('PlaceBid', {
+                    item: item,
+                  })
+                }
               />
             </View>
           </View>

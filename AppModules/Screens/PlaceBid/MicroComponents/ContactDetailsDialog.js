@@ -33,7 +33,6 @@ const ContactDetailsDialog = props => {
             <AHTextInput
               value={name}
               placeholder={'Name'}
-              keyboardType={'text'}
               style={styles.inputStyles}
               onChangeText={e => setName(e)}
             />

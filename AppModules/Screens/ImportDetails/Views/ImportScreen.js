@@ -3,7 +3,7 @@ import {Dimensions, View} from 'react-native';
 import {MD2Colors, List, TouchableRipple, Text} from 'react-native-paper';
 import importStyles from '../Styles/ImportStyles';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BidDialog from '../../PlaceBid/MicroComponents/BidDialog';
 import PaymentDialog, {paymentTypes} from '../MicroComponents/PaymentDialog';
@@ -11,6 +11,10 @@ import AHTextInput from '../../../Components/AHTextInput';
 import ContactDetailsDialog from '../../PlaceBid/MicroComponents/ContactDetailsDialog';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AHButton from '../../../Components/AHButton';
+import {
+  getContactsDetails,
+  storeContactsDetails,
+} from '../../../Storage/AppLocalStorage/ContactsStorage';
 const width = Dimensions.get('window').width;
 const Sections = ({value, name, onPress}) => {
   return (
@@ -53,6 +57,7 @@ const Sections = ({value, name, onPress}) => {
 };
 const ImportScreen = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   let item = route.params?.item;
   const [contactDetails, setContactDetails] = useState([]);
   const [quantity, setQuantity] = useState(item.quantity);
@@ -63,7 +68,21 @@ const ImportScreen = () => {
   const [price, setPrice] = useState(item.price);
   const [payment, setPayment] = useState(paymentTypes[0]);
 
-  const onPressContactDetails = item => setContactDetails(item);
+  useEffect(() => {
+    const getContactDetails = async () => {
+      let result = await getContactsDetails();
+      console.log(result);
+
+      if (result) {
+        setContactDetails(result);
+      }
+    };
+    getContactDetails();
+  }, []);
+  const onPressContactDetails = item => {
+    setContactDetails(item);
+    storeContactsDetails(item).then(r => console.log(JSON.stringify(r)));
+  };
   const showDialog = () => setShowQuantity(true);
   const showContactsDialog = () => setContactsDialog(true);
   const hideContactsDialog = () => setContactsDialog(false);
@@ -209,14 +228,16 @@ const ImportScreen = () => {
           }}>
           <AHButton
             name={'Place Order'}
-            icon={"export"}
+            icon={'export'}
             style={{
-              width: width * 0.94,
+              width: width * 0.9,
               marginHorizontal: 5,
               alignSelf: 'center',
-              borderRadius: 10,
+              borderRadius: 8,
             }}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate('Success');
+            }}
           />
         </View>
       </View>

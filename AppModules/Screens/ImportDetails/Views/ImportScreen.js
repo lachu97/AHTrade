@@ -227,7 +227,7 @@ const ImportScreen = () => {
             alignContent: 'center',
           }}>
           <AHButton
-            name={'Place Order'}
+            name={'Place Import Order'}
             icon={'export'}
             style={{
               width: width * 0.9,
@@ -236,7 +236,9 @@ const ImportScreen = () => {
               borderRadius: 8,
             }}
             onPress={() => {
-              navigation.navigate('Success');
+              navigation.navigate('Success', {
+                item: item,
+              });
             }}
           />
         </View>

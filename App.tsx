@@ -28,6 +28,7 @@ function App(): JSX.Element {
   useEffect(() => {
     const requestNotificationPermission = async () => {
       let result = await getNotificationStatus();
+      console.log(result)
       if (!result) {
         requestUserPermission()
           .then(r => setNotificationStatus(true))

@@ -6,11 +6,18 @@ import {MD2Colors, Text} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {getContactsDetails} from '../../../Storage/AppLocalStorage/ContactsStorage';
 import FastImage from 'react-native-fast-image';
+import {isIos} from '../../../HelperFuntions/helpers';
+import {
+  displayNotifyAndroid,
+  displayNotifyiOS,
+} from '../../../Notifications/Notifications';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const Success = () => {
   const route = useRoute();
   const [contactDetails, setContactDetails] = useState([]);
+  let item = route.params?.item;
+
   useEffect(() => {
     const getContactDetails = async () => {
       let result = await getContactsDetails();
@@ -20,6 +27,23 @@ const Success = () => {
     };
     getContactDetails();
   }, []);
+
+  useEffect(() => {
+    const showNotification = () => {
+      if (isIos()) {
+        displayNotifyiOS({
+          title: item.name,
+          body: 'Your order has been placed Successfully',
+        });
+      } else {
+        displayNotifyAndroid({
+          title: item.name,
+          body: 'Your order has been placed Successfully',
+        });
+      }
+    };
+    showNotification();
+  }, [item.name]);
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.dark}}>

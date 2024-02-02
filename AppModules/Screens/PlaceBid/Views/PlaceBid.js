@@ -160,12 +160,16 @@ const PlaceBid = () => {
         onSuccess={onQSuccess}
         isVisible={qVisible}
         hideDialog={hideQDialog}
+        placeholder={'Enter Quantity'}
+        keyBoardType={'numeric'}
       />
       <BidDialog
         title={'Enter Bid Price'}
         onSuccess={onSuccess}
         isVisible={visible}
         hideDialog={hideDialog}
+        placeholder={'Enter Bid Price'}
+        keyBoardType={'numeric'}
       />
       <View
         style={{

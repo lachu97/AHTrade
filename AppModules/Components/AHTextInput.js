@@ -11,7 +11,7 @@ const AHTextInput = props => {
     backgroundColor: Colors.light,
     marginVertical: 10,
     fontSize: 19,
-    width: width * 0.8,
+    width: width * 0.77,
     height: 54,
   };
   return (

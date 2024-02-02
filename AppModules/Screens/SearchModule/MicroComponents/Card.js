@@ -13,7 +13,9 @@ const SearchCardItem = ({navigation, item}) => {
   return (
     <TouchableRipple
       onPress={() => {
-        navigation.navigate('ProductDetail');
+        navigation.navigate('ProductDetail', {
+          item: item,
+        });
       }}>
       <Surface style={styles.card} elevation={5}>
         <View
@@ -23,9 +25,15 @@ const SearchCardItem = ({navigation, item}) => {
             alignItem: 'center',
             padding: 10,
           }}>
-          <View style={{width: cardWidth / 3,margin:5}}>
+          <View style={{width: cardWidth / 3, margin: 5}}>
             <FastImage
-              style={{flex: 1, margin:1,borderColor:MD2Colors.white,borderWidth:0.7,borderRadius:10}}
+              style={{
+                flex: 1,
+                margin: 1,
+                borderColor: MD2Colors.white,
+                borderWidth: 0.7,
+                borderRadius: 10,
+              }}
               source={{
                 uri: item.image,
                 priority: FastImage.priority.high,

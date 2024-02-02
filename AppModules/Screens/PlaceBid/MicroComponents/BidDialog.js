@@ -2,7 +2,14 @@ import React, {useState} from 'react';
 import {Button, Dialog} from 'react-native-paper';
 import AHTextInput from '../../../Components/AHTextInput';
 
-const BidDialog = ({isVisible, hideDialog, title, onSuccess}) => {
+const BidDialog = ({
+  isVisible,
+  hideDialog,
+  title,
+  onSuccess,
+  placeholder,
+  keyBoardType,
+}) => {
   const [text, setText] = useState('');
   return (
     <Dialog visible={isVisible} onDismiss={hideDialog}>
@@ -11,8 +18,8 @@ const BidDialog = ({isVisible, hideDialog, title, onSuccess}) => {
         <AHTextInput
           onChangeText={e => setText(e)}
           value={text}
-          placeholder={'Enter Bid Price'}
-          keyboardType={'numeric'}
+          placeholder={placeholder}
+          keyboardType={keyBoardType}
         />
       </Dialog.Content>
       <Dialog.Actions>
@@ -27,7 +34,14 @@ const BidDialog = ({isVisible, hideDialog, title, onSuccess}) => {
     </Dialog>
   );
 };
-export const QuantityDialog = ({isVisible, hideDialog, title, onSuccess}) => {
+export const QuantityDialog = ({
+  isVisible,
+  hideDialog,
+  title,
+  onSuccess,
+  placeholder,
+  keyboardType,
+}) => {
   const [text, setText] = useState('');
   return (
     <Dialog visible={isVisible} onDismiss={hideDialog}>
@@ -36,8 +50,8 @@ export const QuantityDialog = ({isVisible, hideDialog, title, onSuccess}) => {
         <AHTextInput
           onChangeText={e => setText(e)}
           value={text}
-          placeholder={'Enter Quantity'}
-          keyboardType={'numeric'}
+          placeholder={placeholder}
+          keyboardType={keyboardType}
         />
       </Dialog.Content>
       <Dialog.Actions>

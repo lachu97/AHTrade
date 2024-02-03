@@ -35,12 +35,16 @@ const HomeScreen = () => {
       <View style={{marginVertical: 5, padding: 1}}>
         <CategoryList data={catData} />
       </View>
-      <AHText style={styles.textStyle} name={'Products'} />
       <View style={{marginVertical: 5, padding: 1, flex: 1}}>
-        <ProductList data={prodData} />
+        <ProductList
+          data={prodData}
+          ListHeader={() => (
+            <AHText style={styles.textStyle} name={'Products'} />
+          )}
+        />
       </View>
       <View style={{flex: 0.15}}>
-        <BottomBar navigation={navigation} activeTab={'Home'}/>
+        <BottomBar navigation={navigation} activeTab={'Home'} />
       </View>
     </View>
   );

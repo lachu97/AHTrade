@@ -83,7 +83,7 @@ const ProductCard = ({item, navigation}) => {
   );
 };
 
-const ProductList = ({data}) => {
+const ProductList = ({data,ListHeader}) => {
   const navigation = useNavigation();
   const renderItems = ({item}) => (
     <ProductCard item={item} navigation={navigation} />
@@ -94,6 +94,7 @@ const ProductList = ({data}) => {
       data={data}
       renderItem={renderItems}
       numColumns={2}
+      ListHeaderComponent={ListHeader}
       keyExtractor={(item, index) => `${index}`}
     />
   );

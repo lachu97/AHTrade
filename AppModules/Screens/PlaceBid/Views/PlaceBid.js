@@ -13,6 +13,7 @@ import {
   showBottomFeedBack,
   showMiddleFeedBack,
 } from '../../../Components/Toasts/ToastsFeedBack';
+import {setBidList} from '../LocalStorage/BidDatabase';
 const width = Dimensions.get('window').width;
 const PlaceBid = () => {
   const route = useRoute();
@@ -185,11 +186,17 @@ const PlaceBid = () => {
           name={'Place Bid'}
           onPress={() => {
             if (validateInputs()) {
-              navigation.navigate('Success', {
+              setBidList({
+                item,
+                bidPrice,
+                quantity,
+              });
+              navigation.navigate('BidSuccess', {
                 details: {
                   bidPrice: bidPrice,
                   quantity: quantity,
                 },
+                item,
               });
             }
           }}

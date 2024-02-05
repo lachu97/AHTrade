@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Button, Dialog, Text} from 'react-native-paper';
 import {
   Dimensions,
@@ -12,11 +12,22 @@ const width = Dimensions.get('window').width;
 
 const ContactDetailsDialog = props => {
   const {isVisible, hideDialog, onSuccess} = props;
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [company, setCompany] = useState('');
+  const typeData = useRef({});
+  const [email, setEmail] = useState(
+    typeData.current.email ? typeData.current.email : '',
+  );
+  const [name, setName] = useState(
+    typeData.current.name ? typeData.current.name : '',
+  );
+  const [address, setAddress] = useState(
+    typeData.current.address ? typeData.current.address : '',
+  );
+  const [phone, setPhone] = useState(
+    typeData.current.phone ? typeData.current.phone : '',
+  );
+  const [company, setCompany] = useState(
+    typeData.current.company ? typeData.current.company : '',
+  );
   return (
     <Dialog visible={isVisible} onDismiss={hideDialog}>
       <Dialog.Title>Enter your Contact Details</Dialog.Title>
@@ -61,6 +72,13 @@ const ContactDetailsDialog = props => {
       <Dialog.Actions>
         <Button
           onPress={() => {
+            typeData.current = {
+              name,
+              email,
+              phone,
+              company,
+              address,
+            };
             onSuccess([
               {value: name, title: 'Name'},
               {value: email, title: 'Email'},

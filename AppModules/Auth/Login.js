@@ -4,7 +4,9 @@ import {
   Text,
   Provider as PaperProvider,
   DefaultTheme,
-  MD2Colors, HelperText, TouchableRipple,
+  MD2Colors,
+  HelperText,
+  TouchableRipple,
 } from 'react-native-paper';
 import styles from './Authstyles/LoginStyles';
 import {TextInput} from 'react-native-paper';
@@ -69,7 +71,7 @@ const Login = () => {
           name={'Login'}
           onPress={() => console.log('djdj')}
           mode={'contained'}
-          style={{width: width * 0.8, marginVertical: 15}}
+          style={{width: width * 0.8, marginVertical: 15, borderRadius: 8}}
           textColor={MD2Colors.black}
           buttonColor={MD2Colors.purple100}
         />
@@ -77,7 +79,7 @@ const Login = () => {
           name={'Sign Up'}
           onPress={handleSignUp}
           mode={'contained'}
-          style={{width: width * 0.8}}
+          style={{width: width * 0.8, borderRadius: 8}}
           textColor={MD2Colors.black}
           buttonColor={MD2Colors.purple100}
         />

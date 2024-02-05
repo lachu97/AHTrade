@@ -10,5 +10,17 @@ export default StyleSheet.create({
   },
   titleStyles : {
     color: MD2Colors.white,
+  },
+  editText : {
+    color: MD2Colors.yellow400,
+    textDecorationLine: 'underline',
+    fontSize: 11,
+    fontWeight:'bold'
+  },
+  valueStyles :{
+    color: MD2Colors.white,
+    marginRight: 6,
+    fontSize: 17,
+    fontWeight: 'bold',
   }
 });

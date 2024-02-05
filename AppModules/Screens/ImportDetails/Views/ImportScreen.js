@@ -15,6 +15,9 @@ import {
   getContactsDetails,
   storeContactsDetails,
 } from '../../../Storage/AppLocalStorage/ContactsStorage';
+import PackagingDialog, {
+  packagingItems,
+} from '../MicroComponents/PackagingDialog';
 const width = Dimensions.get('window').width;
 const Sections = ({value, name, onPress}) => {
   return (
@@ -27,14 +30,7 @@ const Sections = ({value, name, onPress}) => {
       <List.Item titleStyle={{color: MD2Colors.white}} title={name} />
       <TouchableRipple onPress={onPress}>
         <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-          <Text
-            numberOfLines={1}
-            style={{
-              color: MD2Colors.white,
-              marginRight: 5,
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
+          <Text numberOfLines={1} style={importStyles.valueStyles}>
             {value}
           </Text>
           <MaterialCommunityIcons
@@ -42,14 +38,7 @@ const Sections = ({value, name, onPress}) => {
             size={16}
             color={MD2Colors.yellow400}
           />
-          <Text
-            style={{
-              color: MD2Colors.yellow400,
-              textDecorationLine: 'underline',
-              fontSize: 13,
-            }}>
-            Edit {name}
-          </Text>
+          <Text style={importStyles.editText}>Edit {name}</Text>
         </View>
       </TouchableRipple>
     </View>
@@ -66,6 +55,8 @@ const ImportScreen = () => {
   const [paymentDialog, setPaymentDialog] = useState(false);
   const [contactsDialog, setContactsDialog] = useState(false);
   const [price, setPrice] = useState(item.price);
+  const [packaging, setPackaging] = useState(packagingItems[0]);
+  const [packagingDialog, setPackagingDialog] = useState(false);
   const [payment, setPayment] = useState(paymentTypes[0]);
 
   useEffect(() => {
@@ -84,8 +75,10 @@ const ImportScreen = () => {
     storeContactsDetails(item).then(r => console.log(JSON.stringify(r)));
   };
   const showDialog = () => setShowQuantity(true);
+  const showPackagingDialog = () => setPackagingDialog(true);
   const showContactsDialog = () => setContactsDialog(true);
   const hideContactsDialog = () => setContactsDialog(false);
+  const hidePackagingDialog = () => setPackagingDialog(false);
   const showPriceDialog = () => setShowPrice(true);
   const showPaymentDialog = () => setPaymentDialog(true);
   const hideDialog = () => setShowQuantity(false);
@@ -93,6 +86,7 @@ const ImportScreen = () => {
   const hidePriceDialog = () => setShowPrice(false);
   const onQuantitySuccess = item => setQuantity(item);
   const onPriceSuccess = item => setPrice(item);
+  const onPackagingSuccess = item => setPackaging(item);
 
   const onChipPress = item => setPayment(item);
   return (
@@ -110,16 +104,23 @@ const ImportScreen = () => {
           </List.Subheader>
           <Sections
             value={quantity}
-            name={'Quantity'}
+            name={'Quantity(MT)'}
             onPress={() => {
               showDialog();
             }}
           />
           <Sections
             value={price}
-            name={'Price'}
+            name={'Price($)'}
             onPress={() => {
               showPriceDialog();
+            }}
+          />
+          <Sections
+            value={packaging}
+            name={'Packaging'}
+            onPress={() => {
+              showPackagingDialog();
             }}
           />
         </List.Section>
@@ -146,14 +147,7 @@ const ImportScreen = () => {
                       size={16}
                       color={MD2Colors.yellow400}
                     />
-                    <Text
-                      style={{
-                        color: MD2Colors.yellow400,
-                        textDecorationLine: 'underline',
-                        fontSize: 13,
-                      }}>
-                      Edit Payment Term
-                    </Text>
+                    <Text style={importStyles.editText}>Edit Payment Term</Text>
                   </View>
                 </TouchableRipple>
               );
@@ -236,8 +230,38 @@ const ImportScreen = () => {
               borderRadius: 8,
             }}
             onPress={() => {
+              const contactObject = contactDetails.reduce(
+                (result, {title, value}) => {
+                  if (title === 'Email') {
+                    result.email = value;
+                  }
+                  if (title === 'Phone') {
+                    result.phone = value;
+                  }
+                  if (title === 'Company') {
+                    result.company = value;
+                  }
+                  if (title === 'Address') {
+                    result.address = value;
+                  }
+                  if (title === 'Name') {
+                    result.name = value;
+                  }
+                  return result;
+                },
+                {},
+              );
+              let resultItem = {
+                item,
+                price,
+                quantity,
+                packaging,
+                payment: payment.name,
+                contact: contactObject,
+                isBid: false,
+              };
               navigation.navigate('Success', {
-                item: item,
+                item: resultItem,
               });
             }}
           />
@@ -269,6 +293,11 @@ const ImportScreen = () => {
         isVisible={contactsDialog}
         hideDialog={hideContactsDialog}
         onSuccess={onPressContactDetails}
+      />
+      <PackagingDialog
+        isVisible={packagingDialog}
+        hideDialog={hidePackagingDialog}
+        onDone={onPackagingSuccess}
       />
     </View>
   );

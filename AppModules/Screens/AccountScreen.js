@@ -7,10 +7,12 @@ import {useNavigation} from '@react-navigation/native';
 import {FlashList} from '@shopify/flash-list';
 import {List, MD2Colors, Text, Tooltip} from 'react-native-paper';
 import CountryFlag from 'react-native-country-flag';
+import {storeIsLoggedIn} from '../Storage/LocalStorage';
 const profileSection = [
   {title: 'My Account Details', icon: 'account', route: 'Account'},
   {title: 'Contact Details', icon: 'phone', route: 'Contact Details'},
   {title: 'My Bids', icon: 'gamma', route: 'MyBids'},
+  {title: 'Log out', icon: 'export', route: 'logout'},
 ];
 const settingsSection = [
   {title: 'About Us', icon: 'star-settings', route: 'AboutUs'},
@@ -26,17 +28,43 @@ const renderItems = ({item}) => {
       left={() => <List.Icon color={MD2Colors.white} icon={item.icon} />}
       titleStyle={accountStyles.listIconStyles}
       title={item.title}
-      onPress={() => console.log(item.route)}
+      onPress={() => {
+        if (item.route === 'logout') {
+        }
+      }}
     />
   );
 };
-const ProfileListSection = () => {
+const ProfileListSection = ({navigation}) => {
   return (
     <List.Section style={{marginHorizontal: 10}}>
       <List.Subheader style={{color: MD2Colors.white}}>
         My Account
       </List.Subheader>
-      <FlatList data={profileSection} renderItem={renderItems} />
+      <FlatList
+        data={profileSection}
+        renderItem={({item}) => {
+          return (
+            <List.Item
+              style={accountStyles.listItemStyles}
+              left={() => (
+                <List.Icon color={MD2Colors.white} icon={item.icon} />
+              )}
+              titleStyle={accountStyles.listIconStyles}
+              title={item.title}
+              onPress={() => {
+                if (item.route === 'logout') {
+                  storeIsLoggedIn(false);
+                  navigation.reset({
+                    index: 0,
+                    routes: [{name: 'AuthStack'}],
+                  });
+                }
+              }}
+            />
+          );
+        }}
+      />
     </List.Section>
   );
 };
@@ -53,7 +81,7 @@ const AccountScreen = () => {
   return (
     <View style={accountStyles.container}>
       <HeaderComponent />
-      <ProfileListSection />
+      <ProfileListSection navigation={navigation} />
       <SettingListSection />
       <View style={accountStyles.bottomContainer}>
         <Tooltip title={'Made In India Logo'} enterTouchDelay={0}>

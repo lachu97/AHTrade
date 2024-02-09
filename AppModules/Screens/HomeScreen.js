@@ -13,33 +13,25 @@ import BottomBar from '../Components/BottomBar/BottomBar';
 const act = () => ({type: 'ADDHOME'});
 const HomeScreen = () => {
   const navigation = useNavigation();
-
   const dispatch = useDispatch();
-  const [isDrawerVisible, setDrawerVisible] = useState(false);
-
-  const openDrawer = () => setDrawerVisible(true);
-  const closeDrawer = () => setDrawerVisible(false);
   let catData = data[0].categoryData;
   let prodData = data[1].productData;
   useEffect(() => {
     dispatch(act());
   }, []);
-  const handlePress = () => {
-    console.log('pressed');
-    navigation.navigate('Detail');
-  };
   return (
     <View style={styles.container}>
       <HomeHeaderComponent />
-      <AHText style={styles.textStyle} name={'Category'} />
-      <View style={{marginVertical: 5, padding: 1}}>
-        <CategoryList data={catData} />
-      </View>
-      <View style={{marginVertical: 5, padding: 1, flex: 1}}>
+
+      <View style={{marginVertical: 1, padding: 1, flex: 1}}>
         <ProductList
           data={prodData}
           ListHeader={() => (
-            <AHText style={styles.textStyle} name={'Products'} />
+            <View style={{marginVertical: 5, padding: 2}}>
+              <AHText style={styles.textStyle} name={'Category'} />
+              <CategoryList data={catData} />
+              <AHText style={styles.textStyle} name={'Products'} />
+            </View>
           )}
         />
       </View>

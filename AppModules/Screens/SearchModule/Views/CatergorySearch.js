@@ -34,6 +34,7 @@ const CategoryListChip = ({select, onChipPress}) => {
           fontWeight: select === item ? 'bold' : 500,
           color: isIos() ? MD2Colors.blue900 : MD2Colors.white,
         }}
+
         icon={select === item ? 'check-decagram' : null}
         onPress={() => onChipPress(item)}>
         {item}

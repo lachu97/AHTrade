@@ -20,9 +20,9 @@ const bottomItems = [
   {name: 'Home', icon: 'home', route: 'Home'},
   {name: 'Category', icon: 'menu', route: 'CategorySearch'},
   {
-    name: 'My Bids',
+    name: 'My Orders',
     icon: 'gamma',
-    route: 'BidHistory',
+    route: 'MyOrders',
   },
   {name: 'More', icon: 'more', route: 'Account'},
 

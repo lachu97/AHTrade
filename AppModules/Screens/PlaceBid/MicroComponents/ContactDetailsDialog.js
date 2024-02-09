@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import AHTextInput from '../../../Components/AHTextInput';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {showMiddleFeedBack} from "../../../Components/Toasts/ToastsFeedBack";
 const width = Dimensions.get('window').width;
 
 const ContactDetailsDialog = props => {
@@ -27,6 +28,9 @@ const ContactDetailsDialog = props => {
   );
   const [company, setCompany] = useState(
     typeData.current.company ? typeData.current.company : '',
+  );
+  const [port, setPort] = useState(
+    typeData.current.port ? typeData.current.port : '',
   );
   return (
     <Dialog visible={isVisible} onDismiss={hideDialog}>
@@ -61,6 +65,12 @@ const ContactDetailsDialog = props => {
               onChangeText={e => setCompany(e)}
             />
             <AHTextInput
+              value={port}
+              placeholder={'Destination Port of ...'}
+              style={styles.inputStyles}
+              onChangeText={e => setPort(e)}
+            />
+            <AHTextInput
               value={address}
               placeholder={'Address'}
               style={styles.inputStyles}
@@ -78,17 +88,26 @@ const ContactDetailsDialog = props => {
               phone,
               company,
               address,
+              port,
             };
-            onSuccess([
-              {value: name, title: 'Name'},
-              {value: email, title: 'Email'},
-              {value: phone, title: 'Phone'},
-              {value: company, title: 'Company'},
-              {value: address, title: 'Address'},
-            ]);
-            setTimeout(() => {
-              hideDialog();
-            }, 250);
+            const isEmpty = Object.values(typeData.current).some(
+              value => !value || value.trim() === '',
+            );
+            if (isEmpty) {
+              showMiddleFeedBack('Please Provide the Details')
+            } else {
+              onSuccess([
+                {value: name, title: 'Name'},
+                {value: email, title: 'Email'},
+                {value: phone, title: 'Phone'},
+                {value: company, title: 'Company'},
+                {value: address, title: 'Address'},
+                {value: port, title: 'Port'},
+              ]);
+              setTimeout(() => {
+                hideDialog();
+              }, 250);
+            }
           }}>
           Done
         </Button>

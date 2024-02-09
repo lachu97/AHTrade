@@ -54,6 +54,28 @@ const OrderTable = ({result}) => {
           {result.packaging}
         </DataTable.Cell>
       </DataTable.Row>
+      <DataTable.Row>
+        <DataTable.Cell textStyle={styles.textStyle}>
+          Shipment Mode
+        </DataTable.Cell>
+        <DataTable.Cell textStyle={styles.textStyle}>
+          {result.mode.toUpperCase()}
+        </DataTable.Cell>
+      </DataTable.Row>
+      <DataTable.Row>
+        <DataTable.Cell textStyle={styles.textStyle}>Incoterm</DataTable.Cell>
+        <DataTable.Cell textStyle={styles.textStyle}>
+          {result.incoterm}
+        </DataTable.Cell>
+      </DataTable.Row>
+      <DataTable.Row>
+        <DataTable.Cell textStyle={styles.textStyle}>
+          Destination
+        </DataTable.Cell>
+        <DataTable.Cell textStyle={styles.textStyle}>
+          {result.contact.port}
+        </DataTable.Cell>
+      </DataTable.Row>
       <DataTable.Header>
         <DataTable.Title textStyle={styles.textStyle}>
           Contact Details
@@ -74,8 +96,8 @@ const Success = () => {
   const [contactDetails, setContactDetails] = useState([]);
   let item = route.params?.item;
   let result = item;
-  console.log('Fromm Place Order ' + JSON.stringify(result));
 
+  console.log('Fromm Place Order ' + JSON.stringify(result));
   useEffect(() => {
     const getContactDetails = async () => {
       let result = await getContactsDetails();
@@ -151,6 +173,7 @@ const Success = () => {
               index: 0,
               routes: [{name: 'Home'}],
             });
+            //  getData();
           }}
         />
       </View>

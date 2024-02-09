@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AHTextInput from '../Components/AHTextInput';
 import AHButton from '../Components/AHButton';
+import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
 const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -85,7 +86,11 @@ const Login = () => {
         />
         <TouchableRipple
           style={styles.guestTextStyles}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => {
+            storeIsLoggedIn(true);
+            setIsGuestUser(true);
+            navigation.navigate('Home');
+          }}>
           <Text style={styles.guestText}>Continue as Guest</Text>
         </TouchableRipple>
       </KeyboardAvoidingView>

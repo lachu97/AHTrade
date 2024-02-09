@@ -2,7 +2,6 @@ import {delay, takeLatest, put, all} from 'redux-saga/effects';
 import {addHome} from '../Reducers/HomeReducer';
 import reactotron from 'reactotron-react-native';
 import {authRootSaga} from './AuthSaga';
-import {realmRootSaga} from './RealmSagas';
 
 function* addHomeSaga() {
   try {
@@ -36,6 +35,6 @@ function* rootSaga() {
   ]);
 }
 function* combineSaga() {
-  yield all([rootSaga(), authRootSaga(), realmRootSaga()]);
+  yield all([rootSaga(), authRootSaga()]);
 }
 export default combineSaga;

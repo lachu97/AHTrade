@@ -83,14 +83,14 @@ const ProductCard = ({item, navigation}) => {
   );
 };
 
-const ProductList = ({data,ListHeader}) => {
+const ProductList = ({data, ListHeader}) => {
   const navigation = useNavigation();
   const renderItems = ({item}) => (
     <ProductCard item={item} navigation={navigation} />
   );
   return (
     <FlatList
-      style={{margin: 2, backgroundColor: MD2Colors.transparent}}
+      style={{margin: 1, backgroundColor: MD2Colors.transparent}}
       data={data}
       renderItem={renderItems}
       numColumns={2}

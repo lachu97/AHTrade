@@ -15,6 +15,7 @@ import BidHistory from '../Screens/PlaceBid/Views/BidHistory';
 import Success from '../Screens/Checkout/Views/Success';
 import ImportScreen from '../Screens/ImportDetails/Views/ImportScreen';
 import BidSuccessScreen from "../Screens/PlaceBid/Views/BidSuccessScreen";
+import MyOrdersScreen from "../Screens/MyOrders/Views/MyOrdersScreen";
 const screens = [
   {name: 'Home', component: HomeScreen},
   {name: 'Detail', component: DetailScreen},
@@ -56,6 +57,7 @@ const AppNavigation = () => {
         <Stack.Screen name={'PlaceBid'} component={PlaceBid} />
         <Stack.Screen name={'Import'} component={ImportScreen} />
         <Stack.Screen name={'BidHistory'} component={BidHistory} />
+        <Stack.Screen name={'MyOrders'} component={MyOrdersScreen} />
         <Stack.Screen name={'BidSuccess'} component={BidSuccessScreen} />
         <Stack.Screen name={'CategorySearch'} component={CategorySearch} />
         <Stack.Screen name={'AuthStack'} component={AuthNavigation} />

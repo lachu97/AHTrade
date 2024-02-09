@@ -1,6 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, View} from 'react-native';
-import {MD2Colors, List, TouchableRipple, Text} from 'react-native-paper';
+import {Dimensions, FlatList, ScrollView, View} from 'react-native';
+import {
+  MD2Colors,
+  List,
+  TouchableRipple,
+  Text,
+  SegmentedButtons,
+  Chip,
+  MD3Colors,
+} from 'react-native-paper';
 import importStyles from '../Styles/ImportStyles';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -18,7 +26,74 @@ import {
 import PackagingDialog, {
   packagingItems,
 } from '../MicroComponents/PackagingDialog';
+import {isIos} from '../../../HelperFuntions/helpers';
+import {showMiddleFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
 const width = Dimensions.get('window').width;
+const incoTermsList = [
+  {
+    value: 'FOB',
+    label: 'FOB',
+    uncheckedColor: MD2Colors.white,
+    showSelectedCheck: true,
+    style: {
+      borderRadius: 0,
+    },
+  },
+  {
+    value: 'FAS',
+    label: 'FAS',
+    uncheckedColor: MD2Colors.white,
+    showSelectedCheck: true,
+    style: {
+      borderRadius: 0,
+    },
+  },
+  {
+    value: 'FCA',
+    label: 'FCA',
+    uncheckedColor: MD2Colors.white,
+    showSelectedCheck: true,
+    style: {
+      borderRadius: 0,
+    },
+  },
+  {
+    value: 'CFR',
+    label: 'CFR',
+    uncheckedColor: MD2Colors.white,
+    showSelectedCheck: true,
+    style: {
+      borderRadius: 0,
+    },
+  },
+  {
+    value: 'CIF',
+    label: 'CIF',
+    uncheckedColor: MD2Colors.white,
+    showSelectedCheck: true,
+    style: {
+      borderRadius: 0,
+    },
+  },
+  {
+    value: 'CPT',
+    label: 'CPT',
+    uncheckedColor: MD2Colors.white,
+    showSelectedCheck: true,
+    style: {
+      borderRadius: 0,
+    },
+  },
+  {
+    value: 'CIP',
+    label: 'CIP',
+    uncheckedColor: MD2Colors.white,
+    showSelectedCheck: true,
+    style: {
+      borderRadius: 0,
+    },
+  },
+];
 const Sections = ({value, name, onPress}) => {
   return (
     <View
@@ -58,7 +133,25 @@ const ImportScreen = () => {
   const [packaging, setPackaging] = useState(packagingItems[0]);
   const [packagingDialog, setPackagingDialog] = useState(false);
   const [payment, setPayment] = useState(paymentTypes[0]);
+  const [shipment, setShipment] = useState('');
+  const [incoterm, setIncoterm] = useState('');
+  const [port, setPort] = useState('');
+  function checkForEmptyProperties(obj) {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const value = obj[key];
 
+        if (typeof value !== 'object' || Array.isArray(value)) {
+          // Check for empty or whitespace values only for non-object properties
+          if (!value || (typeof value === 'string' && value.trim() === '')) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
   useEffect(() => {
     const getContactDetails = async () => {
       let result = await getContactsDetails();
@@ -98,124 +191,200 @@ const ImportScreen = () => {
           backgroundColor: MD2Colors.transparent,
           padding: 10,
         }}>
-        <List.Section>
-          <List.Subheader style={importStyles.titleStyles}>
-            Place Order for {item.name}
-          </List.Subheader>
-          <Sections
-            value={quantity}
-            name={'Quantity(MT)'}
-            onPress={() => {
-              showDialog();
-            }}
-          />
-          <Sections
-            value={price}
-            name={'Price($)'}
-            onPress={() => {
-              showPriceDialog();
-            }}
-          />
-          <Sections
-            value={packaging}
-            name={'Packaging'}
-            onPress={() => {
-              showPackagingDialog();
-            }}
-          />
-        </List.Section>
-        <List.Section>
-          <List.Subheader style={importStyles.titleStyles}>
-            Payment Terms
-          </List.Subheader>
-          <List.Item
-            titleStyle={{color: MD2Colors.white}}
-            title={payment.name}
-            style={{
-              marginLeft: 15,
-              marginRight: 15,
-            }}
-            right={props => {
-              return (
-                <TouchableRipple
-                  onPress={() => {
-                    showPaymentDialog();
-                  }}>
-                  <View style={{flexDirection: 'row'}}>
-                    <MaterialCommunityIcons
-                      name={'archive-edit-outline'}
-                      size={16}
-                      color={MD2Colors.yellow400}
-                    />
-                    <Text style={importStyles.editText}>Edit Payment Term</Text>
-                  </View>
-                </TouchableRipple>
-              );
-            }}
-          />
-        </List.Section>
-        <List.Section>
-          <List.Subheader style={importStyles.titleStyles}>
-            Contact Details
-          </List.Subheader>
-          {contactDetails.length === 0 ? (
-            <List.Item
+        <ScrollView style={{marginBottom: 20, flex: 1}}>
+          <List.Section>
+            <List.Subheader style={importStyles.titleStyles}>
+              Place Order for {item.name}
+            </List.Subheader>
+            <Sections
+              value={quantity}
+              name={'Quantity(MT)'}
               onPress={() => {
-                showContactsDialog();
+                showDialog();
               }}
-              style={{
-                marginHorizontal: 30,
-                alignSelf: 'center',
-                alignContent: 'center',
-              }}
-              title={'Add Details'}
-              titleStyle={importStyles.titleStyles}
-              left={() => (
-                <Ionicons
-                  size={25}
-                  name={'add-circle-sharp'}
-                  color={MD2Colors.white}
-                />
-              )}
             />
-          ) : (
-            <View>
-              {contactDetails.map((itm, idx) => {
+            <Sections
+              value={price}
+              name={'Price($)'}
+              onPress={() => {
+                showPriceDialog();
+              }}
+            />
+            <Sections
+              value={packaging}
+              name={'Packaging'}
+              onPress={() => {
+                showPackagingDialog();
+              }}
+            />
+          </List.Section>
+          <List.Section>
+            <List.Subheader style={importStyles.titleStyles}>
+              Shipment Mode {shipment.toUpperCase()}
+            </List.Subheader>
+            <SegmentedButtons
+              value={shipment}
+              style={{marginHorizontal: 8, color: MD2Colors.white}}
+              onValueChange={setShipment}
+              density={'regular'}
+              buttons={[
+                {
+                  value: 'air',
+                  label: 'Air',
+                  uncheckedColor: MD2Colors.white,
+                  style: {
+                    borderRadius: 8,
+                  },
+                  showSelectedCheck: true,
+                  icon: require('../../../assets/Icons/air.png'),
+                },
+                {
+                  value: 'ocean',
+                  label: 'Ocean',
+                  uncheckedColor: MD2Colors.white,
+                  style: {
+                    borderRadius: 8,
+                  },
+                  showSelectedCheck: true,
+                  icon: require('../../../assets/Icons/ocean.png'),
+                },
+              ]}
+            />
+          </List.Section>
+          <List.Section style={{width: width * 0.95}}>
+            <List.Subheader style={importStyles.titleStyles}>
+              Incoterm {incoterm}
+            </List.Subheader>
+            <FlatList
+              data={incoTermsList}
+              style={{
+                marginVertical: 5,
+              }}
+              renderItem={({item}) => {
                 return (
-                  <List.Item
-                    key={idx}
-                    titleStyle={importStyles.titleStyles}
+                  <Chip
                     style={{
-                      marginHorizontal: 15,
+                      margin: 2,
+                      backgroundColor: isIos()
+                        ? MD2Colors.white
+                        : MD3Colors.primary20,
+                      borderRadius: 4,
+                      borderWidth: incoterm === item.value ? 1.3 : 0,
+                      borderColor: MD3Colors.tertiary20,
                     }}
-                    title={itm.title}
-                    right={() => {
-                      return (
-                        <Text style={importStyles.titleStyles}>
-                          {itm.value}
-                        </Text>
-                      );
+                    mode={'outlined'}
+                    elevated={true}
+                    textStyle={{
+                      fontSize: incoterm === item.value ? 15.4 : 14.1,
+                      fontWeight: incoterm === item.value ? 'bold' : 400,
+                      color: isIos() ? MD2Colors.blue900 : MD2Colors.white,
                     }}
-                  />
+                    icon={incoterm === item.value ? 'check-decagram' : null}
+                    onPress={() => {
+                      setIncoterm(item.value);
+                    }}>
+                    {item.label}
+                  </Chip>
                 );
-              })}
-              <AHButton
-                style={{
-                  width: width * 0.35,
-                  alignSelf: 'center',
-                  borderRadius: 8,
+              }}
+              horizontal={true}
+            />
+          </List.Section>
+          <List.Section>
+            <List.Subheader style={importStyles.titleStyles}>
+              Contact Details
+            </List.Subheader>
+            {contactDetails.length === 0 ? (
+              <List.Item
+                onPress={() => {
+                  showContactsDialog();
                 }}
-                icon={'email-edit'}
-                name={'Edit Details'}
-                onPress={() => showContactsDialog()}
+                style={{
+                  marginHorizontal: 30,
+                  alignSelf: 'center',
+                  alignContent: 'center',
+                }}
+                title={'Add Details'}
+                titleStyle={importStyles.titleStyles}
+                left={() => (
+                  <Ionicons
+                    size={25}
+                    name={'add-circle-sharp'}
+                    color={MD2Colors.white}
+                  />
+                )}
               />
-            </View>
-          )}
-        </List.Section>
+            ) : (
+              <View>
+                {contactDetails.map((itm, idx) => {
+                  return (
+                    <List.Item
+                      key={idx}
+                      titleStyle={importStyles.titleStyles}
+                      style={{
+                        marginHorizontal: 15,
+                      }}
+                      title={itm.title}
+                      right={() => {
+                        return (
+                          <Text style={importStyles.titleStyles}>
+                            {itm.value}
+                          </Text>
+                        );
+                      }}
+                    />
+                  );
+                })}
+                <AHButton
+                  style={{
+                    width: width * 0.35,
+                    alignSelf: 'center',
+                    borderRadius: 8,
+                  }}
+                  icon={'email-edit'}
+                  name={'Edit Details'}
+                  onPress={() => showContactsDialog()}
+                />
+              </View>
+            )}
+          </List.Section>
+          <List.Section>
+            <List.Subheader style={importStyles.titleStyles}>
+              Payment Terms
+            </List.Subheader>
+            <List.Item
+              titleStyle={{color: MD2Colors.white}}
+              title={payment.name}
+              style={{
+                marginLeft: 15,
+                marginRight: 15,
+              }}
+              right={props => {
+                return (
+                  <TouchableRipple
+                    onPress={() => {
+                      showPaymentDialog();
+                    }}>
+                    <View style={{flexDirection: 'row'}}>
+                      <MaterialCommunityIcons
+                        name={'archive-edit-outline'}
+                        size={16}
+                        color={MD2Colors.yellow400}
+                      />
+                      <Text style={importStyles.editText}>
+                        Edit Payment Term
+                      </Text>
+                    </View>
+                  </TouchableRipple>
+                );
+              }}
+            />
+          </List.Section>
+        </ScrollView>
         <View
           style={{
             position: 'absolute',
-            bottom: 10,
+            bottom: 5,
             width: width,
             flex: 1,
             alignContent: 'center',
@@ -247,6 +416,9 @@ const ImportScreen = () => {
                   if (title === 'Name') {
                     result.name = value;
                   }
+                  if (title === 'Port') {
+                    result.port = value;
+                  }
                   return result;
                 },
                 {},
@@ -256,10 +428,17 @@ const ImportScreen = () => {
                 price,
                 quantity,
                 packaging,
+                incoterm,
+                mode: shipment,
                 payment: payment.name,
                 contact: contactObject,
-                isBid: false,
+                //isBid: false,
               };
+              const isEmpty = checkForEmptyProperties(resultItem);
+              if (isEmpty) {
+                showMiddleFeedBack('Provide All Details to Place an Order');
+                return;
+              }
               navigation.navigate('Success', {
                 item: resultItem,
               });

@@ -6,3 +6,10 @@ export const isIos = () => {
 export const isValidElement = ele => {
   return ele !== null && ele !== undefined;
 };
+export function validateEmail(email) {
+  // Regular expression for a basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Test the email against the regex
+  return email.trim() !== '' && emailRegex.test(email);
+}

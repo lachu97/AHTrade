@@ -1,7 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {MD2Colors} from "react-native-paper";
-const width = Dimensions.get('window').width
+import {MD2Colors} from 'react-native-paper';
+const width = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -13,7 +13,7 @@ export default StyleSheet.create({
     color: Colors.light,
     fontSize: 27,
     alignSelf: 'center',
-    fontWeight:"bold",
+    fontWeight: 'bold',
     marginVertical: 10,
   },
   textInput: {
@@ -26,18 +26,19 @@ export default StyleSheet.create({
   formContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical:10,
-    paddingVertical:1
+    marginVertical: 15,
+    paddingVertical: 1,
   },
-  iAgree :{
+  iAgree: {
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',
-    marginVertical:10
+    marginVertical: 10,
   },
-  iAgreeText : {color: MD2Colors.white, textAlign: 'center', fontSize: 15},
-  buttonStyles:{
-    width: width*0.835,
-    marginVertical:5
-  }
+  iAgreeText: {color: MD2Colors.white, textAlign: 'center', fontSize: 15},
+  buttonStyles: {
+    width: width * 0.835,
+    marginVertical: 8,
+    borderRadius: 8,
+  },
 });

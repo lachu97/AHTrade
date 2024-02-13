@@ -8,6 +8,7 @@ import {
   SegmentedButtons,
   Chip,
   MD3Colors,
+  Checkbox,
 } from 'react-native-paper';
 import importStyles from '../Styles/ImportStyles';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
@@ -27,7 +28,10 @@ import PackagingDialog, {
   packagingItems,
 } from '../MicroComponents/PackagingDialog';
 import {isIos} from '../../../HelperFuntions/helpers';
-import {showMiddleFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
+import {
+  showBottomFeedBack,
+  showMiddleFeedBack,
+} from '../../../Components/Toasts/ToastsFeedBack';
 const width = Dimensions.get('window').width;
 const incoTermsList = [
   {
@@ -132,10 +136,11 @@ const ImportScreen = () => {
   const [price, setPrice] = useState(item.price);
   const [packaging, setPackaging] = useState(packagingItems[0]);
   const [packagingDialog, setPackagingDialog] = useState(false);
-  const [payment, setPayment] = useState(paymentTypes[0]);
+  const [payment, setPayment] = useState('');
   const [shipment, setShipment] = useState('');
   const [incoterm, setIncoterm] = useState('');
   const [port, setPort] = useState('');
+  const [checked, setChecked] = React.useState(false);
   function checkForEmptyProperties(obj) {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -191,7 +196,7 @@ const ImportScreen = () => {
           backgroundColor: MD2Colors.transparent,
           padding: 10,
         }}>
-        <ScrollView style={{marginBottom: 20, flex: 1}}>
+        <ScrollView style={{marginBottom: 30, flex: 1}}>
           <List.Section>
             <List.Subheader style={importStyles.titleStyles}>
               Place Order for {item.name}
@@ -269,8 +274,8 @@ const ImportScreen = () => {
                         ? MD2Colors.white
                         : MD3Colors.primary20,
                       borderRadius: 4,
-                      borderWidth: incoterm === item.value ? 1.3 : 0,
-                      borderColor: MD3Colors.tertiary20,
+                      borderWidth: incoterm === item.value ? 1.5 : 0,
+                      // borderColor: MD3Colors.tertiary20,
                     }}
                     mode={'outlined'}
                     elevated={true}
@@ -290,7 +295,39 @@ const ImportScreen = () => {
               horizontal={true}
             />
           </List.Section>
-          <List.Section>
+          <List.Section style={{marginBottom: 1}}>
+            <List.Subheader style={importStyles.titleStyles}>
+              Payment Terms
+            </List.Subheader>
+            <List.Item
+              titleStyle={{color: MD2Colors.white}}
+              title={payment.name}
+              style={{
+                marginLeft: 15,
+                marginRight: 15,
+              }}
+              right={props => {
+                return (
+                  <TouchableRipple
+                    onPress={() => {
+                      showPaymentDialog();
+                    }}>
+                    <View style={{flexDirection: 'row'}}>
+                      <MaterialCommunityIcons
+                        name={'archive-edit-outline'}
+                        size={16}
+                        color={MD2Colors.yellow400}
+                      />
+                      <Text style={importStyles.editText}>
+                        Edit Payment Term
+                      </Text>
+                    </View>
+                  </TouchableRipple>
+                );
+              }}
+            />
+          </List.Section>
+          <List.Section style={{marginVertical: 10}}>
             <List.Subheader style={importStyles.titleStyles}>
               Contact Details
             </List.Subheader>
@@ -348,38 +385,27 @@ const ImportScreen = () => {
               </View>
             )}
           </List.Section>
-          <List.Section>
-            <List.Subheader style={importStyles.titleStyles}>
-              Payment Terms
-            </List.Subheader>
-            <List.Item
-              titleStyle={{color: MD2Colors.white}}
-              title={payment.name}
-              style={{
-                marginLeft: 15,
-                marginRight: 15,
-              }}
-              right={props => {
-                return (
-                  <TouchableRipple
-                    onPress={() => {
-                      showPaymentDialog();
-                    }}>
-                    <View style={{flexDirection: 'row'}}>
-                      <MaterialCommunityIcons
-                        name={'archive-edit-outline'}
-                        size={16}
-                        color={MD2Colors.yellow400}
-                      />
-                      <Text style={importStyles.editText}>
-                        Edit Payment Term
-                      </Text>
-                    </View>
-                  </TouchableRipple>
-                );
-              }}
-            />
-          </List.Section>
+          <View
+            style={{
+              flexDirection: 'row',
+              width,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginVertical: 10,
+            }}>
+            <TouchableRipple
+              style={{marginRight: 5}}
+              onPress={() => setChecked(prev => !prev)}>
+              <MaterialCommunityIcons
+                name={checked ? 'check-all' : 'checkbox-blank-outline'}
+                size={25}
+                color={MD2Colors.white}
+              />
+            </TouchableRipple>
+            <Text style={importStyles.titleStyles}>
+              I have verified my Order Details
+            </Text>
+          </View>
         </ScrollView>
         <View
           style={{
@@ -437,6 +463,10 @@ const ImportScreen = () => {
               const isEmpty = checkForEmptyProperties(resultItem);
               if (isEmpty) {
                 showMiddleFeedBack('Provide All Details to Place an Order');
+                return;
+              }
+              if (!checked) {
+                showBottomFeedBack('Please verify your Details,');
                 return;
               }
               navigation.navigate('Success', {

@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {View, Pressable, KeyboardAvoidingView} from 'react-native';
-import { MD2Colors, Text, TextInput} from 'react-native-paper';
+import {Divider, MD2Colors, Text, TextInput} from 'react-native-paper';
 import styles from './Authstyles/RegisterStyles';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -8,16 +8,63 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AHText from '../Components/AHText';
 import AHTextInput from '../Components/AHTextInput';
 import AHButton from '../Components/AHButton';
+import LoadingModal from '../Components/Modals/LoadingModal';
+import {validateEmail} from '../HelperFuntions/helpers';
+import {
+  showBottomFeedBack,
+  showMiddleFeedBack,
+} from '../Components/Toasts/ToastsFeedBack';
+import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
+import {setUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
 const Register = () => {
   const dispatch = useDispatch();
+  const emailRef = useRef(null);
   const navigation = useNavigation();
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [company, setCompany] = useState('');
-  const [phone, setPhone] = useState('');
-  const [country, setCountry] = useState('');
+  const [password, setPassword] = useState('');
   const [status, setStatus] = useState(false);
-  const handleSubmit = useCallback(() => {}, []);
+  const [loading, setLoading] = useState(false);
+  const [textStatus, setTextStatus] = useState(true);
+  const handleSubmit = useCallback(async () => {
+    try {
+      if (!status) {
+        showMiddleFeedBack('Agree to Privacy Policy');
+        return;
+      }
+
+      let result = validateEmail(email);
+
+      if (!result) {
+        console.log('Not a valid email');
+        showMiddleFeedBack('Provide a Valid Email');
+        emailRef.current.focus();
+        return;
+      }
+      if (password === '') {
+        showMiddleFeedBack('Provide a Valid Password');
+        return;
+      }
+      setLoading(true);
+      const {data, error} = await supaBaseClient.auth.signUp({
+        email: email,
+        password: password,
+      });
+      if (error) {
+        showBottomFeedBack('UnExpected Error Occurred,Try Again');
+        return;
+      }
+      console.log('Success' + JSON.stringify(data));
+      if (data) {
+        await setUserDetails(data);
+        navigation.navigate('Home');
+      }
+    } catch (e) {
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1350);
+    }
+  }, [email, navigation, password, status]);
   return (
     <View style={styles.container}>
       <View
@@ -38,53 +85,35 @@ const Register = () => {
         </Pressable>
       </View>
       <AHText name={'Sign Up'} style={styles.textStyles} />
+      <Divider />
       <KeyboardAvoidingView behavior={'padding'} style={styles.formContainer}>
-        <AHTextInput
-          value={name}
-          placeholder={'Name'}
-          onChangeText={e => setName(e)}
-          autoFocus
-          style={styles.textInput}
-          autoComplete={'name'}
-          onChange={e => console.log(e.nativeEvent.text)}
-          right={<TextInput.Icon icon={'alpha-a-box'} />}
-        />
-        <AHTextInput
+        <TextInput
+          ref={emailRef}
           value={email}
           placeholder={'Email'}
           onChangeText={e => setEmail(e)}
           style={styles.textInput}
+          outlineColor={MD2Colors.black}
+          placeholderTextColor={MD2Colors.black}
           inputMode={'email'}
           keyboardType={'email-address'}
           autoComplete={'email'}
+          textColor={MD2Colors.black}
+          activeOutlineColor={MD2Colors.black}
           right={<TextInput.Icon icon={'email'} />}
         />
         <AHTextInput
-          value={company}
-          placeholder={'Company Name'}
-          onChangeText={e => setCompany(e)}
+          value={password}
+          placeholder={'Password'}
+          onChangeText={e => setPassword(e)}
           style={styles.textInput}
-          right={<TextInput.Icon icon={'alpha-c'} />}
-        />
-        <AHTextInput
-          value={phone}
-          placeholder={'Contact No'}
-          onChangeText={e => setPhone(e)}
-          style={styles.textInput}
-          autoComplete="tel"
-          keyboardType="phone-pad"
-          inputMode="tel"
-          right={<TextInput.Icon icon={'phone'} />}
-        />
-        <AHTextInput
-          value={country}
-          placeholder={'Country'}
-          onChangeText={e => setCountry(e)}
-          style={styles.textInput}
-          autoComplete="country"
-          keyboardType="default"
-          inputMode="tel"
-          right={<TextInput.Icon icon={'weather-sunny'} />}
+          secureTextEntry={textStatus}
+          right={
+            <TextInput.Icon
+              icon={textStatus ? 'eye-off' : 'eye'}
+              onPress={() => setTextStatus(prev => !prev)}
+            />
+          }
         />
         <View style={styles.iAgree}>
           <Pressable
@@ -98,7 +127,9 @@ const Register = () => {
               color={MD2Colors.white}
             />
           </Pressable>
-          <Text style={styles.iAgreeText}>I, agree to Privacy Policy & T&C</Text>
+          <Text style={styles.iAgreeText}>
+            I, agree to Privacy Policy & T&C
+          </Text>
         </View>
         <AHButton
           name={'Submit'}
@@ -106,6 +137,7 @@ const Register = () => {
           style={styles.buttonStyles}
         />
       </KeyboardAvoidingView>
+      <LoadingModal isVisible={loading} />
     </View>
   );
 };

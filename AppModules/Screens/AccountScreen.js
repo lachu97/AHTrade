@@ -8,6 +8,7 @@ import {FlashList} from '@shopify/flash-list';
 import {List, MD2Colors, Text, Tooltip} from 'react-native-paper';
 import CountryFlag from 'react-native-country-flag';
 import {storeIsLoggedIn} from '../Storage/LocalStorage';
+import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 const profileSection = [
   {title: 'My Account Details', icon: 'account', route: 'Account'},
   {title: 'Contact Details', icon: 'phone', route: 'Contact Details'},
@@ -52,9 +53,13 @@ const ProfileListSection = ({navigation}) => {
               )}
               titleStyle={accountStyles.listIconStyles}
               title={item.title}
-              onPress={() => {
+              onPress={async () => {
                 if (item.route === 'logout') {
                   storeIsLoggedIn(false);
+
+                  const {error} = await supaBaseClient.auth.signOut();
+
+                  console.log(`Error in SignOut = ${JSON.stringify(error)}`);
                   navigation.reset({
                     index: 0,
                     routes: [{name: 'AuthStack'}],

@@ -2,6 +2,8 @@ import {delay, takeLatest, put, all} from 'redux-saga/effects';
 import {addHome} from '../Reducers/HomeReducer';
 import reactotron from 'reactotron-react-native';
 import {authRootSaga} from './AuthSaga';
+import {supaBaseClient} from '../../SupaBase/Client/supabaseClient';
+import {addCategoryData} from '../Reducers/CategoryReducer';
 
 function* addHomeSaga() {
   try {
@@ -28,10 +30,19 @@ function* addSomething(action) {
     );
   }
 }
+function* getCategoryData() {
+  try {
+    const {data, error} = yield supaBaseClient.from('category').select('*');
+    if (data) {
+      yield put(addCategoryData(data));
+    }
+  } catch (e) {}
+}
 function* rootSaga() {
   yield all([
     takeLatest('ADDHOME', addHomeSaga),
     takeLatest('SOMETHI', addSomething),
+    takeLatest('GET_CATEGORY', getCategoryData),
   ]);
 }
 function* combineSaga() {

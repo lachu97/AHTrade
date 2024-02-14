@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Pressable, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import styles from '../Styles/HomeStyles';
 import {data} from '../MockData/MockDatas';
 
@@ -11,14 +11,16 @@ import AHText from '../Components/AHText';
 import ProductList from '../Components/Lists/ProductsLists';
 import BottomBar from '../Components/BottomBar/BottomBar';
 const act = () => ({type: 'ADDHOME'});
+const getCategoryData = () => ({type: 'GET_CATEGORY'});
 const HomeScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  let catData = data[0].categoryData;
+
+  let catData = useSelector(state => state.category.categoryData);
   let prodData = data[1].productData;
   useEffect(() => {
-    dispatch(act());
-  }, []);
+    dispatch(getCategoryData());
+  }, [dispatch]);
   return (
     <View style={styles.container}>
       <HomeHeaderComponent />

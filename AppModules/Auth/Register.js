@@ -1,6 +1,12 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {View, Pressable, KeyboardAvoidingView} from 'react-native';
-import {Divider, MD2Colors, Text, TextInput} from 'react-native-paper';
+import {
+  Divider,
+  MD2Colors,
+  Text,
+  TextInput,
+  TouchableRipple,
+} from 'react-native-paper';
 import styles from './Authstyles/RegisterStyles';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -16,6 +22,7 @@ import {
 } from '../Components/Toasts/ToastsFeedBack';
 import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 import {setUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
+import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
 const Register = () => {
   const dispatch = useDispatch();
   const emailRef = useRef(null);
@@ -56,6 +63,8 @@ const Register = () => {
       console.log('Success' + JSON.stringify(data));
       if (data) {
         await setUserDetails(data);
+        await storeIsLoggedIn(true);
+        await setIsGuestUser(false);
         navigation.navigate('Home');
       }
     } catch (e) {
@@ -115,10 +124,10 @@ const Register = () => {
             />
           }
         />
-        <View style={styles.iAgree}>
-          <Pressable
-            style={{marginHorizontal: 5}}
-            onPress={() => setStatus(prevState => !prevState)}>
+        <TouchableRipple
+          style={{marginHorizontal: 5}}
+          onPress={() => setStatus(prevState => !prevState)}>
+          <View style={styles.iAgree}>
             <MaterialCommunityIcons
               name={
                 status ? 'checkbox-marked-outline' : 'checkbox-blank-outline'
@@ -126,11 +135,12 @@ const Register = () => {
               size={24}
               color={MD2Colors.white}
             />
-          </Pressable>
-          <Text style={styles.iAgreeText}>
-            I, agree to Privacy Policy & T&C
-          </Text>
-        </View>
+            <Text style={styles.iAgreeText}>
+              I, agree to Privacy Policy & T&C
+            </Text>
+          </View>
+        </TouchableRipple>
+
         <AHButton
           name={'Submit'}
           onPress={handleSubmit}

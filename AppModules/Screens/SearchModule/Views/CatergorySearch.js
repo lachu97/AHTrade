@@ -15,11 +15,11 @@ import SearchCardItem from '../MicroComponents/Card';
 import BottomBar from '../../../Components/BottomBar/BottomBar';
 import {data} from '../../../MockData/MockDatas';
 import {isIos} from '../../../HelperFuntions/helpers';
+import {useSelector} from 'react-redux';
 
-const CategoryListChip = ({select, onChipPress}) => {
+const CategoryListChip = ({select, onChipPress, categories}) => {
   // const [selected, setSelected] = useState(select);
   // const selected = true
-  const categories = ['Spices', 'Metals', 'Commodity', 'Fuel', 'Millets'];
   const renderItem = ({item}) => {
     return (
       <Chip
@@ -30,14 +30,13 @@ const CategoryListChip = ({select, onChipPress}) => {
         elevated={true}
         mode={'outlined'}
         textStyle={{
-          fontSize: select === item ? 15.2 : 14.3,
-          fontWeight: select === item ? 'bold' : 500,
+          fontSize: select === item.name ? 15.2 : 14.3,
+          fontWeight: select === item.name ? 'bold' : 500,
           color: isIos() ? MD2Colors.blue900 : MD2Colors.white,
         }}
-
-        icon={select === item ? 'check-decagram' : null}
+        icon={select === item.name ? 'check-decagram' : null}
         onPress={() => onChipPress(item)}>
-        {item}
+        {item.name}
       </Chip>
     );
   };
@@ -85,16 +84,21 @@ const CategorySearch = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [selected, setSelected] = useState(route.params?.name);
+  const categoryData = useSelector(state => state.category.categoryData);
   let prodData = data[1].productData;
 
-  const onChipPress = item => setSelected(item);
+  const onChipPress = item => setSelected(item.name);
   const renderSearchItem = ({item}) => {
     return <SearchCardItem navigation={navigation} item={item} />;
   };
   return (
     <View style={styles.container}>
       <CategoryHeader name={selected} onPress={() => navigation.goBack()} />
-      <CategoryListChip select={selected} onChipPress={onChipPress} />
+      <CategoryListChip
+        select={selected}
+        onChipPress={onChipPress}
+        categories={categoryData}
+      />
       <View
         style={{
           flex: 1,

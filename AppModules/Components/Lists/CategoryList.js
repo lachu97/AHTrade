@@ -10,8 +10,9 @@ import {FlatList, View} from 'react-native';
 import AHText from '../AHText';
 import {useNavigation} from '@react-navigation/native';
 import {isIos} from '../../HelperFuntions/helpers';
+import FastImage from 'react-native-fast-image';
 
-const CardComponent = ({icon, title, onPress}) => {
+const CardComponent = ({image, title, onPress}) => {
   return (
     <TouchableRipple
       onPress={onPress}
@@ -32,7 +33,17 @@ const CardComponent = ({icon, title, onPress}) => {
             marginHorizontal: 5,
             justifyContent: 'center',
           }}>
-          <Icon source={icon} size={45} />
+          <FastImage
+            source={{
+              uri: image,
+              priority: FastImage.priority.high,
+            }}
+            style={{
+              height: 48,
+              width: 48,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
           <Text
             numberOfLines={1}
             userSelect={'text'}
@@ -54,11 +65,12 @@ const CategoryList = ({data}) => {
   const onPress = item => {
     navigation.navigate('CategorySearch', {
       name: item.name,
+      id: item.id,
     });
   };
   const renderItem = ({item}) => (
     <CardComponent
-      icon={item.image}
+      image={item.image}
       title={item.name}
       onPress={() => onPress(item)}
     />

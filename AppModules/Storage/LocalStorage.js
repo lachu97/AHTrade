@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import reactotron from 'reactotron-react-native';
 let loginKey = 'Login';
-let guestKey = 'Login';
+let guestKey = 'Guest';
 export const storeIsLoggedIn = async (value = false) => {
   try {
     await AsyncStorage.setItem(loginKey, JSON.stringify(value));

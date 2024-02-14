@@ -15,6 +15,14 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AHTextInput from '../Components/AHTextInput';
 import AHButton from '../Components/AHButton';
 import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
+import {validateEmail} from '../HelperFuntions/helpers';
+import {
+  showBottomFeedBack,
+  showMiddleFeedBack,
+} from '../Components/Toasts/ToastsFeedBack';
+import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
+import LoadingModal from '../Components/Modals/LoadingModal';
+import {setUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
 const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -29,14 +37,56 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleEmail = useCallback(text => setEmail(text), []);
+  const [textStatus, setTextStatus] = useState(true);
+  const [loading, setLoading] = useState(false);
   const handlePassword = useCallback(text => setPassword(text), []);
   const handleSignUp = useCallback(() => {
     navigation.navigate('Register');
   }, [navigation]);
+  const handleSignIn = useCallback(async () => {
+    try {
+      let result = validateEmail(email);
+
+      if (!result) {
+        console.log('Not a valid email');
+        showMiddleFeedBack('Provide a Valid Email');
+        return;
+      }
+      if (password === '') {
+        showMiddleFeedBack('Provide a Valid Password');
+        return;
+      }
+      setLoading(true);
+      const {data, error} = await supaBaseClient.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+      if (error) {
+        showBottomFeedBack(error.message.toString());
+        console.log(`Error = ${JSON.stringify(error)}`);
+        return;
+      }
+      if (data) {
+        await setUserDetails(data);
+        await storeIsLoggedIn(true);
+        await setIsGuestUser(false);
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Home'}],
+        });
+        showBottomFeedBack('Login SuccessFull');
+
+        console.log(`Result data = ${JSON.stringify(data)}`);
+      }
+    } catch (e) {
+      console.error('Error=' + e.message());
+    } finally {
+      setLoading(false);
+    }
+  }, [email, navigation, password]);
   return (
     <View style={styles.container}>
       <Text style={styles.textStyles}>Login</Text>
-
       <KeyboardAvoidingView behavior={'padding'} style={styles.formContainer}>
         <AHTextInput
           // label="Email"
@@ -53,6 +103,7 @@ const Login = () => {
           inputMode={'email'}
           keyboardType={'email-address'}
           activeOutlineColor={MD2Colors.black}
+          right={<TextInput.Icon icon={'email'} />}
         />
         <AHTextInput
           // label="Password"
@@ -64,13 +115,19 @@ const Login = () => {
           style={styles.textInput}
           textColor={MD2Colors.black}
           mode={'outlined'}
-          autoComplete={'email'}
           autoCorrect
-          secureTextEntry
+          secureTextEntry={textStatus}
+          right={
+            <TextInput.Icon
+              icon={textStatus ? 'eye-off' : 'eye'}
+              onPress={() => setTextStatus(prev => !prev)}
+            />
+          }
         />
         <AHButton
-          name={'Login'}
-          onPress={() => console.log('djdj')}
+          name={loading ? 'Loading...' : 'Login'}
+          onPress={handleSignIn}
+          loading={loading}
           mode={'contained'}
           style={{width: width * 0.8, marginVertical: 15, borderRadius: 8}}
           textColor={MD2Colors.black}

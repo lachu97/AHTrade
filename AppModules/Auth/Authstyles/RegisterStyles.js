@@ -35,7 +35,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
   },
-  iAgreeText: {color: MD2Colors.white, textAlign: 'center', fontSize: 15},
+  iAgreeText: {color: MD2Colors.white, textAlign: 'center', fontSize: 15,marginHorizontal:2},
   buttonStyles: {
     width: width * 0.835,
     marginVertical: 8,

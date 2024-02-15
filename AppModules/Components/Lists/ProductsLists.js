@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import AHButton from '../AHButton';
 import FastImage from 'react-native-fast-image';
 import {isIos} from '../../HelperFuntions/helpers';
+import LottieView from 'lottie-react-native';
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
 const height = Dimensions.get('window').height;
@@ -95,6 +96,20 @@ const ProductList = ({data, ListHeader}) => {
       renderItem={renderItems}
       numColumns={2}
       ListHeaderComponent={ListHeader}
+      ListEmptyComponent={() => (
+        <View style={{width: width}}>
+          <LottieView
+            autoPlay
+            loop
+            source={require('../../assets/anim/myLoading8.json')}
+            style={{
+              flex: 1,
+              height: 64,
+              width: width,
+            }}
+          />
+        </View>
+      )}
       keyExtractor={(item, index) => `${index}`}
     />
   );

@@ -3,7 +3,8 @@ import {addHome} from '../Reducers/HomeReducer';
 import reactotron from 'reactotron-react-native';
 import {authRootSaga} from './AuthSaga';
 import {supaBaseClient} from '../../SupaBase/Client/supabaseClient';
-import {addCategoryData} from '../Reducers/CategoryReducer';
+import {addCategoryData, addProductData} from '../Reducers/CategoryReducer';
+import {data} from '../../MockData/MockDatas';
 
 function* addHomeSaga() {
   try {
@@ -32,9 +33,41 @@ function* addSomething(action) {
 }
 function* getCategoryData() {
   try {
-    const {data, error} = yield supaBaseClient.from('category').select('*');
+    yield delay(4500);
+    // const {data, error} =
+    // yield supaBaseClient.from('category').select('*');
+    const data = [
+      {
+        id: 5,
+        name: 'Rice',
+        image:
+          'https://ik.imagekit.io/atlas17/category/rice.png?updatedAt=1707916499116',
+      },
+      {
+        id: 4,
+        name: 'Tea',
+        image:
+          'https://ik.imagekit.io/atlas17/category/green-tea.png?updatedAt=1707916339548',
+      },
+      {
+        id: 3,
+        name: 'Coffee',
+        image:
+          'https://ik.imagekit.io/atlas17/category/beans.png?updatedAt=1707916316753',
+      },
+    ];
     if (data) {
       yield put(addCategoryData(data));
+    }
+  } catch (e) {}
+}
+
+function* getProductData() {
+  try {
+    yield delay(4500);
+    let prodData = data[1].productData;
+    if (prodData) {
+      yield put(addProductData(prodData));
     }
   } catch (e) {}
 }
@@ -43,6 +76,7 @@ function* rootSaga() {
     takeLatest('ADDHOME', addHomeSaga),
     takeLatest('SOMETHI', addSomething),
     takeLatest('GET_CATEGORY', getCategoryData),
+    takeLatest('GET_PRODUCT', getProductData),
   ]);
 }
 function* combineSaga() {

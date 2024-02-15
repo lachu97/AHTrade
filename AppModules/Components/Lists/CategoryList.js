@@ -1,16 +1,19 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   Icon,
   MD2Colors,
   Surface,
   Text,
   TouchableRipple,
 } from 'react-native-paper';
-import {FlatList, View} from 'react-native';
+import {Dimensions, FlatList, View} from 'react-native';
 import AHText from '../AHText';
 import {useNavigation} from '@react-navigation/native';
 import {isIos} from '../../HelperFuntions/helpers';
 import FastImage from 'react-native-fast-image';
+import LottieView from 'lottie-react-native';
+const width = Dimensions.get('window').width;
 
 const CardComponent = ({image, title, onPress}) => {
   return (
@@ -82,6 +85,19 @@ const CategoryList = ({data}) => {
       keyExtractor={(item, index) => `${index}`}
       renderItem={renderItem}
       horizontal
+      ListEmptyComponent={() => (
+        <View style={{width: width}}>
+          <LottieView
+            autoPlay
+            loop
+            source={require('../../assets/anim/myLoading8.json')}
+            style={{
+              flex: 1,
+              height: 64,
+            }}
+          />
+        </View>
+      )}
     />
   );
 };

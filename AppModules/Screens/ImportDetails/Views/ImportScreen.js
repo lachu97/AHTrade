@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, FlatList, ScrollView, View} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  LayoutAnimation,
+  ScrollView,
+  View,
+} from 'react-native';
 import {
   MD2Colors,
   List,
@@ -163,6 +169,7 @@ const ImportScreen = () => {
       console.log(result);
 
       if (result) {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
         setContactDetails(result);
       }
     };
@@ -469,6 +476,8 @@ const ImportScreen = () => {
                 showBottomFeedBack('Please verify your Details,');
                 return;
               }
+
+
               navigation.navigate('Success', {
                 item: resultItem,
               });

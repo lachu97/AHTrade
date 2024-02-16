@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, Image, View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  View,
+  StyleSheet,
+  ScrollView,
+  LayoutAnimation,
+} from 'react-native';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {MD2Colors, Text, List, DataTable} from 'react-native-paper';
@@ -169,6 +176,8 @@ const Success = () => {
             marginVertical: 1,
           }}
           onPress={() => {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+
             navigation.reset({
               index: 0,
               routes: [{name: 'Home'}],

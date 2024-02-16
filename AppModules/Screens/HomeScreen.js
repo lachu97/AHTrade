@@ -31,7 +31,7 @@ const HomeScreen = () => {
         dispatch(getProductData());
       } catch (e) {
       } finally {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setCategoryLoading(false);
       }
     };

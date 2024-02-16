@@ -43,7 +43,7 @@ const BottomBar = ({navigation, activeTab}) => {
           onPress={() => {
             if (itm.route === 'CategorySearch') {
               navigation.navigate(itm.route, {
-                name: 'Spices',
+                name: 'Rice',
               });
               return;
             }

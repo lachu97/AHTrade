@@ -6,7 +6,7 @@
  */
 
 import React, {useEffect} from 'react';
-import {SafeAreaView} from 'react-native';
+import {Platform, SafeAreaView, UIManager} from 'react-native';
 import AppNavigation from './AppModules/Navigation/Appnavigation';
 import store from './AppModules/Redux/Store';
 import {Provider} from 'react-redux';
@@ -24,6 +24,12 @@ const nhost = new NhostClient({
   subdomain: APP_SUB_DOMAIN,
   region: APP_REGION,
 });
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 function App(): JSX.Element {
   useEffect(() => {
     const requestNotificationPermission = async () => {

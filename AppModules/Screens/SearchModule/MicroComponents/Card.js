@@ -49,12 +49,12 @@ const SearchCardItem = ({navigation, item}) => {
               numberOfLines={1}>
               {item.name}
             </Text>
-            <Text
-              style={{width: cardWidth / 2}}
-              variant={'bodyMedium'}
-              numberOfLines={2}>
-              {item.description}
-            </Text>
+            {/*<Text*/}
+            {/*  style={{width: cardWidth / 2}}*/}
+            {/*  variant={'bodyMedium'}*/}
+            {/*  numberOfLines={2}>*/}
+            {/*  {item.description}*/}
+            {/*</Text>*/}
             <View
               style={{
                 flexDirection: 'row',
@@ -63,7 +63,7 @@ const SearchCardItem = ({navigation, item}) => {
                 marginVertical: 5,
               }}>
               <Text variant={'bodySmall'}>MOQ : {item.quantity}</Text>
-              <Text variant={'bodySmall'}>Min Price $ {item.price}</Text>
+              <Text variant={'bodySmall'}>Min Price : $ {item.price}</Text>
             </View>
             <View
               style={{
@@ -74,11 +74,11 @@ const SearchCardItem = ({navigation, item}) => {
                 width: '100%',
               }}>
               <AHButton
-                icon={'clock-time-ten-outline'}
-                style={{borderRadius: 8}}
-                name={'Place Bid'}
+                icon={'export'}
+                style={{borderRadius: 8, marginLeft: 5}}
+                name={'Import'}
                 onPress={() =>
-                  navigation.navigate('PlaceBid', {
+                  navigation.navigate('Import', {
                     item: item,
                   })
                 }

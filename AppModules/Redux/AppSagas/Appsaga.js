@@ -3,7 +3,11 @@ import {addHome} from '../Reducers/HomeReducer';
 import reactotron from 'reactotron-react-native';
 import {authRootSaga} from './AuthSaga';
 import {supaBaseClient} from '../../SupaBase/Client/supabaseClient';
-import {addCategoryData, addProductData} from '../Reducers/CategoryReducer';
+import {
+  addCategoryData,
+  addFilterProductData,
+  addProductData,
+} from '../Reducers/CategoryReducer';
 import {data} from '../../MockData/MockDatas';
 
 function* addHomeSaga() {
@@ -33,18 +37,18 @@ function* addSomething(action) {
 }
 function* getCategoryData() {
   try {
-    yield delay(4500);
+    yield delay(500);
     // const {data, error} =
     // yield supaBaseClient.from('category').select('*');
     const data = [
       {
-        id: 5,
+        id: 1,
         name: 'Rice',
         image:
           'https://ik.imagekit.io/atlas17/category/rice.png?updatedAt=1707916499116',
       },
       {
-        id: 4,
+        id: 2,
         name: 'Tea',
         image:
           'https://ik.imagekit.io/atlas17/category/green-tea.png?updatedAt=1707916339548',
@@ -64,10 +68,22 @@ function* getCategoryData() {
 
 function* getProductData() {
   try {
-    yield delay(4500);
+    yield delay(500);
     let prodData = data[1].productData;
     if (prodData) {
       yield put(addProductData(prodData));
+    }
+  } catch (e) {}
+}
+function* filterProductsByID(action) {
+  try {
+    yield delay(10);
+    const {id} = action.payload;
+    let productResult = data[1].productData.filter(
+      itm => itm.categoryId === id,
+    );
+    if (productResult) {
+      yield put(addFilterProductData(productResult));
     }
   } catch (e) {}
 }
@@ -77,6 +93,7 @@ function* rootSaga() {
     takeLatest('SOMETHI', addSomething),
     takeLatest('GET_CATEGORY', getCategoryData),
     takeLatest('GET_PRODUCT', getProductData),
+    takeLatest('GET_PRODUCT_BY_ID', filterProductsByID),
   ]);
 }
 function* combineSaga() {

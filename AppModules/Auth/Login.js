@@ -103,7 +103,7 @@ const Login = () => {
           inputMode={'email'}
           keyboardType={'email-address'}
           activeOutlineColor={MD2Colors.black}
-          right={<TextInput.Icon icon={'email'} />}
+          right={<TextInput.Icon icon={'email'} color={MD2Colors.black} />}
         />
         <AHTextInput
           // label="Password"
@@ -121,6 +121,7 @@ const Login = () => {
             <TextInput.Icon
               icon={textStatus ? 'eye-off' : 'eye'}
               onPress={() => setTextStatus(prev => !prev)}
+              color={MD2Colors.black}
             />
           }
         />

@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {FlatList, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, LayoutAnimation, View} from 'react-native';
 import styles from '../styles/CategorySearchStyles';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AHText from '../../../Components/AHText';
@@ -12,11 +12,19 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 import SearchCardItem from '../MicroComponents/Card';
-import BottomBar from '../../../Components/BottomBar/BottomBar';
+import BottomBar, {
+  BOTTOM_APPBAR_HEIGHT,
+} from '../../../Components/BottomBar/BottomBar';
 import {data} from '../../../MockData/MockDatas';
 import {isIos} from '../../../HelperFuntions/helpers';
-import {useSelector} from 'react-redux';
-
+import {useDispatch, useSelector} from 'react-redux';
+import LottieView from 'lottie-react-native';
+const searchByIDAction = id => ({
+  type: 'GET_PRODUCT_BY_ID',
+  payload: {
+    id: id,
+  },
+});
 const CategoryListChip = ({select, onChipPress, categories}) => {
   // const [selected, setSelected] = useState(select);
   // const selected = true
@@ -83,11 +91,26 @@ const CategoryHeader = ({name, onPress}) => {
 const CategorySearch = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const dispatch = useDispatch();
   const [selected, setSelected] = useState(route.params?.name);
+  const [selectedID, setSelectedID] = useState(null);
   const categoryData = useSelector(state => state.category.categoryData);
-  let prodData = data[1].productData;
+  const prodData = useSelector(state => state.category.filterData);
 
-  const onChipPress = item => setSelected(item.name);
+  useEffect(() => {
+    if (selectedID === null) {
+      return;
+    }
+    console.log('Iam dispatching');
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+
+    dispatch(searchByIDAction(selectedID));
+  }, [dispatch, selectedID]);
+  const onChipPress = item => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setSelected(item.name);
+    setSelectedID(item.id);
+  };
   const renderSearchItem = ({item}) => {
     return <SearchCardItem navigation={navigation} item={item} />;
   };
@@ -106,6 +129,7 @@ const CategorySearch = () => {
           margin: 5,
           padding: 1,
           alignItems: 'center',
+          marginBottom: 70,
         }}>
         <FlatList
           keyExtractor={(_, idx) => `${idx}`}

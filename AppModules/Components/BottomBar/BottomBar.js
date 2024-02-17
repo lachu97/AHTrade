@@ -15,7 +15,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useRef, useState} from 'react';
 
-const BOTTOM_APPBAR_HEIGHT = 70;
+export const BOTTOM_APPBAR_HEIGHT = 70;
 const bottomItems = [
   {name: 'Home', icon: 'home', route: 'Home'},
   {name: 'Category', icon: 'menu', route: 'CategorySearch'},

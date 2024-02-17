@@ -57,9 +57,9 @@ const ProfileListSection = ({navigation}) => {
                 if (item.route === 'logout') {
                   storeIsLoggedIn(false);
 
-                  const {error} = await supaBaseClient.auth.signOut();
+                //  const {error} = await supaBaseClient.auth.signOut();
 
-                  console.log(`Error in SignOut = ${JSON.stringify(error)}`);
+                //  console.log(`Error in SignOut = ${JSON.stringify(error)}`);
                   navigation.reset({
                     index: 0,
                     routes: [{name: 'AuthStack'}],

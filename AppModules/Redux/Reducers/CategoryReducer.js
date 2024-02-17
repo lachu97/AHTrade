@@ -1,7 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {data} from "../../MockData/MockDatas";
 const INITIAL_STATE = {
   categoryData: [],
-  productData:[]
+  productData:[],
+  filterData: data[1].productData
 };
 
 const categoryReducer = createSlice({
@@ -14,8 +16,11 @@ const categoryReducer = createSlice({
     addProductData: (state, action) => {
       state.productData = action.payload;
     },
+    addFilterProductData: (state, action) => {
+      state.filterData = action.payload;
+    },
   },
 });
 
-export const {addCategoryData,addProductData} = categoryReducer.actions;
+export const {addCategoryData,addFilterProductData,addProductData} = categoryReducer.actions;
 export default categoryReducer.reducer;

@@ -109,7 +109,7 @@ const Register = () => {
           autoComplete={'email'}
           textColor={MD2Colors.black}
           activeOutlineColor={MD2Colors.black}
-          right={<TextInput.Icon icon={'email'} />}
+          right={<TextInput.Icon icon={'email'} color={MD2Colors.black} />}
         />
         <AHTextInput
           value={password}
@@ -120,6 +120,7 @@ const Register = () => {
           right={
             <TextInput.Icon
               icon={textStatus ? 'eye-off' : 'eye'}
+              color={MD2Colors.black}
               onPress={() => setTextStatus(prev => !prev)}
             />
           }

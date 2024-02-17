@@ -140,7 +140,7 @@ const ImportScreen = () => {
   const [paymentDialog, setPaymentDialog] = useState(false);
   const [contactsDialog, setContactsDialog] = useState(false);
   const [price, setPrice] = useState(item.price);
-  const [packaging, setPackaging] = useState(packagingItems[0]);
+  const [packaging, setPackaging] = useState('');
   const [packagingDialog, setPackagingDialog] = useState(false);
   const [payment, setPayment] = useState('');
   const [shipment, setShipment] = useState('');
@@ -203,7 +203,7 @@ const ImportScreen = () => {
           backgroundColor: MD2Colors.transparent,
           padding: 10,
         }}>
-        <ScrollView style={{marginBottom: 30, flex: 1}}>
+        <ScrollView style={{marginBottom: 35, flex: 1}}>
           <List.Section>
             <List.Subheader style={importStyles.titleStyles}>
               Place Order for {item.name}
@@ -222,12 +222,51 @@ const ImportScreen = () => {
                 showPriceDialog();
               }}
             />
-            <Sections
+          </List.Section>
+          <List.Section>
+            <List.Subheader style={importStyles.titleStyles}>
+              Packaging (in {packaging} KG)
+            </List.Subheader>
+            <SegmentedButtons
               value={packaging}
-              name={'Packaging'}
-              onPress={() => {
-                showPackagingDialog();
+              style={{marginHorizontal: 8, color: MD2Colors.white}}
+              onValueChange={e => {
+                LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+                setPackaging(e);
               }}
+              density={'regular'}
+              buttons={[
+                {
+                  value: '10',
+                  label: '10 kg',
+                  uncheckedColor: MD2Colors.white,
+                  style: {
+                    borderRadius: 8,
+                  },
+                  showSelectedCheck: true,
+                },
+                {
+                  value: '15',
+                  label: '15 kg',
+                  uncheckedColor: MD2Colors.white,
+                  showSelectedCheck: true,
+                },
+                {
+                  value: '25',
+                  label: '25 kg',
+                  uncheckedColor: MD2Colors.white,
+                  showSelectedCheck: true,
+                },
+                {
+                  value: '50',
+                  label: '50 kg',
+                  uncheckedColor: MD2Colors.white,
+                  style: {
+                    borderRadius: 8,
+                  },
+                  showSelectedCheck: true,
+                },
+              ]}
             />
           </List.Section>
           <List.Section>
@@ -237,7 +276,10 @@ const ImportScreen = () => {
             <SegmentedButtons
               value={shipment}
               style={{marginHorizontal: 8, color: MD2Colors.white}}
-              onValueChange={setShipment}
+              onValueChange={e => {
+                LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+                setShipment(e);
+              }}
               density={'regular'}
               buttons={[
                 {
@@ -293,6 +335,9 @@ const ImportScreen = () => {
                     }}
                     icon={incoterm === item.value ? 'check-decagram' : null}
                     onPress={() => {
+                      LayoutAnimation.configureNext(
+                        LayoutAnimation.Presets.linear,
+                      );
                       setIncoterm(item.value);
                     }}>
                     {item.label}
@@ -302,38 +347,73 @@ const ImportScreen = () => {
               horizontal={true}
             />
           </List.Section>
-          <List.Section style={{marginBottom: 1}}>
+          <List.Section>
             <List.Subheader style={importStyles.titleStyles}>
-              Payment Terms
+              Payment Terms {payment}
             </List.Subheader>
-            <List.Item
-              titleStyle={{color: MD2Colors.white}}
-              title={payment.name}
-              style={{
-                marginLeft: 15,
-                marginRight: 15,
+            <SegmentedButtons
+              value={payment}
+              style={{marginHorizontal: 8, color: MD2Colors.white}}
+              onValueChange={e => {
+                LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+                setPayment(e);
               }}
-              right={props => {
-                return (
-                  <TouchableRipple
-                    onPress={() => {
-                      showPaymentDialog();
-                    }}>
-                    <View style={{flexDirection: 'row'}}>
-                      <MaterialCommunityIcons
-                        name={'archive-edit-outline'}
-                        size={16}
-                        color={MD2Colors.yellow400}
-                      />
-                      <Text style={importStyles.editText}>
-                        Edit Payment Term
-                      </Text>
-                    </View>
-                  </TouchableRipple>
-                );
-              }}
+              density={'regular'}
+              buttons={[
+                {
+                  value: 'LC',
+                  label: 'LC',
+                  uncheckedColor: MD2Colors.white,
+                  style: {
+                    borderRadius: 8,
+                  },
+                  showSelectedCheck: true,
+                },
+                {
+                  value: 'ADLC',
+                  label: 'Advance + LC',
+                  uncheckedColor: MD2Colors.white,
+                  style: {
+                    borderRadius: 8,
+                  },
+                  showSelectedCheck: true,
+                },
+              ]}
             />
           </List.Section>
+          {/*<List.Section style={{marginBottom: 1}}>*/}
+          {/*  <List.Subheader style={importStyles.titleStyles}>*/}
+          {/*    Payment Terms*/}
+          {/*  </List.Subheader>*/}
+          {/*  <List.Item*/}
+          {/*    titleStyle={{color: MD2Colors.white}}*/}
+          {/*    title={payment.name}*/}
+          {/*    style={{*/}
+          {/*      marginLeft: 15,*/}
+          {/*      marginRight: 15,*/}
+          {/*    }}*/}
+          {/*    right={props => {*/}
+          {/*      return (*/}
+          {/*        <TouchableRipple*/}
+          {/*          onPress={() => {*/}
+          {/*            showPaymentDialog();*/}
+          {/*          }}>*/}
+          {/*          <View style={{flexDirection: 'row'}}>*/}
+          {/*            <MaterialCommunityIcons*/}
+          {/*              name={'archive-edit-outline'}*/}
+          {/*              size={16}*/}
+          {/*              color={MD2Colors.yellow400}*/}
+          {/*            />*/}
+          {/*            <Text style={importStyles.editText}>*/}
+          {/*              Edit Payment Term*/}
+          {/*            </Text>*/}
+          {/*          </View>*/}
+          {/*        </TouchableRipple>*/}
+          {/*      );*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*</List.Section>*/}
+
           <List.Section style={{marginVertical: 10}}>
             <List.Subheader style={importStyles.titleStyles}>
               Contact Details
@@ -456,14 +536,18 @@ const ImportScreen = () => {
                 },
                 {},
               );
+              if (Object.keys(contactObject).length === 0) {
+                showMiddleFeedBack('Provide Contact Details');
+                return;
+              }
               let resultItem = {
                 item,
                 price,
                 quantity,
                 packaging,
                 incoterm,
+                payment,
                 mode: shipment,
-                payment: payment.name,
                 contact: contactObject,
                 //isBid: false,
               };
@@ -476,7 +560,6 @@ const ImportScreen = () => {
                 showBottomFeedBack('Please verify your Details,');
                 return;
               }
-
 
               navigation.navigate('Success', {
                 item: resultItem,

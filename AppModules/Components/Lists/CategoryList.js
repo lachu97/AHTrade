@@ -25,14 +25,14 @@ const CardComponent = ({image, title, onPress}) => {
         borderWidth: 1,
         // borderColor: MD2Colors.white,
         margin: 5,
-        height: 98,
-        width: 100,
+        height: 110,
+        width: 110,
       }}>
-      <Surface elevation={5}>
+      <Surface elevation={5} style={{flex: 1}}>
         <View
           style={{
             alignItems: 'center',
-            marginVertical: 5,
+            marginVertical: 10,
             marginHorizontal: 5,
             justifyContent: 'center',
           }}>
@@ -42,8 +42,8 @@ const CardComponent = ({image, title, onPress}) => {
               priority: FastImage.priority.high,
             }}
             style={{
-              height: 48,
-              width: 48,
+              height: 50,
+              width: 52,
             }}
             resizeMode={FastImage.resizeMode.contain}
           />
@@ -54,6 +54,7 @@ const CardComponent = ({image, title, onPress}) => {
               color: isIos() ? MD2Colors.black : MD2Colors.white,
               marginVertical: 10,
               textAlign: 'center',
+              fontWeight: 'bold',
             }}>
             {title}
           </Text>

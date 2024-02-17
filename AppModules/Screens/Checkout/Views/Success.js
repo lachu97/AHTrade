@@ -100,37 +100,45 @@ const OrderTable = ({result}) => {
 const Success = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const [contactDetails, setContactDetails] = useState([]);
   let item = route.params?.item;
   let result = item;
 
   console.log('Fromm Place Order ' + JSON.stringify(result));
-  useEffect(() => {
-    const getContactDetails = async () => {
-      let result = await getContactsDetails();
-      if (result) {
-        setContactDetails(result);
-      }
-    };
-    getContactDetails();
-  }, []);
-
   // useEffect(() => {
-  //   const showNotification = () => {
-  //     if (isIos()) {
-  //       displayNotifyiOS({
-  //         title: item.name,
-  //         body: 'Your order has been placed Successfully',
-  //       });
-  //     } else {
-  //       displayNotifyAndroid({
-  //         title: item.name,
-  //         body: 'Your order has been placed Successfully',
-  //       });
+  //   const getContactDetails = async () => {
+  //     let result = await getContactsDetails();
+  //     if (result) {
+  //       setContactDetails(result);
   //     }
   //   };
-  //   showNotification();
-  // }, [item.name]);
+  //   getContactDetails();
+  // }, []);
+
+  useEffect(() => {
+    const showNotification = () => {
+      if (isIos()) {
+        displayNotifyiOS({
+          title: item.item.name,
+          body: `Your order for ${item.item.name} ;
+          Packaging:${item.packaging}/kg bag Incoterm :${item.incoterm}; Quantity: ${item.quantity} with Price of $ ${item.price}/MT has been placed Successfully`,
+        });
+      } else {
+        displayNotifyAndroid({
+          title: item.item.name,
+          body: `Your order for ${item.item.name} Incoterm :${item.incoterm};
+          Packaging:${item.packaging}/kg bag Quantity: ${item.quantity} with Price of $ ${item.price}/MT has been placed Successfully`,
+        });
+      }
+    };
+    showNotification();
+  }, [
+    item.incoterm,
+    item.item.name,
+    item.name,
+    item.packaging,
+    item.price,
+    item.quantity,
+  ]);
 
   return (
     <ScrollView style={{backgroundColor: Colors.dark}}>

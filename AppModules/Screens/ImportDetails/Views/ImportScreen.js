@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -38,6 +38,8 @@ import {
   showBottomFeedBack,
   showMiddleFeedBack,
 } from '../../../Components/Toasts/ToastsFeedBack';
+import InfoBanner from '../../../Components/Banners/InfoBanner';
+import {INFO_TEXT} from '../../../Constants/AppConstants';
 const width = Dimensions.get('window').width;
 const incoTermsList = [
   {
@@ -145,7 +147,6 @@ const ImportScreen = () => {
   const [payment, setPayment] = useState('');
   const [shipment, setShipment] = useState('');
   const [incoterm, setIncoterm] = useState('');
-  const [port, setPort] = useState('');
   const [checked, setChecked] = React.useState(false);
   function checkForEmptyProperties(obj) {
     for (const key in obj) {
@@ -189,11 +190,87 @@ const ImportScreen = () => {
   const hideDialog = () => setShowQuantity(false);
   const hidePaymentDialog = () => setPaymentDialog(false);
   const hidePriceDialog = () => setShowPrice(false);
-  const onQuantitySuccess = item => setQuantity(item);
-  const onPriceSuccess = item => setPrice(item);
+  const onQuantitySuccess = item => {
+    if (item > 25) {
+      showBottomFeedBack('Maximum Quantity is 25MT per user per order');
+      return;
+    }
+    setQuantity(item);
+  };
+  const onPriceSuccess = itm => {
+    if (itm < item.price) {
+      showBottomFeedBack(`Enter Price greater than Minimum price of $${item.price}`);
+      return;
+    }
+    setPrice(itm);
+  };
   const onPackagingSuccess = item => setPackaging(item);
 
   const onChipPress = item => setPayment(item);
+
+  const onPressPlaceOrder = useCallback(() => {
+    const contactObject = contactDetails.reduce((result, {title, value}) => {
+      if (title === 'Email') {
+        result.email = value;
+      }
+      if (title === 'Phone') {
+        result.phone = value;
+      }
+      if (title === 'Company') {
+        result.company = value;
+      }
+      if (title === 'Address') {
+        result.address = value;
+      }
+      if (title === 'Name') {
+        result.name = value;
+      }
+      if (title === 'Port') {
+        result.port = value;
+      }
+      return result;
+    }, {});
+    if (Object.keys(contactObject).length === 0) {
+      showMiddleFeedBack('Provide Contact Details');
+      return;
+    }
+    let resultItem = {
+      item,
+      price,
+      quantity,
+      packaging,
+      incoterm,
+      payment,
+      mode: shipment,
+      contact: contactObject,
+      //isBid: false,
+    };
+    const isEmpty = checkForEmptyProperties(resultItem);
+    if (isEmpty) {
+      showMiddleFeedBack('Provide All Details to Place an Order');
+      return;
+    }
+    if (!checked) {
+      showBottomFeedBack('Please verify your Details,');
+      return;
+    }
+
+    navigation.navigate('Success', {
+      item: resultItem,
+    });
+  }, [
+    checked,
+    contactDetails,
+    incoterm,
+    item,
+    navigation,
+    packaging,
+    payment,
+    price,
+    quantity,
+    shipment,
+  ]);
+
   return (
     <View style={importStyles.container}>
       <HeaderComponent showHeader={true} name={'Place Import Order'} />
@@ -204,6 +281,12 @@ const ImportScreen = () => {
           padding: 10,
         }}>
         <ScrollView style={{marginBottom: 35, flex: 1}}>
+          <InfoBanner
+            isVisible={true}
+            message={INFO_TEXT}
+            onDismiss={() => {}}
+          />
+
           <List.Section>
             <List.Subheader style={importStyles.titleStyles}>
               Place Order for {item.name}
@@ -511,60 +594,7 @@ const ImportScreen = () => {
               alignSelf: 'center',
               borderRadius: 8,
             }}
-            onPress={() => {
-              const contactObject = contactDetails.reduce(
-                (result, {title, value}) => {
-                  if (title === 'Email') {
-                    result.email = value;
-                  }
-                  if (title === 'Phone') {
-                    result.phone = value;
-                  }
-                  if (title === 'Company') {
-                    result.company = value;
-                  }
-                  if (title === 'Address') {
-                    result.address = value;
-                  }
-                  if (title === 'Name') {
-                    result.name = value;
-                  }
-                  if (title === 'Port') {
-                    result.port = value;
-                  }
-                  return result;
-                },
-                {},
-              );
-              if (Object.keys(contactObject).length === 0) {
-                showMiddleFeedBack('Provide Contact Details');
-                return;
-              }
-              let resultItem = {
-                item,
-                price,
-                quantity,
-                packaging,
-                incoterm,
-                payment,
-                mode: shipment,
-                contact: contactObject,
-                //isBid: false,
-              };
-              const isEmpty = checkForEmptyProperties(resultItem);
-              if (isEmpty) {
-                showMiddleFeedBack('Provide All Details to Place an Order');
-                return;
-              }
-              if (!checked) {
-                showBottomFeedBack('Please verify your Details,');
-                return;
-              }
-
-              navigation.navigate('Success', {
-                item: resultItem,
-              });
-            }}
+            onPress={onPressPlaceOrder}
           />
         </View>
       </View>

@@ -165,6 +165,19 @@ const Success = () => {
           }}>
           Import Order Placed SuccessFully !!
         </Text>
+        <Text
+          style={{
+            color: MD2Colors.white,
+            fontSize: 21,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            padding: 8,
+            fontStyle: 'normal',
+            marginHorizontal: isIos() ? 5 : 10,
+          }}>
+          One of our Representative will contact you for further processing of
+          the Order
+        </Text>
         <View style={{flex: 1, padding: 10}}>
           <List.Section>
             <List.Subheader style={{color: MD2Colors.white, fontSize: 18}}>

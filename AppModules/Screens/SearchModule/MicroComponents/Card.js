@@ -77,11 +77,13 @@ const SearchCardItem = ({navigation, item}) => {
                 icon={'export'}
                 style={{borderRadius: 8, marginLeft: 5}}
                 name={'Import'}
-                onPress={() =>
+                onPress={() => {
+                  console.log('iam pressed fr import');
+                  console.log(JSON.stringify(item))
                   navigation.navigate('Import', {
                     item: item,
-                  })
-                }
+                  });
+                }}
               />
             </View>
           </View>

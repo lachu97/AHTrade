@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Dialog} from 'react-native-paper';
 import AHTextInput from '../../../Components/AHTextInput';
+import {showMiddleFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
 
 const BidDialog = ({
   isVisible,
@@ -57,6 +58,10 @@ export const QuantityDialog = ({
       <Dialog.Actions>
         <Button
           onPress={() => {
+            if (text.toString() === '') {
+              showMiddleFeedBack(`${title}`);
+              return;
+            }
             hideDialog();
             onSuccess(text);
           }}>

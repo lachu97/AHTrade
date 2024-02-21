@@ -9,7 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "clean": "npx react-native start --reset-cache",
-    "reactotron": "adb reverse tcp:9090 tcp:9090"
+    "reactotron": "adb reverse tcp:9090 tcp:9090",
+    "production-android": "appcenter codepush release-react -a Atlashorizon/AHTrade -d Production"
   },
   "dependencies": {
     "@nhost/react": "^2.0.30",

@@ -1,5 +1,5 @@
 /**
- * AHTrade Commodity Trading App
+ * AHTrade B2B Commodity Trading App
  * https://github.com/lachu97/AHTrade
  *
  * @format
@@ -18,6 +18,7 @@ import {
   getNotificationStatus,
   setNotificationStatus,
 } from './AppModules/Notifications/AccessFile';
+import codePush from 'react-native-code-push';
 import Config from 'react-native-config';
 import {requestUserPermission} from './AppModules/Notifications/Notifications';
 const nhost = new NhostClient({
@@ -31,9 +32,15 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 const getDeploymentKey = () => {
-  let productionKey = '7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ'
-  let stagingKey = 'aa_j5MUXS3mrIkwbKB_clv8rYizgMY-NXGnNC'
-  return productionKey
+  let productionKey = '7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ';
+  let stagingKey = 'aa_j5MUXS3mrIkwbKB_clv8rYizgMY-NXGnNC';
+  return productionKey;
+};
+
+const codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_START,
+  installMode: codePush.InstallMode.IMMEDIATE,
+  deploymentKey: getDeploymentKey(),
 }
 
 function App(): JSX.Element {
@@ -63,4 +70,4 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
+export default codePush(codePushOptions)(App);

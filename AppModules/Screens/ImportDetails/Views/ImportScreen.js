@@ -138,6 +138,7 @@ const ImportScreen = () => {
   const [contactDetails, setContactDetails] = useState([]);
   const [quantity, setQuantity] = useState(item.quantity);
   const [showQuantity, setShowQuantity] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
   const [paymentDialog, setPaymentDialog] = useState(false);
   const [contactsDialog, setContactsDialog] = useState(false);
@@ -174,7 +175,14 @@ const ImportScreen = () => {
         setContactDetails(result);
       }
     };
+    const showInfoMessage = setTimeout(() => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setShowInfo(true);
+    }, 2549);
     getContactDetails();
+    return () => {
+      clearTimeout(showInfoMessage);
+    };
   }, []);
   const onPressContactDetails = item => {
     setContactDetails(item);
@@ -199,7 +207,9 @@ const ImportScreen = () => {
   };
   const onPriceSuccess = itm => {
     if (itm < item.price) {
-      showBottomFeedBack(`Enter Price greater than Minimum price of $${item.price}`);
+      showBottomFeedBack(
+        `Enter Price greater than Minimum price of $${item.price}`,
+      );
       return;
     }
     setPrice(itm);
@@ -282,9 +292,14 @@ const ImportScreen = () => {
         }}>
         <ScrollView style={{marginBottom: 35, flex: 1}}>
           <InfoBanner
-            isVisible={true}
+            isVisible={showInfo}
             message={INFO_TEXT}
-            onDismiss={() => {}}
+            onDismiss={() => {
+              LayoutAnimation.configureNext(
+                LayoutAnimation.Presets.easeInEaseOut,
+              );
+              setShowInfo(false);
+            }}
           />
 
           <List.Section>

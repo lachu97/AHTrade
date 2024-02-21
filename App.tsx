@@ -11,7 +11,7 @@ import AppNavigation from './AppModules/Navigation/Appnavigation';
 import store from './AppModules/Redux/Store';
 import {Provider} from 'react-redux';
 import {PaperProvider} from 'react-native-paper';
-import {NhostClient, NhostProvider} from '@nhost/react';
+import {NhostClient} from '@nhost/react';
 import {APP_REGION, APP_SUB_DOMAIN} from './AppModules/NHost/Variables';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {
@@ -30,6 +30,11 @@ if (
 ) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
+const getDeploymentKey = () => {
+  let productionKey = '7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ'
+  return productionKey
+}
+
 function App(): JSX.Element {
   useEffect(() => {
     const requestNotificationPermission = async () => {

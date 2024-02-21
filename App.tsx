@@ -32,6 +32,7 @@ if (
 }
 const getDeploymentKey = () => {
   let productionKey = '7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ'
+  let stagingKey = 'aa_j5MUXS3mrIkwbKB_clv8rYizgMY-NXGnNC'
   return productionKey
 }
 

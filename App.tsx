@@ -34,6 +34,8 @@ if (
 const getDeploymentKey = () => {
   let productionKey = '7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ';
   let stagingKey = 'aa_j5MUXS3mrIkwbKB_clv8rYizgMY-NXGnNC';
+  let productKeyIOS = 'mFm5CoS2SdCOlnepTTdfmKp5uDJoAlLkiL4qO';
+  let stagingKeyIOS = 'j4ry2pVx1kj69Gj7SMzwOmNM9F4ycjp7XaWM7';
   return productionKey;
 };
 
@@ -41,7 +43,7 @@ const codePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
   installMode: codePush.InstallMode.IMMEDIATE,
   deploymentKey: getDeploymentKey(),
-}
+};
 
 function App(): JSX.Element {
   useEffect(() => {

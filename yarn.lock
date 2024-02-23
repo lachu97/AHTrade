@@ -6871,6 +6871,11 @@ react-native-linear-gradient@^2.7.3:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz#9a116649f86d74747304ee13db325e20b21e564f"
   integrity sha512-KflAXZcEg54PXkLyflaSZQ3PJp4uC4whM7nT/Uot9m0e/qxFV3p6uor1983D1YOBJbJN7rrWdqIjq0T42jOJyA==
 
+react-native-mmkv@^2.12.1:
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.12.1.tgz#4b5f219bf0965dd676f9e595a3f172d9b61f219d"
+  integrity sha512-VB0JQc4JoEmmeK134skkce0wwNNUPPLfjO1eXM3o5NS8oeutv2mbUzoLYM3o/1wSIJkMETmT2t0JT4S378RZzA==
+
 react-native-paper@^5.9.1:
   version "5.12.1"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-5.12.1.tgz#0c3211f78b4d29a110aa168e6541cfb0a2c6a071"
@@ -7012,6 +7017,11 @@ reactotron-core-contract@0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/reactotron-core-contract/-/reactotron-core-contract-0.1.1.tgz#3fc0e72e17a71c830c752985b5d2a5dd3df79166"
   integrity sha512-NmmojG6Pz97NJe8ov0oZgIxxaaEkXsVAiFOeFTI4QH03qMqAs6d28nUd5bTrKLipxWy5rPr4PXITE7AHdT0kaw==
+
+reactotron-react-native-mmkv@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/reactotron-react-native-mmkv/-/reactotron-react-native-mmkv-0.2.5.tgz#f5ca0129323eef033cb529676bb6c0b770086f6a"
+  integrity sha512-dqnXK/1Mh4jAynIyv/M2kpgG52rdeyEZoJp4v8f08t9vbbH4ahyNgrOCbKrEkF16+wdDdjW4io/ZJNs/tXyNeA==
 
 reactotron-react-native@^5.0.3:
   version "5.0.4"

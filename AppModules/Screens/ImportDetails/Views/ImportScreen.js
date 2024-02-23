@@ -33,7 +33,7 @@ import {
 import PackagingDialog, {
   packagingItems,
 } from '../MicroComponents/PackagingDialog';
-import {isIos} from '../../../HelperFuntions/helpers';
+import {getLongName, isIos} from '../../../HelperFuntions/helpers';
 import {
   showBottomFeedBack,
   showMiddleFeedBack,
@@ -136,7 +136,7 @@ const ImportScreen = () => {
   const navigation = useNavigation();
   let item = route.params?.item;
   const [contactDetails, setContactDetails] = useState([]);
-  const [quantity, setQuantity] = useState(item.quantity);
+  const [quantity, setQuantity] = useState(item.moq);
   const [showQuantity, setShowQuantity] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
@@ -304,21 +304,41 @@ const ImportScreen = () => {
 
           <List.Section>
             <List.Subheader style={importStyles.titleStyles}>
-              Place Order for {item.name}
+              Commodity Name : {item.title.toUpperCase()}
             </List.Subheader>
             <Sections
               value={quantity}
-              name={'Quantity(MT)'}
+              name={`Quantity(${item.unit})`}
               onPress={() => {
                 showDialog();
               }}
             />
-            <Sections
-              value={price}
-              name={'Price($)'}
-              onPress={() => {
-                showPriceDialog();
+            {/*<Sections*/}
+            {/*  value={price}*/}
+            {/*  name={'Price($)'}*/}
+            {/*  onPress={() => {*/}
+            {/*    showPriceDialog();*/}
+            {/*  }}*/}
+            {/*/>*/}
+            <List.Item
+              title={'Price'}
+              titleStyle={{
+                color: MD2Colors.white,
+                marginHorizontal: 25,
+                fontSize: 17,
+                fontWeight: '500',
               }}
+              right={() => (
+                <Text
+                  style={{
+                    color: MD2Colors.white,
+                    marginHorizontal: 25,
+                    fontSize: 14.5,
+                    fontWeight: 'bold',
+                  }}>
+                  $ {price} / {getLongName(item.unit)}
+                </Text>
+              )}
             />
           </List.Section>
           <List.Section>
@@ -369,7 +389,7 @@ const ImportScreen = () => {
           </List.Section>
           <List.Section>
             <List.Subheader style={importStyles.titleStyles}>
-              Shipment Mode {shipment.toUpperCase()}
+              Shipment Mode {shipment?.toUpperCase()}
             </List.Subheader>
             <SegmentedButtons
               value={shipment}

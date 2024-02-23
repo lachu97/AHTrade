@@ -38,7 +38,7 @@ const ProductCard = ({item, navigation}) => {
           }}
           resizeMode={FastImage.resizeMode.contain}
         />
-        <AHText variant={'bodyLarge'} numberOfLines={1} name={item.name} />
+        <AHText variant={'bodyLarge'} numberOfLines={1} style={{marginVertical:3,fontSize:16.5,fontWeight:'500'}} name={item.title} />
         <View
           style={{
             flex: 1,

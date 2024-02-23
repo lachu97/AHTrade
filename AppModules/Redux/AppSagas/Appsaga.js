@@ -9,6 +9,13 @@ import {
   addProductData,
 } from '../Reducers/CategoryReducer';
 import {data} from '../../MockData/MockDatas';
+import {showBottomFeedBack} from '../../Components/Toasts/ToastsFeedBack';
+import {
+  flushCache,
+  getCategorysDetails,
+  getProductsDetails,
+  storeProductsDetails,
+} from '../../Storage/AppLocalStorage/ProductsStorage';
 
 function* addHomeSaga() {
   try {
@@ -38,30 +45,40 @@ function* addSomething(action) {
 function* getCategoryData() {
   try {
     yield delay(500);
-    // const {data, error} =
-    // yield supaBaseClient.from('category').select('*');
-    const data = [
-      {
-        id: 1,
-        name: 'Rice',
-        image:
-          'https://ik.imagekit.io/atlas17/category/rice.png?updatedAt=1707916499116',
-      },
-      {
-        id: 2,
-        name: 'Tea',
-        image:
-          'https://ik.imagekit.io/atlas17/category/green-tea.png?updatedAt=1707916339548',
-      },
-      {
-        id: 3,
-        name: 'Coffee',
-        image:
-          'https://ik.imagekit.io/atlas17/category/beans.png?updatedAt=1707916316753',
-      },
-    ];
-    if (data) {
-      yield put(addCategoryData(data));
+    let cacheResult = getCategorysDetails();
+    if (cacheResult) {
+      console.log('iam inside');
+      yield put(addCategoryData(JSON.parse(cacheResult)));
+      return;
+    }
+    const {data: category, error} = yield supaBaseClient
+      .from('category')
+      .select('*');
+    if (error) {
+      showBottomFeedBack(`error in fetching ${error.message}`);
+    }
+    // const data = [
+    //   {
+    //     id: 1,
+    //     name: 'Rice',
+    //     image:
+    //       'https://ik.imagekit.io/atlas17/category/rice.png?updatedAt=1707916499116',
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'Tea',
+    //     image:
+    //       'https://ik.imagekit.io/atlas17/category/green-tea.png?updatedAt=1707916339548',
+    //   },
+    //   {
+    //     id: 3,
+    //     name: 'Coffee',
+    //     image:
+    //       'https://ik.imagekit.io/atlas17/category/beans.png?updatedAt=1707916316753',
+    //   },
+    // ];
+    if (category) {
+      yield put(addCategoryData(category));
     }
   } catch (e) {}
 }
@@ -69,9 +86,29 @@ function* getCategoryData() {
 function* getProductData() {
   try {
     yield delay(500);
-    let prodData = data[1].productData;
-    if (prodData) {
-      yield put(addProductData(prodData));
+    // let prodData = data[1].productData;
+    let cacheResult = getProductsDetails();
+    if (cacheResult) {
+      console.log('iam inside');
+      yield put(addProductData(JSON.parse(cacheResult)));
+      return;
+    }
+
+    let {data: products, error} = yield supaBaseClient
+      .from('products')
+      .select('*')
+      .range(0, 10);
+    if (error) {
+      showBottomFeedBack(`error in fetching ${error.message}`);
+    }
+    // if (data) {
+    //   yield put(addProductData(data));
+    // }
+    console.log('Data ==>' + JSON.stringify(data));
+    console.log('Products ==>' + JSON.stringify(products));
+    if (products) {
+      yield storeProductsDetails(products);
+      yield put(addProductData(products));
     }
   } catch (e) {}
 }

@@ -13,3 +13,15 @@ export function validateEmail(email) {
   // Test the email against the regex
   return email.trim() !== '' && emailRegex.test(email);
 }
+const objectMap = {MT: 'Metric Tonne', QT: 'Quintal', KG: 'Kilogram'};
+export function getLongName(value) {
+  const key = value.toUpperCase();
+
+  // Check if the key exists in the objectMap
+  if (objectMap.hasOwnProperty(key)) {
+    return objectMap[key];
+  } else {
+    // Return a default value or handle the case when the key is not found
+    return 'Not found';
+  }
+}

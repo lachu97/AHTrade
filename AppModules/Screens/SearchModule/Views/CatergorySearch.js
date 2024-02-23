@@ -1,5 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, LayoutAnimation, View} from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {
+  Animated,
+  FlatList,
+  LayoutAnimation,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import styles from '../styles/CategorySearchStyles';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AHText from '../../../Components/AHText';
@@ -10,6 +16,7 @@ import {
   MD2Colors,
   MD3Colors,
   TouchableRipple,
+  Button,
 } from 'react-native-paper';
 import SearchCardItem from '../MicroComponents/Card';
 import BottomBar, {
@@ -20,6 +27,7 @@ import {isIos} from '../../../HelperFuntions/helpers';
 import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 import {cleanFilterProductData} from '../../../Redux/Reducers/CategoryReducer';
+import AHButton from '../../../Components/AHButton';
 const searchByIDAction = id => ({
   type: 'GET_PRODUCT_BY_ID',
   payload: {
@@ -93,15 +101,26 @@ const CategorySearch = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const dispatch = useDispatch();
+  const {width, height} = useWindowDimensions();
   const [selected, setSelected] = useState(route.params?.name);
   const [selectedID, setSelectedID] = useState(null);
   const categoryData = useSelector(state => state.category.categoryData);
-  const prodData = useSelector(state => state.category.filterData);
+  const filterData = useSelector(state => state.category.filterData);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeIn = useCallback(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000, // Adjust the duration as needed
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
   useEffect(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+    dispatch(searchByIDAction(route.params?.id));
     return () => {
       dispatch(cleanFilterProductData());
     };
-  }, [dispatch]);
+  }, [dispatch, route.params?.id]);
   useEffect(() => {
     if (selectedID === null) {
       return;
@@ -110,11 +129,13 @@ const CategorySearch = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
 
     dispatch(searchByIDAction(selectedID));
-  }, [dispatch, selectedID]);
+    fadeIn();
+  }, [dispatch, fadeIn, selectedID]);
   const onChipPress = item => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setSelected(item.name);
     setSelectedID(item.id);
+    fadeIn();
   };
   const renderSearchItem = ({item}) => {
     return <SearchCardItem navigation={navigation} item={item} />;
@@ -127,7 +148,7 @@ const CategorySearch = () => {
         onChipPress={onChipPress}
         categories={categoryData}
       />
-      <View
+      <Animated.View
         style={{
           flex: 1,
           backgroundColor: MD2Colors.transparent,
@@ -139,26 +160,42 @@ const CategorySearch = () => {
         <FlatList
           keyExtractor={(_, idx) => `${idx}`}
           contentContainerStyle={{padding: 2}}
-          data={prodData}
+          data={filterData}
           renderItem={renderSearchItem}
           ListEmptyComponent={() => (
             <View
               style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-              <Text
-                style={{
-                  flex: 1,
-                  color: MD2Colors.white,
-                  textAlign: 'center',
-                  fontSize: 15,
-                  alignSelf: 'center',
-                }}>
-                No Product Available for this Category,Try Selecting for Other
-                Category
-              </Text>
+              {filterData.length === 0 ? (
+                <View>
+                  <Text
+                    style={{
+                      flex: 1,
+                      color: MD2Colors.white,
+                      textAlign: 'center',
+                      fontSize: 15,
+                      alignSelf: 'center',
+                      padding: 8,
+                    }}>
+                    No Product Available for this Category,Try Selecting Other
+                    Category
+                  </Text>
+                  <Button
+                    style={{
+                      width: width * 0.51,
+                      borderRadius: 8,
+                      borderColor: MD2Colors.teal100,
+                      borderWidth: 1,
+                      alignSelf: 'center',
+                      marginVertical: 5,
+                    }}
+                    onPress={() => navigation.navigate('Recommendation')}>Suggest Products
+                  </Button>
+                </View>
+              ) : null}
             </View>
           )}
         />
-      </View>
+      </Animated.View>
       <BottomBar navigation={navigation} activeTab={'Category'} />
     </View>
   );

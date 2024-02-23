@@ -2,7 +2,6 @@ import React from 'react';
 import {Dimensions, View, StyleSheet} from 'react-native';
 import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AHButton from '../../../Components/AHButton';
 
 const width = Dimensions.get('window').width;
@@ -10,6 +9,7 @@ const height = Dimensions.get('window').height;
 const cardWidth = width * 0.93;
 const cardHeight = Math.floor(height / 5);
 const SearchCardItem = ({navigation, item}) => {
+  console.log(`Item === ${JSON.stringify(item)}`);
   return (
     <TouchableRipple
       onPress={() => {
@@ -47,7 +47,7 @@ const SearchCardItem = ({navigation, item}) => {
               variant={'headlineMedium'}
               ellipsizeMode={'tail'}
               numberOfLines={1}>
-              {item.name}
+              {item.title}
             </Text>
             {/*<Text*/}
             {/*  style={{width: cardWidth / 2}}*/}
@@ -62,9 +62,21 @@ const SearchCardItem = ({navigation, item}) => {
                 alignItems: 'center',
                 marginVertical: 5,
               }}>
-              <Text variant={'bodySmall'}>MOQ : {item.quantity}</Text>
-              <Text variant={'bodySmall'}>Min Price : $ {item.price}</Text>
+              <Text variant={'bodySmall'}>
+                MOQ :{item.moq}
+                {item.unit}
+              </Text>
+              <Text variant={'bodySmall'}>
+                Price : ${item.price}/{item.unit}
+              </Text>
             </View>
+            <Text
+              style={{width: cardWidth / 2}}
+              variant={'bodySmall'}
+              ellipsizeMode={'tail'}
+              numberOfLines={1}>
+              Shipment by Air or Ocean
+            </Text>
             <View
               style={{
                 flex: 1,
@@ -79,7 +91,7 @@ const SearchCardItem = ({navigation, item}) => {
                 name={'Import'}
                 onPress={() => {
                   console.log('iam pressed fr import');
-                  console.log(JSON.stringify(item))
+                  console.log(JSON.stringify(item));
                   navigation.navigate('Import', {
                     item: item,
                   });

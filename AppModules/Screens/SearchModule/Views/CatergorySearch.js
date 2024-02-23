@@ -5,7 +5,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import AHText from '../../../Components/AHText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  Card,
+  Text,
   Chip,
   MD2Colors,
   MD3Colors,
@@ -19,6 +19,7 @@ import {data} from '../../../MockData/MockDatas';
 import {isIos} from '../../../HelperFuntions/helpers';
 import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
+import {cleanFilterProductData} from '../../../Redux/Reducers/CategoryReducer';
 const searchByIDAction = id => ({
   type: 'GET_PRODUCT_BY_ID',
   payload: {
@@ -96,7 +97,11 @@ const CategorySearch = () => {
   const [selectedID, setSelectedID] = useState(null);
   const categoryData = useSelector(state => state.category.categoryData);
   const prodData = useSelector(state => state.category.filterData);
-
+  useEffect(() => {
+    return () => {
+      dispatch(cleanFilterProductData());
+    };
+  }, [dispatch]);
   useEffect(() => {
     if (selectedID === null) {
       return;
@@ -136,6 +141,22 @@ const CategorySearch = () => {
           contentContainerStyle={{padding: 2}}
           data={prodData}
           renderItem={renderSearchItem}
+          ListEmptyComponent={() => (
+            <View
+              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+              <Text
+                style={{
+                  flex: 1,
+                  color: MD2Colors.white,
+                  textAlign: 'center',
+                  fontSize: 15,
+                  alignSelf: 'center',
+                }}>
+                No Product Available for this Category,Try Selecting for Other
+                Category
+              </Text>
+            </View>
+          )}
         />
       </View>
       <BottomBar navigation={navigation} activeTab={'Category'} />

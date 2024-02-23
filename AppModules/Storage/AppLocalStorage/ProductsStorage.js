@@ -4,6 +4,27 @@ import {MMKV} from 'react-native-mmkv';
 export const storage = new MMKV();
 let PRODUCTS_KEY = 'product_details_keys';
 let CATEGORY_KEY = 'category_details_keys';
+let PRICEDETAILS_KEY = 'price_details_keys';
+
+const storePriceDetails = async data => {
+  try {
+    await storage.set(PRICEDETAILS_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.error(e.message());
+  }
+};
+const getPriceDetails = () => {
+  try {
+    let hasData = storage.contains(PRICEDETAILS_KEY);
+    if (hasData) {
+      return storage.getString(PRICEDETAILS_KEY);
+    }
+    return false;
+  } catch (e) {
+    console.error(e.message());
+    return false;
+  }
+};
 const storeCategoryDetails = async data => {
   try {
     await storage.set(CATEGORY_KEY, JSON.stringify(data));
@@ -11,7 +32,7 @@ const storeCategoryDetails = async data => {
     console.error(e.message());
   }
 };
-const getCategorysDetails = () => {
+const getCategoryDetails = () => {
   try {
     let hasData = storage.contains(CATEGORY_KEY);
     if (hasData) {
@@ -49,6 +70,8 @@ export {
   getProductsDetails,
   storeProductsDetails,
   storeCategoryDetails,
-  getCategorysDetails,
+  getCategoryDetails,
   flushCache,
+  getPriceDetails,
+  storePriceDetails,
 };

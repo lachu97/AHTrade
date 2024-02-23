@@ -6,14 +6,17 @@ import {supaBaseClient} from '../../SupaBase/Client/supabaseClient';
 import {
   addCategoryData,
   addFilterProductData,
+  addPriceDetailsData,
   addProductData,
 } from '../Reducers/CategoryReducer';
 import {data} from '../../MockData/MockDatas';
 import {showBottomFeedBack} from '../../Components/Toasts/ToastsFeedBack';
 import {
-  flushCache,
-  getCategorysDetails,
+  getCategoryDetails,
+  getPriceDetails,
   getProductsDetails,
+  storeCategoryDetails,
+  storePriceDetails,
   storeProductsDetails,
 } from '../../Storage/AppLocalStorage/ProductsStorage';
 
@@ -42,12 +45,12 @@ function* addSomething(action) {
     );
   }
 }
-function* getCategoryData() {
+function* getCategoryDataSaga() {
   try {
     yield delay(500);
-    let cacheResult = getCategorysDetails();
+    let cacheResult = getCategoryDetails();
     if (cacheResult) {
-      console.log('iam inside');
+      console.log('iam inside category Data');
       yield put(addCategoryData(JSON.parse(cacheResult)));
       return;
     }
@@ -56,6 +59,7 @@ function* getCategoryData() {
       .select('*');
     if (error) {
       showBottomFeedBack(`error in fetching ${error.message}`);
+      return;
     }
     // const data = [
     //   {
@@ -78,12 +82,13 @@ function* getCategoryData() {
     //   },
     // ];
     if (category) {
+      yield storeCategoryDetails(category);
       yield put(addCategoryData(category));
     }
   } catch (e) {}
 }
 
-function* getProductData() {
+function* getProductDataSaga() {
   try {
     yield delay(500);
     // let prodData = data[1].productData;
@@ -100,27 +105,50 @@ function* getProductData() {
       .range(0, 10);
     if (error) {
       showBottomFeedBack(`error in fetching ${error.message}`);
+      return;
     }
-    // if (data) {
-    //   yield put(addProductData(data));
-    // }
-    console.log('Data ==>' + JSON.stringify(data));
-    console.log('Products ==>' + JSON.stringify(products));
     if (products) {
       yield storeProductsDetails(products);
       yield put(addProductData(products));
     }
   } catch (e) {}
 }
-function* filterProductsByID(action) {
+function* filterProductsByIDSaga(action) {
   try {
     yield delay(10);
     const {id} = action.payload;
-    let productResult = data[1].productData.filter(
-      itm => itm.categoryId === id,
-    );
-    if (productResult) {
-      yield put(addFilterProductData(productResult));
+    let cacheResult = getProductsDetails();
+    if (cacheResult) {
+      let productResult = JSON.parse(cacheResult).filter(
+        itm => itm?.catID === id,
+      );
+      if (productResult.length > 0) {
+        yield put(addFilterProductData(productResult));
+      } else {
+        yield put(addFilterProductData([]));
+      }
+    }
+  } catch (e) {}
+}
+
+function* getPriceDetailsSage() {
+  try {
+    let cacheResult = getPriceDetails();
+    if (cacheResult) {
+      console.log('iam inside');
+      yield put(addPriceDetailsData(JSON.parse(cacheResult)));
+      return;
+    }
+    let {data: priceDetails, error} = yield supaBaseClient
+      .from('priceDetails')
+      .select('*');
+    if (error) {
+      showBottomFeedBack(`error in fetching ${error.message}`);
+      return;
+    }
+    if (priceDetails) {
+      yield storePriceDetails(priceDetails);
+      yield put(addPriceDetailsData(priceDetails));
     }
   } catch (e) {}
 }
@@ -128,9 +156,10 @@ function* rootSaga() {
   yield all([
     takeLatest('ADDHOME', addHomeSaga),
     takeLatest('SOMETHI', addSomething),
-    takeLatest('GET_CATEGORY', getCategoryData),
-    takeLatest('GET_PRODUCT', getProductData),
-    takeLatest('GET_PRODUCT_BY_ID', filterProductsByID),
+    takeLatest('GET_CATEGORY', getCategoryDataSaga),
+    takeLatest('GET_PRODUCT', getProductDataSaga),
+    takeLatest('GET_PRODUCT_BY_ID', filterProductsByIDSaga),
+    takeLatest('GET_PRICE_DETAILS', getPriceDetailsSage),
   ]);
 }
 function* combineSaga() {

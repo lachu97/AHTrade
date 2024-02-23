@@ -40,6 +40,8 @@ import {
 } from '../../../Components/Toasts/ToastsFeedBack';
 import InfoBanner from '../../../Components/Banners/InfoBanner';
 import {INFO_TEXT} from '../../../Constants/AppConstants';
+import {useDispatch, useSelector} from 'react-redux';
+import LottieView from 'lottie-react-native';
 const width = Dimensions.get('window').width;
 const incoTermsList = [
   {
@@ -131,9 +133,11 @@ const Sections = ({value, name, onPress}) => {
     </View>
   );
 };
+const getPriceDetailsAction = () => ({type: 'GET_PRICE_DETAILS'});
 const ImportScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   let item = route.params?.item;
   const [contactDetails, setContactDetails] = useState([]);
   const [quantity, setQuantity] = useState(item.moq);
@@ -143,12 +147,25 @@ const ImportScreen = () => {
   const [paymentDialog, setPaymentDialog] = useState(false);
   const [contactsDialog, setContactsDialog] = useState(false);
   const [price, setPrice] = useState(item.price);
+  const basePrice = item.price;
   const [packaging, setPackaging] = useState('');
   const [packagingDialog, setPackagingDialog] = useState(false);
   const [payment, setPayment] = useState('');
   const [shipment, setShipment] = useState('');
-  const [incoterm, setIncoterm] = useState('');
+  const [incotermItem, setIncoterm] = useState({});
   const [checked, setChecked] = React.useState(false);
+  const priceDetails = useSelector(state => state.category.priceDetails);
+  useEffect(() => {
+    if (Object.keys(incotermItem).length === 0) {
+      return;
+    }
+    console.log(`Value of Percentage = ${incotermItem.pricePercentage}`);
+    let newPrice = basePrice + (basePrice * incotermItem.pricePercentage) / 100;
+    setPrice(Math.floor(newPrice));
+  }, [basePrice, incotermItem]);
+  useEffect(() => {
+    dispatch(getPriceDetailsAction());
+  }, []);
   function checkForEmptyProperties(obj) {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -249,7 +266,7 @@ const ImportScreen = () => {
       price,
       quantity,
       packaging,
-      incoterm,
+      incoterm: incotermItem.incoterm,
       payment,
       mode: shipment,
       contact: contactObject,
@@ -271,7 +288,7 @@ const ImportScreen = () => {
   }, [
     checked,
     contactDetails,
-    incoterm,
+    incotermItem,
     item,
     navigation,
     packaging,
@@ -425,10 +442,10 @@ const ImportScreen = () => {
           </List.Section>
           <List.Section style={{width: width * 0.95}}>
             <List.Subheader style={importStyles.titleStyles}>
-              Incoterm {incoterm}
+              Incoterm : {incotermItem.incoterm}
             </List.Subheader>
             <FlatList
-              data={incoTermsList}
+              data={priceDetails}
               style={{
                 marginVertical: 5,
               }}
@@ -441,25 +458,47 @@ const ImportScreen = () => {
                         ? MD2Colors.white
                         : MD3Colors.primary20,
                       borderRadius: 4,
-                      borderWidth: incoterm === item.value ? 1.5 : 0,
+                      borderWidth:
+                        incotermItem.incoterm === item.incoterm ? 1.5 : 0,
                       // borderColor: MD3Colors.tertiary20,
                     }}
                     mode={'outlined'}
                     elevated={true}
                     textStyle={{
-                      fontSize: incoterm === item.value ? 15.4 : 14.1,
-                      fontWeight: incoterm === item.value ? 'bold' : 400,
+                      fontSize:
+                        incotermItem.incoterm === item.incoterm ? 15.4 : 14.1,
+                      fontWeight:
+                        incotermItem.incoterm === item.incoterm
+                          ? 'bold'
+                          : '400',
                       color: isIos() ? MD2Colors.blue900 : MD2Colors.white,
                     }}
-                    icon={incoterm === item.value ? 'check-decagram' : null}
+                    icon={
+                      incotermItem.incoterm === item.incoterm
+                        ? 'check-decagram'
+                        : null
+                    }
                     onPress={() => {
                       LayoutAnimation.configureNext(
                         LayoutAnimation.Presets.linear,
                       );
-                      setIncoterm(item.value);
+                      setIncoterm(item);
                     }}>
-                    {item.label}
+                    {item.incoterm}
                   </Chip>
+                );
+              }}
+              ListEmptyComponent={() => {
+                return (
+                  <LottieView
+                    source={require('../../../assets/anim/myLoading8.json')}
+                    autoPlay
+                    loop
+                    style={{
+                      height: 64,
+                      alignSelf: 'center',
+                    }}
+                  />
                 );
               }}
               horizontal={true}

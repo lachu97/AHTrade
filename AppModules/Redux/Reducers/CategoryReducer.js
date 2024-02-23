@@ -1,9 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {data} from "../../MockData/MockDatas";
+import {data} from '../../MockData/MockDatas';
+import {getProductsDetails} from '../../Storage/AppLocalStorage/ProductsStorage';
 const INITIAL_STATE = {
   categoryData: [],
-  productData:[],
-  filterData: data[1].productData
+  productData: [],
+  filterData: [],
+  priceDetails: []
 };
 
 const categoryReducer = createSlice({
@@ -19,8 +21,20 @@ const categoryReducer = createSlice({
     addFilterProductData: (state, action) => {
       state.filterData = action.payload;
     },
+    cleanFilterProductData: (state, action) => {
+      state.filterData = [];
+    },
+    addPriceDetailsData: (state, action) => {
+      state.priceDetails = action.payload;
+    },
   },
 });
 
-export const {addCategoryData,addFilterProductData,addProductData} = categoryReducer.actions;
+export const {
+  addCategoryData,
+  cleanFilterProductData,
+  addFilterProductData,
+  addProductData,
+  addPriceDetailsData,
+} = categoryReducer.actions;
 export default categoryReducer.reducer;

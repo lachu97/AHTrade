@@ -33,8 +33,8 @@ const ProductDetail = () => {
 
   return (
     <View style={productStyles.container}>
-      <HeaderComponent showHeader={false} name={'Product Detail'} />
-      <ScrollView style={{flex: 1, bottom: 54}}>
+      <HeaderComponent showHeader={true} name={`${item.title}`} />
+      <ScrollView style={{flex: 1, bottom: 54, marginTop: 54}}>
         <FastImage
           style={{
             width: '95%',

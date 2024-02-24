@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, DataTable} from 'react-native-paper';
+import {Button, Card, DataTable} from 'react-native-paper';
 import {useWindowDimensions} from 'react-native';
 
 const CheckoutCardComponent = ({result}) => {
@@ -54,7 +54,7 @@ const CheckoutCardComponent = ({result}) => {
   );
 };
 
-export const ContactDetailsComponent = ({contact}) => {
+export const ContactDetailsComponent = ({contact, navigation}) => {
   const {width} = useWindowDimensions();
 
   return (
@@ -76,6 +76,9 @@ export const ContactDetailsComponent = ({contact}) => {
           );
         })}
       </Card.Content>
+      <Card.Actions>
+        <Button style={{borderRadius:10}} icon={'account-edit'} onPress={() => navigation.goBack()}>Edit Details</Button>
+      </Card.Actions>
     </Card>
   );
 };

@@ -188,6 +188,7 @@ const CategorySearch = () => {
                       alignSelf: 'center',
                       marginVertical: 5,
                     }}
+                    icon={'book-edit'}
                     onPress={() => navigation.navigate('Recommendation')}>Suggest Products
                   </Button>
                 </View>

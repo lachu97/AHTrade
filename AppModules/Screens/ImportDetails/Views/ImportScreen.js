@@ -282,7 +282,7 @@ const ImportScreen = () => {
       return;
     }
 
-    navigation.navigate('Success', {
+    navigation.navigate('Checkout', {
       item: resultItem,
     });
   }, [
@@ -660,7 +660,7 @@ const ImportScreen = () => {
             alignContent: 'center',
           }}>
           <AHButton
-            name={'Place Import Order'}
+            name={'Checkout'}
             icon={'export'}
             style={{
               width: width * 0.9,

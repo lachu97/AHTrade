@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MMKV} from 'react-native-mmkv';
+import {LAST_CACHE_UPDATE} from "../../../App";
 
 export const storage = new MMKV();
 let PRODUCTS_KEY = 'product_details_keys';
@@ -64,7 +65,8 @@ const getProductsDetails = () => {
   }
 };
 const flushCache = () => {
-  storage.clearAll();
+  const keys = storage.getAllKeys().filter(item => item !== LAST_CACHE_UPDATE);
+  keys.forEach(key => storage.delete(key));
 };
 export {
   getProductsDetails,

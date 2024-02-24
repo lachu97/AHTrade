@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dimensions, FlatList, Image, Pressable, View} from 'react-native';
 import AHText from '../AHText';
-import {Surface, Avatar, TouchableRipple, MD2Colors} from 'react-native-paper';
+import {Surface, Text, TouchableRipple, MD2Colors} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import AHButton from '../AHButton';
 import FastImage from 'react-native-fast-image';
@@ -38,7 +38,12 @@ const ProductCard = ({item, navigation}) => {
           }}
           resizeMode={FastImage.resizeMode.contain}
         />
-        <AHText variant={'bodyLarge'} numberOfLines={1} style={{marginVertical:3,fontSize:16.5,fontWeight:'500'}} name={item.title} />
+        <AHText
+          variant={'bodyLarge'}
+          numberOfLines={1}
+          style={{marginVertical: 3, fontSize: 16.5, fontWeight: '500'}}
+          name={item.title}
+        />
         <View
           style={{
             flex: 1,
@@ -108,6 +113,19 @@ const ProductList = ({data, ListHeader}) => {
               width: width,
             }}
           />
+        </View>
+      )}
+      ListFooterComponent={() => (
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginVertical: 10,
+          }}>
+          {data.length > 0 ? (
+            <Text style={{color: MD2Colors.white}}>That's all Folks...!!</Text>
+          ) : null}
         </View>
       )}
       keyExtractor={(item, index) => `${index}`}

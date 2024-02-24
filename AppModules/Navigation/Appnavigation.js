@@ -16,13 +16,11 @@ import Success from '../Screens/Checkout/Views/Success';
 import ImportScreen from '../Screens/ImportDetails/Views/ImportScreen';
 import BidSuccessScreen from '../Screens/PlaceBid/Views/BidSuccessScreen';
 import MyOrdersScreen from '../Screens/MyOrders/Views/MyOrdersScreen';
-import RecommendationScreen from "../Screens/Misc/Views/RecommedationScreen";
-const screens = [
-  {name: 'Home', component: HomeScreen},
-  {name: 'Detail', component: DetailScreen},
-  {name: 'Splash', component: SplashScreen},
-  {name: 'Chat', component: ChatScreen},
-];
+import RecommendationScreen from '../Screens/Misc/Views/RecommedationScreen';
+import CheckoutScreen from '../Screens/Checkout/Views/Checkout';
+const screenAnimation = {
+  animation: 'slide_from_right',
+};
 const Stack = createNativeStackNavigator();
 const AuthNavigation = () => {
   return (
@@ -32,12 +30,12 @@ const AuthNavigation = () => {
       <Stack.Screen
         name={'Login'}
         component={Login}
-        options={{animation: 'slide_from_right'}}
+        options={screenAnimation}
       />
       <Stack.Screen
         name={'Register'}
         component={Register}
-        options={{animation: 'slide_from_right'}}
+        options={screenAnimation}
       />
     </Stack.Navigator>
   );
@@ -66,20 +64,81 @@ const AppNavigation = () => {
       <Stack.Navigator
         screenOptions={{headerShown: false}}
         initialRouteName={'Splash'}>
-        <Stack.Screen name={'Home'} component={HomeScreen} />
-        <Stack.Screen name={'Detail'} component={DetailScreen} />
-        <Stack.Screen name={'Splash'} component={SplashScreen} />
-        <Stack.Screen name={'Chat'} component={ChatScreen} />
-        <Stack.Screen name={'Account'} component={AccountScreen} />
-        <Stack.Screen name={'Success'} component={Success} />
-        <Stack.Screen name={'ProductDetail'} component={ProductDetail} />
-        <Stack.Screen name={'PlaceBid'} component={PlaceBid} />
-        <Stack.Screen name={'Import'} component={ImportScreen} />
-        <Stack.Screen name={'BidHistory'} component={BidHistory} />
-        <Stack.Screen name={'MyOrders'} component={MyOrdersScreen} />
-        <Stack.Screen name={'BidSuccess'} component={BidSuccessScreen} />
-        <Stack.Screen name={'CategorySearch'} component={CategorySearch} />
-        <Stack.Screen name={'Recommendation'} component={RecommendationScreen} />
+        <Stack.Screen
+          name={'Home'}
+          component={HomeScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Detail'}
+          component={DetailScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Splash'}
+          component={SplashScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Chat'}
+          component={ChatScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Account'}
+          component={AccountScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Success'}
+          component={Success}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'ProductDetail'}
+          component={ProductDetail}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'PlaceBid'}
+          component={PlaceBid}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Import'}
+          component={ImportScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'BidHistory'}
+          component={BidHistory}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'MyOrders'}
+          component={MyOrdersScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'BidSuccess'}
+          component={BidSuccessScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'CategorySearch'}
+          component={CategorySearch}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Recommendation'}
+          component={RecommendationScreen}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Checkout'}
+          component={CheckoutScreen}
+          options={screenAnimation}
+        />
         <Stack.Screen name={'AuthStack'} component={AuthNavigation} />
       </Stack.Navigator>
     </NavigationContainer>

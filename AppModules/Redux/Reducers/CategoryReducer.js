@@ -3,7 +3,8 @@ const INITIAL_STATE = {
   categoryData: [],
   productData: [],
   filterData: [],
-  priceDetails: []
+  priceDetails: [],
+  status: null
 };
 
 const categoryReducer = createSlice({
@@ -25,6 +26,9 @@ const categoryReducer = createSlice({
     addPriceDetailsData: (state, action) => {
       state.priceDetails = action.payload;
     },
+    addStatus : (state, action) => {
+      state.status = action.payload
+    }
   },
 });
 
@@ -34,5 +38,6 @@ export const {
   addFilterProductData,
   addProductData,
   addPriceDetailsData,
+  addStatus,
 } = categoryReducer.actions;
 export default categoryReducer.reducer;

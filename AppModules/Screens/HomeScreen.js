@@ -1,9 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {
-  View,
-  LayoutAnimation,
-  Dimensions,
-} from 'react-native';
+import {View, LayoutAnimation, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../Styles/HomeStyles';
@@ -12,7 +8,8 @@ import CategoryList from '../Components/Lists/CategoryList';
 import AHText from '../Components/AHText';
 import ProductList from '../Components/Lists/ProductsLists';
 import BottomBar from '../Components/BottomBar/BottomBar';
-import {layoutAnimConfig} from "../Constants/AppConstants";
+import {layoutAnimConfig} from '../Constants/AppConstants';
+import {addUserData} from '../Redux/Reducers/AccountReducer';
 const act = () => ({type: 'ADDHOME'});
 const width = Dimensions.get('window').width;
 const getCategoryData = () => ({type: 'GET_CATEGORY'});
@@ -34,7 +31,6 @@ const HomeScreen = () => {
       } finally {
         LayoutAnimation.configureNext(layoutAnimConfig);
         setCategoryLoading(false);
-
       }
     };
     loadCategory();

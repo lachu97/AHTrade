@@ -8,8 +8,8 @@ import {
   addFilterProductData,
   addPriceDetailsData,
   addProductData,
+  addStatus,
 } from '../Reducers/CategoryReducer';
-import {data} from '../../MockData/MockDatas';
 import {showBottomFeedBack} from '../../Components/Toasts/ToastsFeedBack';
 import {
   getCategoryDetails,
@@ -152,6 +152,19 @@ function* getPriceDetailsSage() {
     }
   } catch (e) {}
 }
+function* postRecommendProductSaga(action) {
+  try {
+    const {name, user_id} = action.payload;
+    const {data: status, error} = yield supaBaseClient
+      .from('recommedation')
+      .insert([{name: name, quantity: 1, user_id: user_id}]);
+    if (error) {
+      console.error(error.message());
+      return;
+    }
+    yield put(addStatus({status: 201, message: 'Successfully Added Row'}));
+  } catch (e) {}
+}
 function* rootSaga() {
   yield all([
     takeLatest('ADDHOME', addHomeSaga),
@@ -160,6 +173,7 @@ function* rootSaga() {
     takeLatest('GET_PRODUCT', getProductDataSaga),
     takeLatest('GET_PRODUCT_BY_ID', filterProductsByIDSaga),
     takeLatest('GET_PRICE_DETAILS', getPriceDetailsSage),
+    takeLatest('POST_RECOMMEND', postRecommendProductSaga),
   ]);
 }
 function* combineSaga() {

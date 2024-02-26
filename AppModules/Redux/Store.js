@@ -4,7 +4,8 @@ import combineSaga from './AppSagas/Appsaga';
 import createSagaMiddleware from 'redux-saga';
 import reactotron from 'reactotron-react-native'; // <- From the Library
 import AppReactotron from '../DevConfig/ReactotronConfig';
-import categoryReducer from './Reducers/CategoryReducer'; // <-- From My Dev File
+import categoryReducer from './Reducers/CategoryReducer';
+import accountReducer from './Reducers/AccountReducer'; // <-- From My Dev File
 const sagaMonitor = reactotron.createSagaMonitor();
 const sagaMiddleware = createSagaMiddleware({sagaMonitor});
 
@@ -12,6 +13,7 @@ const sagaMiddleware = createSagaMiddleware({sagaMonitor});
 const rootReducer = {
   home: homeReducer,
   category: categoryReducer,
+  account: accountReducer,
 };
 // App Store Declaration down here -->
 const store = configureStore({

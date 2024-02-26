@@ -1,24 +1,22 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MMKV} from 'react-native-mmkv';
-import {LAST_CACHE_UPDATE} from "../../../App";
 
 export const storage = new MMKV();
 let PRODUCTS_KEY = 'product_details_keys';
 let CATEGORY_KEY = 'category_details_keys';
-let PRICEDETAILS_KEY = 'price_details_keys';
+let PRICE_DETAILS_KEY = 'price_details_keys';
 
 const storePriceDetails = async data => {
   try {
-    await storage.set(PRICEDETAILS_KEY, JSON.stringify(data));
+    await storage.set(PRICE_DETAILS_KEY, JSON.stringify(data));
   } catch (e) {
     console.error(e.message());
   }
 };
 const getPriceDetails = () => {
   try {
-    let hasData = storage.contains(PRICEDETAILS_KEY);
+    let hasData = storage.contains(PRICE_DETAILS_KEY);
     if (hasData) {
-      return storage.getString(PRICEDETAILS_KEY);
+      return storage.getString(PRICE_DETAILS_KEY);
     }
     return false;
   } catch (e) {
@@ -65,7 +63,7 @@ const getProductsDetails = () => {
   }
 };
 const flushCache = () => {
-  const keys = storage.getAllKeys().filter(item => item !== LAST_CACHE_UPDATE);
+  const keys = [PRODUCTS_KEY, CATEGORY_KEY, PRICE_DETAILS_KEY];
   keys.forEach(key => storage.delete(key));
 };
 export {

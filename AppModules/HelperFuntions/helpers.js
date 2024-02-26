@@ -25,3 +25,17 @@ export function getLongName(value) {
     return 'Not found';
   }
 }
+
+export function dateFormat(date) {
+  const parsedDate = new Date(date);
+
+  // Extracting date components
+  const year = parsedDate.getUTCFullYear();
+  const month = parsedDate.getUTCMonth() + 1; // Months are zero-based
+  const day = parsedDate.getUTCDate();
+
+  // Creating a formatted date string (e.g., "2024-02-25")
+  return `${year}-${month < 10 ? '0' : ''}${month}-${
+    day < 10 ? '0' : ''
+  }${day}`;
+}

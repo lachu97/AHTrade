@@ -28,6 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 import {cleanFilterProductData} from '../../../Redux/Reducers/CategoryReducer';
 import AHButton from '../../../Components/AHButton';
+import {layoutAnimConfig} from '../../../Constants/AppConstants';
 const searchByIDAction = id => ({
   type: 'GET_PRODUCT_BY_ID',
   payload: {
@@ -107,6 +108,42 @@ const CategorySearch = () => {
   const categoryData = useSelector(state => state.category.categoryData);
   const filterData = useSelector(state => state.category.filterData);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const ListEmpty = useCallback(() => {
+    return (
+      <>
+        {filterData.length === 0 ? (
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Text
+              style={{
+                flex: 1,
+                color: MD2Colors.white,
+                textAlign: 'center',
+                fontSize: 15,
+                alignSelf: 'center',
+                padding: 8,
+              }}>
+              No Product Available for this Category,Try Selecting Other
+              Category
+            </Text>
+            <Button
+              style={{
+                width: width * 0.51,
+                borderRadius: 8,
+                borderColor: MD2Colors.teal100,
+                borderWidth: 1,
+                alignSelf: 'center',
+                marginVertical: 5,
+              }}
+              icon={'book-edit'}
+              onPress={() => navigation.navigate('Recommendation')}>
+              Suggest Products
+            </Button>
+          </View>
+        ) : null}
+      </>
+    );
+  }, [filterData.length, navigation, width]);
   const fadeIn = useCallback(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -115,7 +152,7 @@ const CategorySearch = () => {
     }).start();
   }, [fadeAnim]);
   useEffect(() => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+    LayoutAnimation.configureNext(layoutAnimConfig);
     dispatch(searchByIDAction(route.params?.id));
     return () => {
       dispatch(cleanFilterProductData());
@@ -126,13 +163,13 @@ const CategorySearch = () => {
       return;
     }
     console.log('Iam dispatching');
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+    LayoutAnimation.configureNext(layoutAnimConfig);
 
     dispatch(searchByIDAction(selectedID));
     fadeIn();
   }, [dispatch, fadeIn, selectedID]);
   const onChipPress = item => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    LayoutAnimation.configureNext(layoutAnimConfig);
     setSelected(item.name);
     setSelectedID(item.id);
     fadeIn();
@@ -162,39 +199,7 @@ const CategorySearch = () => {
           contentContainerStyle={{padding: 2}}
           data={filterData}
           renderItem={renderSearchItem}
-          ListEmptyComponent={() => (
-            <View
-              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-              {filterData.length === 0 ? (
-                <View>
-                  <Text
-                    style={{
-                      flex: 1,
-                      color: MD2Colors.white,
-                      textAlign: 'center',
-                      fontSize: 15,
-                      alignSelf: 'center',
-                      padding: 8,
-                    }}>
-                    No Product Available for this Category,Try Selecting Other
-                    Category
-                  </Text>
-                  <Button
-                    style={{
-                      width: width * 0.51,
-                      borderRadius: 8,
-                      borderColor: MD2Colors.teal100,
-                      borderWidth: 1,
-                      alignSelf: 'center',
-                      marginVertical: 5,
-                    }}
-                    icon={'book-edit'}
-                    onPress={() => navigation.navigate('Recommendation')}>Suggest Products
-                  </Button>
-                </View>
-              ) : null}
-            </View>
-          )}
+          ListEmptyComponent={ListEmpty}
         />
       </Animated.View>
       <BottomBar navigation={navigation} activeTab={'Category'} />

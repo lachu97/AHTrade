@@ -7,18 +7,16 @@ import {
   ScrollView,
   LayoutAnimation,
 } from 'react-native';
-import {HeaderComponent} from '../../../Components/HeaderComponent';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {MD2Colors, Text, List, DataTable} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {getContactsDetails} from '../../../Storage/AppLocalStorage/ContactsStorage';
-import FastImage from 'react-native-fast-image';
 import {isIos} from '../../../HelperFuntions/helpers';
 import {
   displayNotifyAndroid,
   displayNotifyiOS,
 } from '../../../Notifications/Notifications';
 import AHButton from '../../../Components/AHButton';
+import {layoutAnimConfig} from "../../../Constants/AppConstants";
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
@@ -197,7 +195,7 @@ const Success = () => {
             marginVertical: 1,
           }}
           onPress={() => {
-            LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+            LayoutAnimation.configureNext(layoutAnimConfig);
 
             navigation.reset({
               index: 0,

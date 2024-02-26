@@ -36,7 +36,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 export const LAST_CACHE_UPDATE = 'lastCacheUpdate';
-let CACHE_CONTROL_TIME = Math.floor(0.31 * 60 * 60 * 1000);
+let CACHE_CONTROL_TIME = Math.floor(24 * 60 * 60 * 1000);
 
 const getDeploymentKey = () => {
   let productionKey = '7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ';

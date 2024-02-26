@@ -2,7 +2,6 @@ import React, {useRef} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import HomeScreen from '../Screens/HomeScreen';
-import DetailScreen from '../Screens/DetailScreen';
 import SplashScreen from '../Screens/SplashScreen';
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
@@ -18,8 +17,20 @@ import BidSuccessScreen from '../Screens/PlaceBid/Views/BidSuccessScreen';
 import MyOrdersScreen from '../Screens/MyOrders/Views/MyOrdersScreen';
 import RecommendationScreen from '../Screens/Misc/Views/RecommedationScreen';
 import CheckoutScreen from '../Screens/Checkout/Views/Checkout';
+import WebViewScreen from '../Screens/Misc/Views/WebViewScreeen';
+import ProfileScreen from '../Screens/ProfileScreen';
 const screenAnimation = {
   animation: 'slide_from_right',
+};
+const linking = {
+  prefixes: ['ahtrade://'],
+  config: {
+    initialRouteName: 'Home',
+    screens: {
+      Home: 'Home',
+      Account: 'Account',
+    },
+  },
 };
 const Stack = createNativeStackNavigator();
 const AuthNavigation = () => {
@@ -46,6 +57,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer
       ref={navigationRef}
+      linking={linking}
       onReady={() => {
         routeNameRef.current = navigationRef.current?.getCurrentRoute()?.name;
       }}
@@ -67,11 +79,6 @@ const AppNavigation = () => {
         <Stack.Screen
           name={'Home'}
           component={HomeScreen}
-          options={screenAnimation}
-        />
-        <Stack.Screen
-          name={'Detail'}
-          component={DetailScreen}
           options={screenAnimation}
         />
         <Stack.Screen
@@ -97,6 +104,11 @@ const AppNavigation = () => {
         <Stack.Screen
           name={'ProductDetail'}
           component={ProductDetail}
+          options={screenAnimation}
+        />
+        <Stack.Screen
+          name={'Profile'}
+          component={ProfileScreen}
           options={screenAnimation}
         />
         <Stack.Screen
@@ -140,6 +152,7 @@ const AppNavigation = () => {
           options={screenAnimation}
         />
         <Stack.Screen name={'AuthStack'} component={AuthNavigation} />
+        <Stack.Screen name={'WebView'} component={WebViewScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

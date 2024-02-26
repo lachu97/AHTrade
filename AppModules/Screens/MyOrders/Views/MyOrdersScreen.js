@@ -12,11 +12,11 @@ const MyOrdersScreen = () => {
       <HeaderComponent />
       <View style={{flex: 1}}>
         <AHText
-          name={'This Page is Under'}
+          name={'Currently No Orders to Show'}
           style={{color: MD2Colors.white, alignSelf: 'center', fontSize: 22}}
         />
         <AHText
-          name={' Construction, Come back Later !!'}
+          name={' Try Placing an Order !!'}
           style={{color: MD2Colors.white, alignSelf: 'center', fontSize: 22}}
         />
         <LottieView

@@ -12,6 +12,7 @@ import CategoryList from '../Components/Lists/CategoryList';
 import AHText from '../Components/AHText';
 import ProductList from '../Components/Lists/ProductsLists';
 import BottomBar from '../Components/BottomBar/BottomBar';
+import {layoutAnimConfig} from "../Constants/AppConstants";
 const act = () => ({type: 'ADDHOME'});
 const width = Dimensions.get('window').width;
 const getCategoryData = () => ({type: 'GET_CATEGORY'});
@@ -31,8 +32,9 @@ const HomeScreen = () => {
         dispatch(getProductData());
       } catch (e) {
       } finally {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        LayoutAnimation.configureNext(layoutAnimConfig);
         setCategoryLoading(false);
+
       }
     };
     loadCategory();

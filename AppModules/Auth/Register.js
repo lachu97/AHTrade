@@ -23,9 +23,14 @@ import {
 import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 import {setUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
 import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
+import PhoneInput from 'react-native-phone-number-input';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 const Register = () => {
   const dispatch = useDispatch();
   const emailRef = useRef(null);
+  const phoneInput = useRef(null);
+  const [value, setValue] = useState('');
+  const [formattedValue, setFormattedValue] = useState('');
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,10 +56,18 @@ const Register = () => {
         showMiddleFeedBack('Provide a Valid Password');
         return;
       }
+      const checkValid = phoneInput.current?.isValidNumber(value);
+      if (!checkValid) {
+        showMiddleFeedBack('Enter a Valid Phone');
+        return;
+      }
+      console.log(`Value-${formattedValue}`);
+      console.log(`Value-${typeof formattedValue}`);
       setLoading(true);
       const {data, error} = await supaBaseClient.auth.signUp({
         email: email,
         password: password,
+        phone: formattedValue,
       });
       if (error) {
         showBottomFeedBack('UnExpected Error Occurred,Try Again');
@@ -73,7 +86,7 @@ const Register = () => {
         setLoading(false);
       }, 1350);
     }
-  }, [email, navigation, password, status]);
+  }, [email, formattedValue, password, status, value]);
   return (
     <View style={styles.container}>
       <View
@@ -124,6 +137,28 @@ const Register = () => {
               onPress={() => setTextStatus(prev => !prev)}
             />
           }
+        />
+        <PhoneInput
+          ref={phoneInput}
+          containerStyle={styles.textInput}
+          textContainerStyle={{
+            backgroundColor: Colors.light,
+          }}
+          textInputStyle={{
+            height: 53,
+            color: MD2Colors.black,
+          }}
+          defaultCode={'IN'}
+          value={value}
+          onChangeText={text => {
+            setValue(text);
+          }}
+          onChangeFormattedText={text => {
+            setFormattedValue(text);
+          }}
+          withDarkTheme
+          withShadow
+          autoFocus
         />
         <TouchableRipple
           style={{marginHorizontal: 5}}

@@ -39,9 +39,10 @@ import {
   showMiddleFeedBack,
 } from '../../../Components/Toasts/ToastsFeedBack';
 import InfoBanner from '../../../Components/Banners/InfoBanner';
-import {INFO_TEXT} from '../../../Constants/AppConstants';
+import {INFO_TEXT, layoutAnimConfig} from '../../../Constants/AppConstants';
 import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const width = Dimensions.get('window').width;
 const incoTermsList = [
   {
@@ -188,12 +189,12 @@ const ImportScreen = () => {
       console.log(result);
 
       if (result) {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+        LayoutAnimation.configureNext(layoutAnimConfig);
         setContactDetails(result);
       }
     };
     const showInfoMessage = setTimeout(() => {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      LayoutAnimation.configureNext(layoutAnimConfig);
       setShowInfo(true);
     }, 2549);
     getContactDetails();
@@ -312,9 +313,7 @@ const ImportScreen = () => {
             isVisible={showInfo}
             message={INFO_TEXT}
             onDismiss={() => {
-              LayoutAnimation.configureNext(
-                LayoutAnimation.Presets.easeInEaseOut,
-              );
+              LayoutAnimation.configureNext(layoutAnimConfig);
               setShowInfo(false);
             }}
           />
@@ -330,19 +329,50 @@ const ImportScreen = () => {
                 showDialog();
               }}
             />
-            {/*<Sections*/}
-            {/*  value={price}*/}
-            {/*  name={'Price($)'}*/}
-            {/*  onPress={() => {*/}
-            {/*    showPriceDialog();*/}
+            {/*<List.Item*/}
+            {/*  title={`Quantity(${item.unit})`}*/}
+            {/*  titleStyle={{*/}
+            {/*    color: MD2Colors.white,*/}
+            {/*    marginHorizontal: 25,*/}
+            {/*    fontSize: 14,*/}
+            {/*    fontWeight: '500',*/}
             {/*  }}*/}
+            {/*  right={() => (*/}
+            {/*    <View style={{flexDirection: 'row', alignItems: 'center'}}>*/}
+            {/*      <TouchableRipple onPress={() => {}}>*/}
+            {/*        <MaterialIcons*/}
+            {/*          size={24}*/}
+            {/*          color={MD2Colors.white}*/}
+            {/*          name={'add-circle'}*/}
+            {/*        />*/}
+            {/*      </TouchableRipple>*/}
+            {/*      <Text*/}
+            {/*        style={{*/}
+            {/*          color: MD2Colors.white,*/}
+            {/*          marginHorizontal: 25,*/}
+            {/*          fontSize: 14.5,*/}
+            {/*          fontWeight: 'bold',*/}
+            {/*        }}>*/}
+            {/*        {quantity} {item.unit}*/}
+            {/*      </Text>*/}
+            {/*      <TouchableRipple*/}
+            {/*        style={{alignSelf: 'center'}}*/}
+            {/*        onPress={() => {}}>*/}
+            {/*        <MaterialCommunityIcons*/}
+            {/*          size={24}*/}
+            {/*          color={MD2Colors.white}*/}
+            {/*          name={'minus'}*/}
+            {/*        />*/}
+            {/*      </TouchableRipple>*/}
+            {/*    </View>*/}
+            {/*  )}*/}
             {/*/>*/}
             <List.Item
               title={'Price'}
               titleStyle={{
                 color: MD2Colors.white,
                 marginHorizontal: 25,
-                fontSize: 17,
+                fontSize: 14,
                 fontWeight: '500',
               }}
               right={() => (
@@ -366,7 +396,7 @@ const ImportScreen = () => {
               value={packaging}
               style={{marginHorizontal: 8, color: MD2Colors.white}}
               onValueChange={e => {
-                LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+                LayoutAnimation.configureNext(layoutAnimConfig);
                 setPackaging(e);
               }}
               density={'regular'}
@@ -412,7 +442,7 @@ const ImportScreen = () => {
               value={shipment}
               style={{marginHorizontal: 8, color: MD2Colors.white}}
               onValueChange={e => {
-                LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+                LayoutAnimation.configureNext(layoutAnimConfig);
                 setShipment(e);
               }}
               density={'regular'}
@@ -479,9 +509,7 @@ const ImportScreen = () => {
                         : null
                     }
                     onPress={() => {
-                      LayoutAnimation.configureNext(
-                        LayoutAnimation.Presets.linear,
-                      );
+                      LayoutAnimation.configureNext(layoutAnimConfig);
                       setIncoterm(item);
                     }}>
                     {item.incoterm}
@@ -512,7 +540,7 @@ const ImportScreen = () => {
               value={payment}
               style={{marginHorizontal: 8, color: MD2Colors.white}}
               onValueChange={e => {
-                LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+                LayoutAnimation.configureNext(layoutAnimConfig);
                 setPayment(e);
               }}
               density={'regular'}
@@ -640,15 +668,18 @@ const ImportScreen = () => {
             <TouchableRipple
               style={{marginRight: 5}}
               onPress={() => setChecked(prev => !prev)}>
-              <MaterialCommunityIcons
-                name={checked ? 'check-all' : 'checkbox-blank-outline'}
-                size={25}
-                color={MD2Colors.white}
-              />
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <MaterialCommunityIcons
+                  name={checked ? 'check-all' : 'checkbox-blank-outline'}
+                  size={24}
+                  color={checked ? MD2Colors.green300 : MD2Colors.white}
+                  style={{marginHorizontal: 2}}
+                />
+                <Text style={importStyles.titleStyles}>
+                  I have verified my Order Details
+                </Text>
+              </View>
             </TouchableRipple>
-            <Text style={importStyles.titleStyles}>
-              I have verified my Order Details
-            </Text>
           </View>
         </ScrollView>
         <View

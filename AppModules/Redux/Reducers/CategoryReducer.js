@@ -1,6 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {data} from '../../MockData/MockDatas';
-import {getProductsDetails} from '../../Storage/AppLocalStorage/ProductsStorage';
 const INITIAL_STATE = {
   categoryData: [],
   productData: [],

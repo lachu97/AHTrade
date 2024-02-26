@@ -9,7 +9,6 @@ const height = Dimensions.get('window').height;
 const cardWidth = width * 0.93;
 const cardHeight = Math.floor(height / 5);
 const SearchCardItem = ({navigation, item}) => {
-  console.log(`Item === ${JSON.stringify(item)}`);
   return (
     <TouchableRipple
       onPress={() => {
@@ -43,7 +42,12 @@ const SearchCardItem = ({navigation, item}) => {
           </View>
           <View style={{}}>
             <Text
-              style={{width: cardWidth / 2}}
+              style={{
+                width: cardWidth / 2,
+                fontSize: 17,
+                fontWeight: 'bold',
+                marginHorizontal: 2,
+              }}
               variant={'headlineMedium'}
               ellipsizeMode={'tail'}
               numberOfLines={1}>
@@ -61,6 +65,7 @@ const SearchCardItem = ({navigation, item}) => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 marginVertical: 5,
+                marginHorizontal: 2,
               }}>
               <Text variant={'bodySmall'}>
                 MOQ :{item.moq}
@@ -71,7 +76,7 @@ const SearchCardItem = ({navigation, item}) => {
               </Text>
             </View>
             <Text
-              style={{width: cardWidth / 2}}
+              style={{width: cardWidth / 2, marginHorizontal: 2}}
               variant={'bodySmall'}
               ellipsizeMode={'tail'}
               numberOfLines={1}>

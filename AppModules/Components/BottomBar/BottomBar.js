@@ -49,7 +49,7 @@ const BottomBar = ({navigation, activeTab}) => {
             }
             navigation.navigate(itm.route);
           }}
-          style={{padding: 10}}>
+          style={{padding: 5}}>
           <View style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
             <MaterialCommunityIcons
               name={itm.icon}
@@ -64,7 +64,7 @@ const BottomBar = ({navigation, activeTab}) => {
                 marginVertical: 5,
                 color:
                   itm.name === activeTab ? MD2Colors.pink50 : MD2Colors.white,
-                fontSize: itm.name === activeTab ? 15 : 12,
+                fontSize: itm.name === activeTab ? 14 : 11,
               }}>
               {itm.name}
             </Text>

@@ -10,6 +10,7 @@ import CheckoutCardComponent, {
 } from '../MicroComponents/CheckoutCardComponent';
 import AHButton from '../../../Components/AHButton';
 import InfoDialoag from '../MicroComponents/InfoDialoag';
+import {isIos} from '../../../HelperFuntions/helpers';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -45,14 +46,14 @@ const CheckoutScreen = () => {
             justifyContent: 'space-around',
             marginVertical: 2,
           }}>
-          <Text style={{color: MD2Colors.white, margin: 1}}>
+          <Text style={{color: MD2Colors.white, margin: 1, fontWeight: 'bold'}}>
             We charge Processing Fee of $ 4.99,
           </Text>
           <TouchableRipple
             onPress={() => {
               setInfo(true);
             }}>
-            <Text> Why?</Text>
+            <Text style={{color: MD2Colors.tealA200}}> Why ?</Text>
           </TouchableRipple>
         </View>
         <AHButton

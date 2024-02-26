@@ -148,7 +148,7 @@ const Register = () => {
             height: 53,
             color: MD2Colors.black,
           }}
-          defaultCode={'IN'}
+          defaultCode={'US'}
           value={value}
           onChangeText={text => {
             setValue(text);

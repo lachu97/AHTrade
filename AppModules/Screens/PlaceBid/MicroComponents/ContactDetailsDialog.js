@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Button, Dialog, Text} from 'react-native-paper';
+import {Button, Dialog, MD2Colors, Text} from 'react-native-paper';
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -8,12 +8,16 @@ import {
 } from 'react-native';
 import AHTextInput from '../../../Components/AHTextInput';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {showMiddleFeedBack} from "../../../Components/Toasts/ToastsFeedBack";
+import {showMiddleFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
+import PhoneInput from 'react-native-phone-number-input';
+import {validateEmail} from '../../../HelperFuntions/helpers';
 const width = Dimensions.get('window').width;
 
 const ContactDetailsDialog = props => {
   const {isVisible, hideDialog, onSuccess} = props;
   const typeData = useRef({});
+  const phoneInput = useRef(null);
+  const [formattedValue, setFormattedValue] = useState('');
   const [email, setEmail] = useState(
     typeData.current.email ? typeData.current.email : '',
   );
@@ -51,12 +55,35 @@ const ContactDetailsDialog = props => {
               style={styles.inputStyles}
               onChangeText={e => setName(e)}
             />
-            <AHTextInput
-              value={phone}
-              placeholder={'Phone'}
+            {/*<AHTextInput*/}
+            {/*  value={phone}*/}
+            {/*  placeholder={'Phone'}*/}
+            {/*  keyboardType={'numeric'}*/}
+            {/*  style={styles.inputStyles}*/}
+            {/*  onChangeText={e => setPhone(e)}*/}
+            {/*/>*/}
+            <PhoneInput
+              ref={phoneInput}
               keyboardType={'numeric'}
-              style={styles.inputStyles}
-              onChangeText={e => setPhone(e)}
+              containerStyle={styles.inputStyles}
+              textContainerStyle={{
+                backgroundColor: Colors.light,
+              }}
+              textInputStyle={{
+                height: 28,
+                color: MD2Colors.black,
+              }}
+              defaultCode={'US'}
+              value={phone}
+              onChangeText={text => {
+                setPhone(text);
+              }}
+              onChangeFormattedText={text => {
+                setFormattedValue(text);
+              }}
+              withDarkTheme
+              withShadow
+              autoFocus
             />
             <AHTextInput
               value={company}
@@ -90,20 +117,41 @@ const ContactDetailsDialog = props => {
               address,
               port,
             };
+            const checkValid = phoneInput.current?.isValidNumber(phone);
+
+            if (!checkValid) {
+              showMiddleFeedBack('Enter a Valid Phone');
+              return;
+            }
+            let result = validateEmail(email);
+            if (!result) {
+              showMiddleFeedBack('Provide a Valid Email');
+              return;
+            }
             const isEmpty = Object.values(typeData.current).some(
               value => !value || value.trim() === '',
             );
             if (isEmpty) {
-              showMiddleFeedBack('Please Provide the Details')
+              showMiddleFeedBack(
+                'One of the Details is Empty, Provide all Details',
+              );
             } else {
               onSuccess([
                 {value: name, title: 'Name'},
                 {value: email, title: 'Email'},
-                {value: phone, title: 'Phone'},
+                {value: formattedValue, title: 'Phone'},
                 {value: company, title: 'Company'},
                 {value: address, title: 'Address'},
                 {value: port, title: 'Port'},
               ]);
+              typeData.current = {
+                name,
+                email,
+                phone,
+                company,
+                address,
+                port,
+              };
               setTimeout(() => {
                 hideDialog();
               }, 250);
@@ -117,7 +165,7 @@ const ContactDetailsDialog = props => {
 };
 const styles = StyleSheet.create({
   inputStyles: {
-    width: width * 0.73,
+    width: width * 0.72,
     marginVertical: 4,
     backgroundColor: Colors.light,
   },

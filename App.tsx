@@ -11,8 +11,6 @@ import AppNavigation from './AppModules/Navigation/Appnavigation';
 import store from './AppModules/Redux/Store';
 import {Provider} from 'react-redux';
 import {PaperProvider} from 'react-native-paper';
-import {NhostClient} from '@nhost/react';
-import {APP_REGION, APP_SUB_DOMAIN} from './AppModules/NHost/Variables';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {
   getNotificationStatus,
@@ -25,10 +23,6 @@ import {
   flushCache,
   storage,
 } from './AppModules/Storage/AppLocalStorage/ProductsStorage';
-const nhost = new NhostClient({
-  subdomain: APP_SUB_DOMAIN,
-  region: APP_REGION,
-});
 if (
   Platform.OS === 'android' &&
   UIManager.setLayoutAnimationEnabledExperimental
@@ -80,7 +74,6 @@ function App(): JSX.Element {
     cacheCheck();
   }, []);
   return (
-    // <NhostProvider nhost={nhost}>
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.dark}}>
       <Provider store={store}>
         <PaperProvider>
@@ -88,7 +81,6 @@ function App(): JSX.Element {
         </PaperProvider>
       </Provider>
     </SafeAreaView>
-    // </NhostProvider>
   );
 }
 

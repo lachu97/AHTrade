@@ -105,6 +105,7 @@ const CategorySearch = () => {
   const {width, height} = useWindowDimensions();
   const [selected, setSelected] = useState(route.params?.name);
   const [selectedID, setSelectedID] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const categoryData = useSelector(state => state.category.categoryData);
   const filterData = useSelector(state => state.category.filterData);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -174,6 +175,12 @@ const CategorySearch = () => {
     setSelectedID(item.id);
     fadeIn();
   };
+  const onRefresh = useCallback(() => {
+    setRefresh(true);
+    LayoutAnimation.configureNext(layoutAnimConfig);
+    dispatch(searchByIDAction(selectedID));
+    setRefresh(false);
+  }, [dispatch, selectedID]);
   const renderSearchItem = ({item}) => {
     return <SearchCardItem navigation={navigation} item={item} />;
   };
@@ -200,6 +207,8 @@ const CategorySearch = () => {
           data={filterData}
           renderItem={renderSearchItem}
           ListEmptyComponent={ListEmpty}
+          refreshing={refresh}
+          onRefresh={onRefresh}
         />
       </Animated.View>
       <BottomBar navigation={navigation} activeTab={'Category'} />

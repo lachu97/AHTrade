@@ -20,7 +20,28 @@ const ProfileScreen = () => {
     getUserDetails().then(r => setUser(r.user));
     getContactsDetails().then(r => {
       console.log(`${JSON.stringify(r)}`);
-      setAddress(r);
+      const contactObject = r.reduce((result, {title, value}) => {
+        if (title === 'Email') {
+          result.email = value;
+        }
+        if (title === 'Phone') {
+          result.phone = value;
+        }
+        if (title === 'Company') {
+          result.company = value;
+        }
+        if (title === 'Address') {
+          result.address = value;
+        }
+        if (title === 'Name') {
+          result.name = value;
+        }
+        if (title === 'Port') {
+          result.port = value;
+        }
+        return result;
+      }, {});
+      setAddress(contactObject);
     });
   }, []);
   return (
@@ -51,19 +72,6 @@ const ProfileScreen = () => {
             title={'Email'}
             right={() => (
               <Text style={{color: MD2Colors.white}}>{user.email}</Text>
-            )}
-          />
-          <List.Item
-            titleStyle={{
-              color: MD2Colors.white,
-              fontSize: 17,
-              fontWeight: 'bold',
-            }}
-            title={'Phone'}
-            right={() => (
-              <Text style={{color: MD2Colors.white}}>
-                {user.phone ? user.phone : 'Not Available'}
-              </Text>
             )}
           />
           <List.Item
@@ -104,12 +112,59 @@ const ProfileScreen = () => {
             )}
           />
           <List.Subheader style={{color: MD2Colors.white}}>
-            Address
+            Contact Details
           </List.Subheader>
           {address ? (
-            <List.Subheader style={{color: MD2Colors.white}}>
-              Address
-            </List.Subheader>
+            <View>
+              <List.Item
+                titleStyle={{
+                  color: MD2Colors.white,
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                }}
+                title={'Name'}
+                right={() => (
+                  <Text style={{color: MD2Colors.white}}>{address.name}</Text>
+                )}
+              />
+              <List.Item
+                titleStyle={{
+                  color: MD2Colors.white,
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                }}
+                title={'Phone'}
+                right={() => (
+                  <Text style={{color: MD2Colors.white}}>{address.phone}</Text>
+                )}
+              />
+              <List.Item
+                titleStyle={{
+                  color: MD2Colors.white,
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                }}
+                title={'Company'}
+                right={() => (
+                  <Text style={{color: MD2Colors.white}}>
+                    {address.company}
+                  </Text>
+                )}
+              />
+              <List.Item
+                titleStyle={{
+                  color: MD2Colors.white,
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                }}
+                title={'StreetName'}
+                right={() => (
+                  <Text numberOfLines={2} style={{color: MD2Colors.white}}>
+                    {address.address}
+                  </Text>
+                )}
+              />
+            </View>
           ) : (
             <Text
               numberOfLines={2}

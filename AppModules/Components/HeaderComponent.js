@@ -84,7 +84,7 @@ export const HomeHeaderComponent = () => {
             enterTouchDelay={5}
           title={'Country'}>
           <>
-            <CountryFlag isoCode={'in'} size={17} />
+            {/*<CountryFlag isoCode={'in'} size={17} />*/}
           </>
         </Tooltip>
       </View>

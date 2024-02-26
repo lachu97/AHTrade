@@ -70,7 +70,7 @@ const ContactDetailsDialog = props => {
                 backgroundColor: Colors.light,
               }}
               textInputStyle={{
-                height: 28,
+                height: 40,
                 color: MD2Colors.black,
               }}
               defaultCode={'US'}

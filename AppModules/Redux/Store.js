@@ -20,8 +20,8 @@ const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({thunk: false}).concat(sagaMiddleware),
-  devTools: true, // <- Comment while Taking Build
-  enhancers: [AppReactotron.createEnhancer()], // <- Comment while Taking Build
+  // devTools: true, // <- Comment while Taking Build
+  // enhancers: [AppReactotron.createEnhancer()], // <- Comment while Taking Build
 });
 // Running And Configuring Saga
 sagaMiddleware.run(combineSaga);

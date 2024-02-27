@@ -1,0 +1,18 @@
+platform :android do
+  desc 'Build the Android application.'
+  lane :build do
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'bundle', build_type: 'release', project_dir: 'android/')
+  end
+  desc 'Build and upload to App Center.'
+  lane :beta do
+  build
+  appcenter_upload(
+      api_token: "1c44b5a107d355237e6e8df0c6d56e66dfa62069",
+      owner_name: "Atlashorizon",
+      app_name: "AHTrade",
+      apk: "/Users/apple/Desktop/AHTrade/android/app/build/outputs/bundle/release/app-release.aab"
+
+      )
+  end
+end

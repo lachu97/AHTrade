@@ -6,7 +6,7 @@ export const PRIVACY_POLICY_LINK = 'https://www.atlashorizon.in/app-privacy-poli
 
 export const TERMS_AND_CONDITION = 'https://www.atlashorizon.in/terms-and-conditions/'
 export const DELETION_LINK = '';
-
+export const SLACK_GROUP_URL = 'https://hooks.slack.com/services/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'
 export const layoutAnimConfig = {
   duration: 499,
   create: {

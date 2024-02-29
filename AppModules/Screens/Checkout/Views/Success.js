@@ -16,7 +16,12 @@ import {
   displayNotifyiOS,
 } from '../../../Notifications/Notifications';
 import AHButton from '../../../Components/AHButton';
-import {layoutAnimConfig} from "../../../Constants/AppConstants";
+import {layoutAnimConfig} from '../../../Constants/AppConstants';
+import {useDispatch} from 'react-redux';
+import {
+  makeMessage,
+  sendOrderMessageToSlackAction,
+} from '../../../Slack/SlackMessage';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
@@ -97,6 +102,7 @@ const OrderTable = ({result}) => {
 };
 const Success = () => {
   const route = useRoute();
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   let item = route.params?.item;
   let result = item;
@@ -196,7 +202,9 @@ const Success = () => {
           }}
           onPress={() => {
             LayoutAnimation.configureNext(layoutAnimConfig);
-
+            let message = makeMessage(result);
+            console.log(`Message = ${JSON.stringify(message)}`)
+            dispatch(sendOrderMessageToSlackAction(message));
             navigation.reset({
               index: 0,
               routes: [{name: 'Home'}],

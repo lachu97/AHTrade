@@ -11,6 +11,7 @@ import CheckoutCardComponent, {
 import AHButton from '../../../Components/AHButton';
 import InfoDialoag from '../MicroComponents/InfoDialoag';
 import {isIos} from '../../../HelperFuntions/helpers';
+import {sendEmailAction} from '../../../Email/emailFile';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -61,9 +62,13 @@ const CheckoutScreen = () => {
           icon={'cart-arrow-right'}
           onPress={() => {
             setLoading(true);
+            // dispatch(sendEmailAction())
             setTimeout(() => {
               setLoading(false);
-            }, 5200);
+              navigation.navigate('Success', {
+                item: result,
+              });
+            }, 1200);
           }}
           loading={loading}
           style={{width: width * 0.94, margin: 2, borderRadius: 8}}

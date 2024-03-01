@@ -19,6 +19,8 @@ import {
   storePriceDetails,
   storeProductsDetails,
 } from '../../Storage/AppLocalStorage/ProductsStorage';
+import {rootEmailSaga} from "../../Email/EmailSaga";
+import {slackRootSaga} from "../../Slack/SlackSaga";
 
 function* addHomeSaga() {
   try {
@@ -177,6 +179,6 @@ function* rootSaga() {
   ]);
 }
 function* combineSaga() {
-  yield all([rootSaga(), authRootSaga()]);
+  yield all([rootSaga(), authRootSaga(), rootEmailSaga(), slackRootSaga()]);
 }
 export default combineSaga;

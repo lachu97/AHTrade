@@ -78,7 +78,11 @@ const Register = () => {
         await setUserDetails(data);
         await storeIsLoggedIn(true);
         await setIsGuestUser(false);
-        navigation.navigate('Home');
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Home'}],
+        });
+        showBottomFeedBack('SignUp SuccessFull');
       }
     } catch (e) {
     } finally {
@@ -86,7 +90,7 @@ const Register = () => {
         setLoading(false);
       }, 1350);
     }
-  }, [email, formattedValue, password, status, value]);
+  }, [email, formattedValue, navigation, password, status, value]);
   return (
     <View style={styles.container}>
       <View

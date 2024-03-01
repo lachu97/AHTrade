@@ -1,11 +1,16 @@
-import React, {useCallback} from 'react';
-import {Dimensions, FlatList, Image, Pressable, View} from 'react-native';
+import React from 'react';
+import {Dimensions, FlatList, View} from 'react-native';
 import AHText from '../AHText';
-import {Surface, Text, TouchableRipple, MD2Colors} from 'react-native-paper';
+import {
+  Surface,
+  Text,
+  TouchableRipple,
+  MD2Colors,
+  Button,
+} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import AHButton from '../AHButton';
 import FastImage from 'react-native-fast-image';
-import {isIos} from '../../HelperFuntions/helpers';
 import LottieView from 'lottie-react-native';
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
@@ -91,41 +96,9 @@ const ProductCard = ({item, navigation}) => {
 
 const ProductList = ({data, ListHeader}) => {
   const navigation = useNavigation();
-  const renderItems = useCallback(
-    ({item}) => <ProductCard item={item} navigation={navigation} />,
-    [navigation],
+  const renderItems = ({item}) => (
+    <ProductCard item={item} navigation={navigation} />
   );
-  const ListEmptyComponent = useCallback(() => {
-    return (
-      <View style={{width: width}}>
-        <LottieView
-          autoPlay
-          loop
-          source={require('../../assets/anim/myLoading8.json')}
-          style={{
-            flex: 1,
-            height: 64,
-            width: width,
-          }}
-        />
-      </View>
-    );
-  }, []);
-  const ListFooterComponent = useCallback(() => {
-    return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginVertical: 10,
-        }}>
-        {data.length > 0 ? (
-          <Text style={{color: MD2Colors.white}}>That's all Folks...!!</Text>
-        ) : null}
-      </View>
-    );
-  }, [data]);
   return (
     <FlatList
       style={{margin: 1, backgroundColor: MD2Colors.transparent}}
@@ -133,8 +106,50 @@ const ProductList = ({data, ListHeader}) => {
       renderItem={renderItems}
       numColumns={2}
       ListHeaderComponent={ListHeader}
-      ListEmptyComponent={ListEmptyComponent}
-      ListFooterComponent={ListFooterComponent}
+      ListEmptyComponent={() => (
+        <View style={{width: width}}>
+          <LottieView
+            autoPlay
+            loop
+            source={require('../../assets/anim/myLoading8.json')}
+            style={{
+              flex: 1,
+              height: 64,
+              width: width,
+            }}
+          />
+        </View>
+      )}
+      ListFooterComponent={() => (
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginVertical: 15,
+          }}>
+          {data.length > 0 ? (
+            <>
+              <Text style={{color: MD2Colors.white}}>
+                We are Expanding,Try Suggesting Products
+              </Text>
+              <Button
+                style={{
+                  width: width * 0.51,
+                  borderRadius: 8,
+                  borderColor: MD2Colors.teal100,
+                  borderWidth: 1,
+                  alignSelf: 'center',
+                  marginVertical: 5,
+                }}
+                icon={'book-edit'}
+                onPress={() => navigation.navigate('Recommendation')}>
+                Suggest Products
+              </Button>
+            </>
+          ) : null}
+        </View>
+      )}
       keyExtractor={(item, index) => `${index}`}
     />
   );

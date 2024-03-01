@@ -145,7 +145,7 @@ const Login = () => {
         <TouchableRipple
           style={styles.guestTextStyles}
           onPress={() => {
-            storeIsLoggedIn(true);
+            storeIsLoggedIn(false);
             setIsGuestUser(true);
             navigation.navigate('Home');
           }}>

@@ -20,28 +20,30 @@ const ProfileScreen = () => {
     getUserDetails().then(r => setUser(r.user));
     getContactsDetails().then(r => {
       console.log(`${JSON.stringify(r)}`);
-      const contactObject = r.reduce((result, {title, value}) => {
-        if (title === 'Email') {
-          result.email = value;
-        }
-        if (title === 'Phone') {
-          result.phone = value;
-        }
-        if (title === 'Company') {
-          result.company = value;
-        }
-        if (title === 'Address') {
-          result.address = value;
-        }
-        if (title === 'Name') {
-          result.name = value;
-        }
-        if (title === 'Port') {
-          result.port = value;
-        }
-        return result;
-      }, {});
-      setAddress(contactObject);
+      if (r) {
+        const contactObject = r.reduce((result, {title, value}) => {
+          if (title === 'Email') {
+            result.email = value;
+          }
+          if (title === 'Phone') {
+            result.phone = value;
+          }
+          if (title === 'Company') {
+            result.company = value;
+          }
+          if (title === 'Address') {
+            result.address = value;
+          }
+          if (title === 'Name') {
+            result.name = value;
+          }
+          if (title === 'Port') {
+            result.port = value;
+          }
+          return result;
+        }, {});
+        setAddress(contactObject);
+      }
     });
   }, []);
   return (
@@ -124,7 +126,9 @@ const ProfileScreen = () => {
                 }}
                 title={'Name'}
                 right={() => (
-                  <Text style={{color: MD2Colors.white}}>{address.name}</Text>
+                  <Text style={{color: MD2Colors.white}}>
+                    {address.name ? address.name : 'NA'}
+                  </Text>
                 )}
               />
               <List.Item
@@ -135,7 +139,9 @@ const ProfileScreen = () => {
                 }}
                 title={'Phone'}
                 right={() => (
-                  <Text style={{color: MD2Colors.white}}>{address.phone}</Text>
+                  <Text style={{color: MD2Colors.white}}>
+                    {address.phone ? address.phone : 'NA'}
+                  </Text>
                 )}
               />
               <List.Item
@@ -147,7 +153,7 @@ const ProfileScreen = () => {
                 title={'Company'}
                 right={() => (
                   <Text style={{color: MD2Colors.white}}>
-                    {address.company}
+                    {address.company ? address.company : 'NA'}
                   </Text>
                 )}
               />
@@ -160,7 +166,7 @@ const ProfileScreen = () => {
                 title={'StreetName'}
                 right={() => (
                   <Text numberOfLines={2} style={{color: MD2Colors.white}}>
-                    {address.address}
+                    {address.address ? address.address : 'NA'}
                   </Text>
                 )}
               />

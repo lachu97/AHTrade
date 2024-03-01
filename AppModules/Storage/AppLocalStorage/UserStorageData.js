@@ -1,4 +1,6 @@
 import {MMKV} from 'react-native-mmkv';
+import {storage} from './ProductsStorage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 let USER_DETAILS = 'user_Details';
 const userStorage = new MMKV();
 const setUserDetails = data => {
@@ -24,4 +26,24 @@ const flushUserOnLogOut = () => {
   userStorage.delete(USER_DETAILS);
   console.log('After' + userStorage.getAllKeys());
 };
-export {setUserDetails, getUserDetails, flushUserOnLogOut};
+const clearAllAsyncStorage = async () => {
+  try {
+    await AsyncStorage.clear();
+  } catch (e) {
+    // clear error
+  }
+
+  console.log('Done.');
+};
+const flushEverythingOnLogOut = async () => {
+  const keys = storage.getAllKeys();
+  keys.forEach(key => storage.delete(key));
+  await clearAllAsyncStorage();
+  console.log('After' + userStorage.getAllKeys());
+};
+export {
+  setUserDetails,
+  getUserDetails,
+  flushUserOnLogOut,
+  flushEverythingOnLogOut,
+};

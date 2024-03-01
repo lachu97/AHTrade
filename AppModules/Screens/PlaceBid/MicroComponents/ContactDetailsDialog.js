@@ -65,7 +65,7 @@ const ContactDetailsDialog = props => {
             <PhoneInput
               ref={phoneInput}
               keyboardType={'numeric'}
-              containerStyle={styles.inputStyles}
+              containerStyle={styles.phoneInputStyles}
               textContainerStyle={{
                 backgroundColor: Colors.light,
               }}
@@ -165,9 +165,16 @@ const ContactDetailsDialog = props => {
 };
 const styles = StyleSheet.create({
   inputStyles: {
-    width: width * 0.72,
+    width: width * 0.74,
     marginVertical: 4,
     backgroundColor: Colors.light,
+  },
+  phoneInputStyles: {
+    width: width * 0.74,
+    marginVertical: 4,
+    backgroundColor: Colors.light,
+    borderColor: MD2Colors.black,
+    borderWidth: 1,
   },
 });
 export default React.memo(ContactDetailsDialog);

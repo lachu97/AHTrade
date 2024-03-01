@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, useWindowDimensions, View} from 'react-native';
 import {MD2Colors, Text, TouchableRipple} from 'react-native-paper';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
@@ -12,6 +12,8 @@ import AHButton from '../../../Components/AHButton';
 import InfoDialoag from '../MicroComponents/InfoDialoag';
 import {isIos} from '../../../HelperFuntions/helpers';
 import {sendEmailAction} from '../../../Email/emailFile';
+import {postOrderToDBAction} from '../Saga/SagaActions';
+import {getUserDetails} from '../../../Storage/AppLocalStorage/UserStorageData';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -20,6 +22,12 @@ const CheckoutScreen = () => {
   const {width} = useWindowDimensions();
   const [loading, setLoading] = useState(false);
   const [showInfo, setInfo] = useState(false);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    getUserDetails().then(r => {
+      setUser(r.user);
+    });
+  }, []);
   const result = route.params?.item;
   console.log(JSON.stringify(result));
   return (
@@ -58,17 +66,34 @@ const CheckoutScreen = () => {
           </TouchableRipple>
         </View>
         <AHButton
-          name={'Pay $ 4.99 & Complete Order'}
+          name={'Pay & Complete Order'}
           icon={'cart-arrow-right'}
           onPress={() => {
             setLoading(true);
             // dispatch(sendEmailAction())
+            let orderObject = {
+              productID: result.item.pid,
+              user_id: user?.id ? user?.id : null,
+              shipmentType: result.mode.toString(),
+              packagingType: result?.packaging.toString(),
+              price: parseInt(result.price, 10),
+              quantity: parseInt(result.quantity, 10),
+              incoterm: result.incoterm.toString(),
+              destination: result.contact.port.toString(),
+              email: result.contact.email.toString(),
+              phone: result.contact?.phone.toString(),
+              product_name: result.item?.title.toString(),
+              user_name: result.contact?.name.toString(),
+              payment: result.payment.toString(),
+              unit: result.item?.unit,
+            };
+            dispatch(postOrderToDBAction(orderObject));
             setTimeout(() => {
               setLoading(false);
               navigation.navigate('Success', {
                 item: result,
               });
-            }, 1200);
+            }, 3200);
           }}
           loading={loading}
           style={{width: width * 0.94, margin: 2, borderRadius: 8}}

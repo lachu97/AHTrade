@@ -122,15 +122,15 @@ const Success = () => {
     const showNotification = () => {
       if (isIos()) {
         displayNotifyiOS({
-          title: item.item.name,
-          body: `Your order for ${item.item.name} ;
-          Packaging:${item.packaging}/kg bag Incoterm :${item.incoterm}; Quantity: ${item.quantity} with Price of $ ${item.price}/MT has been placed Successfully`,
+          title: item.item.title,
+          body: `Your order for ${item.item.title} ;
+          Packaging:${item.packaging}/kg bag Incoterm :${item.incoterm}; Quantity: ${item.quantity} with Price of $ ${item.price}/${item.item.unit} has been placed Successfully`,
         });
       } else {
         displayNotifyAndroid({
-          title: item.item.name,
-          body: `Your order for ${item.item.name} Incoterm :${item.incoterm};
-          Packaging:${item.packaging}/kg bag Quantity: ${item.quantity} with Price of $ ${item.price}/MT has been placed Successfully`,
+          title: item.item.title,
+          body: `Your order for ${item.item.title} Incoterm :${item.incoterm};
+          Packaging:${item.packaging}/kg bag Quantity: ${item.quantity} with Price of $ ${item.price}/${item.item.unit} has been placed Successfully`,
         });
       }
     };

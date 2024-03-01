@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from '../styles/PlaceBidStyles';
-import {Dimensions, View} from 'react-native';
+import {Dimensions, LayoutAnimation, View} from 'react-native';
 import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import AHText from '../../../Components/AHText';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
@@ -14,6 +14,9 @@ import {
   showMiddleFeedBack,
 } from '../../../Components/Toasts/ToastsFeedBack';
 import {setBidList} from '../LocalStorage/BidDatabase';
+import BidInfoBanner from '../MicroComponents/BidInfoBanner';
+import {BID_INFO, layoutAnimConfig} from '../../../Constants/AppConstants';
+import {getIsGuestUser} from '../../../Storage/LocalStorage';
 const width = Dimensions.get('window').width;
 const PlaceBid = () => {
   const route = useRoute();
@@ -23,8 +26,21 @@ const PlaceBid = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [qVisible, setQVisible] = useState(false);
+  const [bidInfo, setBidInfo] = useState(false);
+  const [isGuestUser, setIsGuestUser] = useState(false);
   const [bidPrice, setBidPrice] = useState(item.price);
   const [quantity, setQuantity] = useState(item.moq);
+
+  useEffect(() => {
+    getIsGuestUser().then(r => {
+      console.log(r);
+      console.log(typeof r);
+      setTimeout(() => {
+        setBidInfo(r);
+        setIsGuestUser(r);
+      }, 3000);
+    });
+  }, []);
   const hideDialog = () => setVisible(false);
   const showDialog = () => setVisible(true);
   const onSuccess = text => {
@@ -52,6 +68,13 @@ const PlaceBid = () => {
   if (isValidElement(item)) {
     console.log(item);
   }
+  const onLoginSignUp = useCallback(() => {
+    LayoutAnimation.configureNext(layoutAnimConfig);
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'AuthStack'}],
+    });
+  }, [navigation]);
   const validateInputs = () => {
     if (item.price >= bidPrice) {
       showMiddleFeedBack('Bid Price should be more than Minimum Price');
@@ -66,6 +89,11 @@ const PlaceBid = () => {
   return (
     <View style={styles.container}>
       <HeaderComponent showHeader={true} name={'Place Bid'} />
+      <BidInfoBanner
+        isVisible={bidInfo}
+        message={BID_INFO}
+        onLoginSignUp={onLoginSignUp}
+      />
       <View style={styles.boxContainer}>
         <AHText
           style={styles.headline}
@@ -203,6 +231,10 @@ const PlaceBid = () => {
           icon={'clock-time-eight-outline'}
           name={'Place Bid'}
           onPress={() => {
+            if (isGuestUser) {
+              showBottomFeedBack('Try Registering and then Place a Bid');
+              return;
+            }
             if (validateInputs()) {
               setBidList({
                 item,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {MD2Colors, Text} from 'react-native-paper';
+import {MD2Colors} from 'react-native-paper';
 import myOrdersStyles from '../styles/MyOrdersStyles';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
 import LottieView from 'lottie-react-native';

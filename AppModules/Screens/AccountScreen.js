@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {FlashList} from '@shopify/flash-list';
 import {List, MD2Colors, Text, Tooltip} from 'react-native-paper';
 import CountryFlag from 'react-native-country-flag';
-import {storeIsLoggedIn} from '../Storage/LocalStorage';
+import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
 import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 import {
   PRIVACY_POLICY_LINK,
@@ -16,7 +16,10 @@ import {
 import {showBottomFeedBack} from '../Components/Toasts/ToastsFeedBack';
 import {useDispatch} from 'react-redux';
 import DeleteDialog from './Misc/Views/DeleteDialog';
-import {flushUserOnLogOut} from '../Storage/AppLocalStorage/UserStorageData';
+import {
+  flushEverythingOnLogOut,
+  flushUserOnLogOut,
+} from '../Storage/AppLocalStorage/UserStorageData';
 const profileSection = [
   {title: 'My Profile', icon: 'account', route: 'Account'},
   {title: 'My Orders', icon: 'gamma', route: 'MyOrders'},
@@ -61,11 +64,15 @@ const ProfileListSection = ({navigation}) => {
                     return;
                   }
                   await storeIsLoggedIn(false);
+                  await setIsGuestUser(true);
                   flushUserOnLogOut();
-                  navigation.reset({
-                    index: 0,
-                    routes: [{name: 'AuthStack'}],
-                  });
+                  flushEverythingOnLogOut();
+                  setTimeout(() => {
+                    navigation.reset({
+                      index: 0,
+                      routes: [{name: 'AuthStack'}],
+                    });
+                  }, 899);
                 }
               }}
             />

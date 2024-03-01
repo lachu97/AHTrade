@@ -10,10 +10,11 @@ import CheckoutCardComponent, {
 } from '../MicroComponents/CheckoutCardComponent';
 import AHButton from '../../../Components/AHButton';
 import InfoDialoag from '../MicroComponents/InfoDialoag';
-import {isIos} from '../../../HelperFuntions/helpers';
-import {sendEmailAction} from '../../../Email/emailFile';
 import {postOrderToDBAction} from '../Saga/SagaActions';
 import {getUserDetails} from '../../../Storage/AppLocalStorage/UserStorageData';
+import {addOrderDetails} from '../Reducers/CheckoutReducer';
+import PaymentInfoBanner from '../MicroComponents/PaymentInfoBanner';
+import {PaymentBanks} from '../../../Constants/AppConstants';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -22,18 +23,28 @@ const CheckoutScreen = () => {
   const {width} = useWindowDimensions();
   const [loading, setLoading] = useState(false);
   const [showInfo, setInfo] = useState(false);
+  const [paymentInfo, setPaymentInfo] = useState(false);
   const [user, setUser] = useState({});
   useEffect(() => {
     getUserDetails().then(r => {
       setUser(r.user);
     });
+    setTimeout(() => {
+      setPaymentInfo(true);
+    }, 2200);
   }, []);
   const result = route.params?.item;
   console.log(JSON.stringify(result));
   return (
     <View style={{flex: 1, backgroundColor: Colors.dark}}>
       <HeaderComponent showHeader name={'Checkout'} />
-      <ScrollView style={{flex: 1, marginVertical: 5, padding: 5, bottom: 10}}>
+      <ScrollView style={{flex: 1, marginVertical: 4, padding: 5, bottom: 15}}>
+        <PaymentInfoBanner
+          isVisible={paymentInfo}
+          onDismiss={() => setPaymentInfo(false)}
+          message={PaymentBanks}
+        />
+
         <CheckoutCardComponent result={result} />
         <ContactDetailsComponent
           contact={result.contact}
@@ -42,7 +53,7 @@ const CheckoutScreen = () => {
       </ScrollView>
       <View
         style={{
-          flex: 0.12,
+          flex: 0.11,
           justifyContent: 'center',
           alignItems: 'center',
           marginVertical: 5,
@@ -56,7 +67,7 @@ const CheckoutScreen = () => {
             marginVertical: 2,
           }}>
           <Text style={{color: MD2Colors.white, margin: 1, fontWeight: 'bold'}}>
-            We charge Processing Fee of $ 4.99,
+            We charge a Processing Fee of $ 4.99,
           </Text>
           <TouchableRipple
             onPress={() => {
@@ -87,6 +98,7 @@ const CheckoutScreen = () => {
               payment: result.payment.toString(),
               unit: result.item?.unit,
             };
+            dispatch(addOrderDetails(orderObject));
             dispatch(postOrderToDBAction(orderObject));
             setTimeout(() => {
               setLoading(false);

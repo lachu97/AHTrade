@@ -39,3 +39,7 @@ export function dateFormat(date) {
     day < 10 ? '0' : ''
   }${day}`;
 }
+
+export function isStartWithF(string) {
+  return string.startsWith('F');
+}

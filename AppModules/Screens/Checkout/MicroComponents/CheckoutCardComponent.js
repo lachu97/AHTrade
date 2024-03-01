@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Card, DataTable} from 'react-native-paper';
 import {useWindowDimensions} from 'react-native';
+import {isStartWithF} from '../../../HelperFuntions/helpers';
 
 const CheckoutCardComponent = ({result}) => {
   const {width} = useWindowDimensions();
@@ -37,9 +38,13 @@ const CheckoutCardComponent = ({result}) => {
         </DataTable.Row>
         <DataTable.Row>
           <DataTable.Cell>Incoterm</DataTable.Cell>
-          <DataTable.Cell>
-            {result.incoterm}({result.contact.port})
-          </DataTable.Cell>
+          {isStartWithF(result.incoterm) ? (
+            <DataTable.Cell>{result.incoterm}(Chennai Port)</DataTable.Cell>
+          ) : (
+            <DataTable.Cell>
+              {result.incoterm}({result.contact.port})
+            </DataTable.Cell>
+          )}
         </DataTable.Row>
         <DataTable.Row>
           <DataTable.Cell>Packaging</DataTable.Cell>
@@ -77,7 +82,12 @@ export const ContactDetailsComponent = ({contact, navigation}) => {
         })}
       </Card.Content>
       <Card.Actions>
-        <Button style={{borderRadius:10}} icon={'account-edit'} onPress={() => navigation.goBack()}>Edit Details</Button>
+        <Button
+          style={{borderRadius: 10}}
+          icon={'account-edit'}
+          onPress={() => navigation.goBack()}>
+          Edit Details
+        </Button>
       </Card.Actions>
     </Card>
   );

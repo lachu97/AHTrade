@@ -9,10 +9,11 @@ const InfoDialoag = ({isVisible, onDismiss}) => {
       <Dialog.ScrollArea>
         <ScrollView contentContainerStyle={{padding: 2}}>
           <Text numberOfLines={10}>
-            At AHTrade, we implement a nominal processing fee of $4.99 to ensure
-            the authenticity of each order. This fee helps us prevent duplicate
-            and repeat orders, ensuring that every transaction is genuine and
-            providing you with a secure and reliable shopping experience
+            At AHTrade, we implement a nominal processing non refundable fee of
+            $4.99 to ensure the authenticity of each order. This fee helps us
+            prevent duplicate and repeat orders, ensuring that every transaction
+            is genuine and providing you with a secure and reliable shopping
+            experience
           </Text>
           <Text numberOfLines={2}>
             Thank You, your understanding is highly Appreciated

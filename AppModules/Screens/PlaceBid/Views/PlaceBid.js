@@ -17,22 +17,38 @@ import {setBidList} from '../LocalStorage/BidDatabase';
 const width = Dimensions.get('window').width;
 const PlaceBid = () => {
   const route = useRoute();
+  let result = route.params?.item;
+  let item = route.params?.item;
+
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [qVisible, setQVisible] = useState(false);
-  const [bidPrice, setBidPrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [bidPrice, setBidPrice] = useState(item.price);
+  const [quantity, setQuantity] = useState(item.moq);
   const hideDialog = () => setVisible(false);
   const showDialog = () => setVisible(true);
   const onSuccess = text => {
-    setBidPrice(text);
+    if (text === ' ') {
+      return;
+    }
+    if (text >= item.price) {
+      setBidPrice(text);
+    } else {
+      showBottomFeedBack('Bid Price cannot be less than Minimum Price');
+    }
   };
   const hideQDialog = () => setQVisible(false);
   const showQDialog = () => setQVisible(true);
   const onQSuccess = text => {
-    setQuantity(text);
+    if (text === ' ') {
+      return;
+    }
+    if (text >= item.moq) {
+      setQuantity(text);
+    } else {
+      showBottomFeedBack('Quantity cannot be less than MOQ');
+    }
   };
-  let item = route.params?.item;
   if (isValidElement(item)) {
     console.log(item);
   }
@@ -55,7 +71,7 @@ const PlaceBid = () => {
           style={styles.headline}
           numberOfLines={2}
           variant={'headlineMedium'}
-          name={item.name}
+          name={`Commodity Name: ${item.title}`}
         />
       </View>
       <View style={styles.middleContainer}>
@@ -80,7 +96,7 @@ const PlaceBid = () => {
               margin: 5,
               fontSize: 26,
             }}>
-            {'$ ' + bidPrice + '/MT'}
+            {'$ ' + bidPrice + `/ ${item.unit}`}
           </Text>
           <TouchableRipple
             onPress={() => {
@@ -109,7 +125,9 @@ const PlaceBid = () => {
       </View>
       <View style={styles.middleContainer}>
         <View>
-          <Text style={{color: MD2Colors.white}}>Min Quantity (MT)</Text>
+          <Text style={{color: MD2Colors.white}}>
+            Min Quantity ({item.unit})
+          </Text>
           <Text
             style={{
               color: MD2Colors.white,
@@ -117,7 +135,7 @@ const PlaceBid = () => {
               margin: 5,
               fontSize: 26,
             }}>
-            {item?.quantity ? item.quantity : 0}
+            {item?.moq ? item.moq : 0}
           </Text>
         </View>
         <View>
@@ -129,7 +147,7 @@ const PlaceBid = () => {
               margin: 5,
               fontSize: 26,
             }}>
-            {quantity + ' MT'}
+            {quantity + item.unit}
           </Text>
           <TouchableRipple
             onPress={() => {
@@ -157,7 +175,7 @@ const PlaceBid = () => {
         </View>
       </View>
       <QuantityDialog
-        title={'Enter Quantity(MT)'}
+        title={`Enter Quantity(${item.unit})`}
         onSuccess={onQSuccess}
         isVisible={qVisible}
         hideDialog={hideQDialog}
@@ -181,7 +199,7 @@ const PlaceBid = () => {
           justifyContent: 'center',
         }}>
         <AHButton
-          style={{width: width * 0.94, margin: 10}}
+          style={{width: width * 0.94, margin: 10, borderRadius: 8}}
           icon={'clock-time-eight-outline'}
           name={'Place Bid'}
           onPress={() => {
@@ -192,7 +210,7 @@ const PlaceBid = () => {
                 quantity,
               });
               navigation.navigate('BidSuccess', {
-                details: {
+                bidDetails: {
                   bidPrice: bidPrice,
                   quantity: quantity,
                 },

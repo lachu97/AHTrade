@@ -52,7 +52,7 @@ export const QuantityDialog = ({
           onChangeText={e => setText(e)}
           value={text}
           placeholder={placeholder}
-          keyboardType={keyboardType}
+          keyboardType={'numeric'}
         />
       </Dialog.Content>
       <Dialog.Actions>

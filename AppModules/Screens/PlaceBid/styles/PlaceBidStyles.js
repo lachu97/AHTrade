@@ -21,7 +21,7 @@ export default StyleSheet.create({
     marginVertical: 30,
     padding: 10,
     color: MD2Colors.white,
-    fontSize: 36,
+    fontSize: 22,
     //backgroundColor:MD2Colors.white,
     flex: 1,
     textAlign: 'center',

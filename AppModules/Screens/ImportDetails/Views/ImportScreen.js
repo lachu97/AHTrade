@@ -217,8 +217,8 @@ const ImportScreen = () => {
   const hidePaymentDialog = () => setPaymentDialog(false);
   const hidePriceDialog = () => setShowPrice(false);
   const onQuantitySuccess = item => {
-    if (item > 25) {
-      showBottomFeedBack('Maximum Quantity is 25MT per user per order');
+    if (item > 10) {
+      showBottomFeedBack('Maximum Quantity is 10 MT per user per order');
       return;
     }
     setQuantity(item);

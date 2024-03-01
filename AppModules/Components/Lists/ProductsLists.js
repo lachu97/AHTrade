@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Dimensions, FlatList, Image, Pressable, View} from 'react-native';
 import AHText from '../AHText';
 import {Surface, Text, TouchableRipple, MD2Colors} from 'react-native-paper';
@@ -91,9 +91,41 @@ const ProductCard = ({item, navigation}) => {
 
 const ProductList = ({data, ListHeader}) => {
   const navigation = useNavigation();
-  const renderItems = ({item}) => (
-    <ProductCard item={item} navigation={navigation} />
+  const renderItems = useCallback(
+    ({item}) => <ProductCard item={item} navigation={navigation} />,
+    [navigation],
   );
+  const ListEmptyComponent = useCallback(() => {
+    return (
+      <View style={{width: width}}>
+        <LottieView
+          autoPlay
+          loop
+          source={require('../../assets/anim/myLoading8.json')}
+          style={{
+            flex: 1,
+            height: 64,
+            width: width,
+          }}
+        />
+      </View>
+    );
+  }, []);
+  const ListFooterComponent = useCallback(() => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginVertical: 10,
+        }}>
+        {data.length > 0 ? (
+          <Text style={{color: MD2Colors.white}}>That's all Folks...!!</Text>
+        ) : null}
+      </View>
+    );
+  }, [data]);
   return (
     <FlatList
       style={{margin: 1, backgroundColor: MD2Colors.transparent}}
@@ -101,33 +133,8 @@ const ProductList = ({data, ListHeader}) => {
       renderItem={renderItems}
       numColumns={2}
       ListHeaderComponent={ListHeader}
-      ListEmptyComponent={() => (
-        <View style={{width: width}}>
-          <LottieView
-            autoPlay
-            loop
-            source={require('../../assets/anim/myLoading8.json')}
-            style={{
-              flex: 1,
-              height: 64,
-              width: width,
-            }}
-          />
-        </View>
-      )}
-      ListFooterComponent={() => (
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginVertical: 10,
-          }}>
-          {data.length > 0 ? (
-            <Text style={{color: MD2Colors.white}}>That's all Folks...!!</Text>
-          ) : null}
-        </View>
-      )}
+      ListEmptyComponent={ListEmptyComponent}
+      ListFooterComponent={ListFooterComponent}
       keyExtractor={(item, index) => `${index}`}
     />
   );

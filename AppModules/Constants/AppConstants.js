@@ -1,7 +1,7 @@
 import {LayoutAnimation} from 'react-native';
 
 export const INFO_TEXT =
-  'Due to High Demand,the Maximum Quantity is limited to 25 MT(Metric Tonne) per Order per User';
+  'Due to High Demand,the Maximum Quantity is limited to 10 MT(Metric Tonne) per Order per User';
 export const PRIVACY_POLICY_LINK = 'https://atlashorizon.in/privacypolicy/';
 
 export const TERMS_AND_CONDITION = 'https://atlashorizon.in/termsandconditons/'

@@ -94,6 +94,24 @@ export const makeMessage = orderDetails => {
                 elements: [
                   {
                     type: 'text',
+                    text: 'Total Order Value : ',
+                  },
+                  {
+                    type: 'text',
+                    text: `$ ${Math.ceil(
+                      orderDetails.price * orderDetails.quantity,
+                    )}`,
+                    style: {
+                      bold: true,
+                    },
+                  },
+                ],
+              },
+              {
+                type: 'rich_text_section',
+                elements: [
+                  {
+                    type: 'text',
                     text: 'Incoterm: ',
                   },
                   {

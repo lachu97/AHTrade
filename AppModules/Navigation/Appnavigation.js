@@ -57,7 +57,6 @@ const AppNavigation = () => {
   return (
     <NavigationContainer
       ref={navigationRef}
-      linking={linking}
       onReady={() => {
         routeNameRef.current = navigationRef.current?.getCurrentRoute()?.name;
       }}

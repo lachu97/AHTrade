@@ -134,7 +134,12 @@ const Success = () => {
         });
       }
     };
+    const sendSlack = () => {
+      let message = makeMessage(result);
+      dispatch(sendOrderMessageToSlackAction(message));
+    };
     showNotification();
+    sendSlack();
   }, [
     item.incoterm,
     item.item.name,
@@ -202,9 +207,6 @@ const Success = () => {
           }}
           onPress={() => {
             LayoutAnimation.configureNext(layoutAnimConfig);
-            let message = makeMessage(result);
-            console.log(`Message = ${JSON.stringify(message)}`)
-            dispatch(sendOrderMessageToSlackAction(message));
             navigation.reset({
               index: 0,
               routes: [{name: 'Home'}],

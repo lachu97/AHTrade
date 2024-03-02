@@ -2,11 +2,12 @@ import React from 'react';
 import {Card, MD2Colors, Text} from 'react-native-paper';
 import {useWindowDimensions, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {HapticFeedback} from "../../../HelperFuntions/helpers";
 
 const BidCard = ({item, bidDetails}) => {
   const {width} = useWindowDimensions();
   return (
-    <Card style={{width: width * 0.87}}>
+    <Card style={{width: width * 0.87}} onPress={() => HapticFeedback()}>
       <Card.Title title={`${item.title}`} />
       <Card.Content>
         <Text>

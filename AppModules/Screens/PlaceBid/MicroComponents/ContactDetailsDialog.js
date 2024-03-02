@@ -10,7 +10,7 @@ import AHTextInput from '../../../Components/AHTextInput';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {showMiddleFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
 import PhoneInput from 'react-native-phone-number-input';
-import {validateEmail} from '../../../HelperFuntions/helpers';
+import {HapticFeedback, validateEmail} from '../../../HelperFuntions/helpers';
 const width = Dimensions.get('window').width;
 
 const ContactDetailsDialog = props => {
@@ -109,6 +109,7 @@ const ContactDetailsDialog = props => {
       <Dialog.Actions>
         <Button
           onPress={() => {
+            HapticFeedback()
             typeData.current = {
               name,
               email,

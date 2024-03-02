@@ -5,12 +5,13 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
-import {Platform, SafeAreaView, UIManager} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Linking, Platform, SafeAreaView, UIManager} from 'react-native';
 import AppNavigation from './AppModules/Navigation/Appnavigation';
 import store from './AppModules/Redux/Store';
+import NetInfo from '@react-native-community/netinfo';
 import {Provider} from 'react-redux';
-import {PaperProvider} from 'react-native-paper';
+import {Button, Dialog, PaperProvider, Text} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {
   getNotificationStatus,
@@ -59,6 +60,17 @@ const cacheCheck = () => {
 };
 
 function App(): JSX.Element {
+  const [netWorkState, setNetworkState] = React.useState(true);
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      console.log('NeT Module' + JSON.stringify(state.isConnected));
+      setNetworkState(state.isConnected);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   useEffect(() => {
     const requestNotificationPermission = async () => {
       let result = await getNotificationStatus();
@@ -78,6 +90,25 @@ function App(): JSX.Element {
       <Provider store={store}>
         <PaperProvider>
           <AppNavigation />
+          {!netWorkState ? (
+            <Dialog visible={!netWorkState}>
+              <Dialog.Title>Internet Connection Lost</Dialog.Title>
+              <Dialog.Content>
+                <Text>
+                  Internet Connectivity has been lost,Try Switching On Mobile
+                  Data or WiFi
+                </Text>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button
+                  onPress={() => {
+                    Linking.openSettings().then(r => console.log(r));
+                  }}>
+                  Go to Settings
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
+          ) : null}
         </PaperProvider>
       </Provider>
     </SafeAreaView>

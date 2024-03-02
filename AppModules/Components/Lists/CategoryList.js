@@ -10,7 +10,7 @@ import {
 import {Dimensions, FlatList, View} from 'react-native';
 import AHText from '../AHText';
 import {useNavigation} from '@react-navigation/native';
-import {isIos} from '../../HelperFuntions/helpers';
+import {HapticFeedback, isIos} from '../../HelperFuntions/helpers';
 import FastImage from 'react-native-fast-image';
 import LottieView from 'lottie-react-native';
 const width = Dimensions.get('window').width;
@@ -67,6 +67,7 @@ const CategoryList = ({data}) => {
   const navigation = useNavigation();
 
   const onPress = item => {
+    HapticFeedback();
     navigation.navigate('CategorySearch', {
       name: item.name,
       id: item.id,

@@ -14,6 +14,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useRef, useState} from 'react';
+import {HapticFeedback} from "../../HelperFuntions/helpers";
 
 export const BOTTOM_APPBAR_HEIGHT = 70;
 const bottomItems = [
@@ -41,6 +42,8 @@ const BottomBar = ({navigation, activeTab}) => {
         <TouchableRipple
           key={idx}
           onPress={() => {
+            HapticFeedback("impactMedium")
+
             if (itm.route === 'CategorySearch') {
               navigation.navigate(itm.route, {
                 name: 'Rice',

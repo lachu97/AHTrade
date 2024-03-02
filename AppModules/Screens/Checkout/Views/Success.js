@@ -10,7 +10,7 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {MD2Colors, Text, List, DataTable} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {isIos} from '../../../HelperFuntions/helpers';
+import {HapticFeedback, isIos} from '../../../HelperFuntions/helpers';
 import {
   displayNotifyAndroid,
   displayNotifyiOS,
@@ -206,6 +206,8 @@ const Success = () => {
             marginVertical: 1,
           }}
           onPress={() => {
+            HapticFeedback();
+
             LayoutAnimation.configureNext(layoutAnimConfig);
             navigation.reset({
               index: 0,

@@ -23,7 +23,7 @@ import BottomBar, {
   BOTTOM_APPBAR_HEIGHT,
 } from '../../../Components/BottomBar/BottomBar';
 import {data} from '../../../MockData/MockDatas';
-import {isIos} from '../../../HelperFuntions/helpers';
+import {HapticFeedback, isIos} from '../../../HelperFuntions/helpers';
 import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 import {cleanFilterProductData} from '../../../Redux/Reducers/CategoryReducer';
@@ -137,7 +137,11 @@ const CategorySearch = () => {
                 marginVertical: 5,
               }}
               icon={'book-edit'}
-              onPress={() => navigation.navigate('Recommendation')}>
+              onPress={() => {
+                HapticFeedback();
+
+                navigation.navigate('Recommendation');
+              }}>
               Suggest Products
             </Button>
           </View>
@@ -170,6 +174,8 @@ const CategorySearch = () => {
     fadeIn();
   }, [dispatch, fadeIn, selectedID]);
   const onChipPress = item => {
+    HapticFeedback();
+
     LayoutAnimation.configureNext(layoutAnimConfig);
     setSelected(item.name);
     setSelectedID(item.id);

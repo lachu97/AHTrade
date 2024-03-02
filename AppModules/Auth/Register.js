@@ -15,7 +15,7 @@ import AHText from '../Components/AHText';
 import AHTextInput from '../Components/AHTextInput';
 import AHButton from '../Components/AHButton';
 import LoadingModal from '../Components/Modals/LoadingModal';
-import {validateEmail} from '../HelperFuntions/helpers';
+import {HapticFeedback, validateEmail} from '../HelperFuntions/helpers';
 import {
   showBottomFeedBack,
   showMiddleFeedBack,
@@ -39,6 +39,7 @@ const Register = () => {
   const [textStatus, setTextStatus] = useState(true);
   const handleSubmit = useCallback(async () => {
     try {
+      HapticFeedback('impactMedium');
       if (!status) {
         showMiddleFeedBack('Agree to Privacy Policy');
         return;
@@ -184,10 +185,11 @@ const Register = () => {
         <AHButton
           name={'Submit'}
           onPress={handleSubmit}
+          loading={loading}
           style={styles.buttonStyles}
         />
       </KeyboardAvoidingView>
-      <LoadingModal isVisible={loading} />
+      {/*<LoadingModal isVisible={loading} />*/}
     </View>
   );
 };

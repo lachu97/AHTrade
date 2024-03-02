@@ -13,7 +13,8 @@ import {Pressable, View, StyleSheet} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AHText from './AHText';
 import {useNavigation} from '@react-navigation/native';
-import CountryFlag from "react-native-country-flag";
+import CountryFlag from 'react-native-country-flag';
+import {HapticFeedback} from '../HelperFuntions/helpers';
 export const HeaderComponent = ({showHeader = false, name = ''}) => {
   const navigation = useNavigation();
   return (
@@ -24,7 +25,18 @@ export const HeaderComponent = ({showHeader = false, name = ''}) => {
         marginHorizontal: 10,
         marginVertical: 10,
       }}>
-      <TouchableRipple onPress={() => navigation.goBack()}>
+      <TouchableRipple
+        hitSlop={{
+          left: 10,
+          top: 10,
+          bottom: 10,
+          right: 5,
+        }}
+        onPress={() => {
+          HapticFeedback();
+
+          navigation.goBack();
+        }}>
         <MaterialCommunityIcons
           name={'arrow-left'}
           size={30}
@@ -80,12 +92,8 @@ export const HomeHeaderComponent = () => {
       </View>
 
       <View style={{marginHorizontal: 10}}>
-        <Tooltip
-            enterTouchDelay={5}
-          title={'Country'}>
-          <>
-            {/*<CountryFlag isoCode={'in'} size={17} />*/}
-          </>
+        <Tooltip enterTouchDelay={5} title={'Country'}>
+          <>{/*<CountryFlag isoCode={'in'} size={17} />*/}</>
         </Tooltip>
       </View>
     </View>

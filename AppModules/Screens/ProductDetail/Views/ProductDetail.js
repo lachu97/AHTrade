@@ -13,7 +13,7 @@ import {
 import FastImage from 'react-native-fast-image';
 import AHButton from '../../../Components/AHButton';
 import {showBottomFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
-import {getLongName} from '../../../HelperFuntions/helpers';
+import {getLongName, HapticFeedback} from '../../../HelperFuntions/helpers';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 const ProductDetail = () => {
@@ -21,11 +21,15 @@ const ProductDetail = () => {
   const navigation = useNavigation();
   let item = route.params?.item;
   const onImportPress = useCallback(() => {
+    HapticFeedback('impactLight');
+
     navigation.navigate('Import', {
       item: item,
     });
   }, [item, navigation]);
   const onPlaceBidPress = useCallback(() => {
+    HapticFeedback('impactLight');
+
     navigation.navigate('PlaceBid', {
       item: item,
     });

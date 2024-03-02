@@ -33,7 +33,11 @@ import {
 import PackagingDialog, {
   packagingItems,
 } from '../MicroComponents/PackagingDialog';
-import {getLongName, isIos} from '../../../HelperFuntions/helpers';
+import {
+  getLongName,
+  HapticFeedback,
+  isIos,
+} from '../../../HelperFuntions/helpers';
 import {
   showBottomFeedBack,
   showMiddleFeedBack,
@@ -203,12 +207,16 @@ const ImportScreen = () => {
     };
   }, []);
   const onPressContactDetails = item => {
+    HapticFeedback();
     setContactDetails(item);
     storeContactsDetails(item).then(r => console.log(JSON.stringify(r)));
   };
   const showDialog = () => setShowQuantity(true);
   const showPackagingDialog = () => setPackagingDialog(true);
-  const showContactsDialog = () => setContactsDialog(true);
+  const showContactsDialog = () => {
+    HapticFeedback();
+    setContactsDialog(true);
+  };
   const hideContactsDialog = () => setContactsDialog(false);
   const hidePackagingDialog = () => setPackagingDialog(false);
   const showPriceDialog = () => setShowPrice(true);
@@ -217,6 +225,7 @@ const ImportScreen = () => {
   const hidePaymentDialog = () => setPaymentDialog(false);
   const hidePriceDialog = () => setShowPrice(false);
   const onQuantitySuccess = item => {
+    HapticFeedback();
     if (item > 10) {
       showBottomFeedBack('Maximum Quantity is 10 MT per user per order');
       return;
@@ -224,6 +233,7 @@ const ImportScreen = () => {
     setQuantity(item);
   };
   const onPriceSuccess = itm => {
+    HapticFeedback();
     if (itm < item.price) {
       showBottomFeedBack(
         `Enter Price greater than Minimum price of $${item.price}`,
@@ -232,11 +242,18 @@ const ImportScreen = () => {
     }
     setPrice(itm);
   };
-  const onPackagingSuccess = item => setPackaging(item);
+  const onPackagingSuccess = item => {
+    HapticFeedback();
+    setPackaging(item);
+  };
 
-  const onChipPress = item => setPayment(item);
+  const onChipPress = item => {
+    HapticFeedback();
+    setPayment(item);
+  };
 
   const onPressPlaceOrder = useCallback(() => {
+    HapticFeedback('impactMedium');
     const contactObject = contactDetails.reduce((result, {title, value}) => {
       if (title === 'Email') {
         result.email = value;
@@ -313,6 +330,7 @@ const ImportScreen = () => {
             isVisible={showInfo}
             message={INFO_TEXT}
             onDismiss={() => {
+              HapticFeedback();
               LayoutAnimation.configureNext(layoutAnimConfig);
               setShowInfo(false);
             }}
@@ -326,6 +344,7 @@ const ImportScreen = () => {
               value={quantity}
               name={`Quantity(${item.unit})`}
               onPress={() => {
+                HapticFeedback();
                 showDialog();
               }}
             />
@@ -397,6 +416,7 @@ const ImportScreen = () => {
               style={{marginHorizontal: 8, color: MD2Colors.white}}
               onValueChange={e => {
                 LayoutAnimation.configureNext(layoutAnimConfig);
+                HapticFeedback();
                 setPackaging(e);
               }}
               density={'regular'}
@@ -442,6 +462,7 @@ const ImportScreen = () => {
               value={shipment}
               style={{marginHorizontal: 8, color: MD2Colors.white}}
               onValueChange={e => {
+                HapticFeedback();
                 LayoutAnimation.configureNext(layoutAnimConfig);
                 setShipment(e);
               }}
@@ -510,6 +531,7 @@ const ImportScreen = () => {
                     }
                     onPress={() => {
                       LayoutAnimation.configureNext(layoutAnimConfig);
+                      HapticFeedback();
                       setIncoterm(item);
                     }}>
                     {item.incoterm}
@@ -541,6 +563,7 @@ const ImportScreen = () => {
               style={{marginHorizontal: 8, color: MD2Colors.white}}
               onValueChange={e => {
                 LayoutAnimation.configureNext(layoutAnimConfig);
+                HapticFeedback();
                 setPayment(e);
               }}
               density={'regular'}
@@ -606,6 +629,7 @@ const ImportScreen = () => {
             {contactDetails.length === 0 ? (
               <List.Item
                 onPress={() => {
+                  HapticFeedback();
                   showContactsDialog();
                 }}
                 style={{
@@ -667,7 +691,10 @@ const ImportScreen = () => {
             }}>
             <TouchableRipple
               style={{marginRight: 5}}
-              onPress={() => setChecked(prev => !prev)}>
+              onPress={() => {
+                HapticFeedback();
+                setChecked(prev => !prev);
+              }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <MaterialCommunityIcons
                   name={checked ? 'check-all' : 'checkbox-blank-outline'}

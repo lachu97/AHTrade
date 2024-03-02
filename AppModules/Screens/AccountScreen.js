@@ -4,7 +4,6 @@ import {HeaderComponent} from '../Components/HeaderComponent';
 import accountStyles from '../Styles/AccountStyles';
 import BottomBar from '../Components/BottomBar/BottomBar';
 import {useNavigation} from '@react-navigation/native';
-import {FlashList} from '@shopify/flash-list';
 import {List, MD2Colors, Text, Tooltip} from 'react-native-paper';
 import CountryFlag from 'react-native-country-flag';
 import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
@@ -20,6 +19,7 @@ import {
   flushEverythingOnLogOut,
   flushUserOnLogOut,
 } from '../Storage/AppLocalStorage/UserStorageData';
+import {HapticFeedback} from "../HelperFuntions/helpers";
 const profileSection = [
   {title: 'My Profile', icon: 'account', route: 'Account'},
   {title: 'My Orders', icon: 'gamma', route: 'MyOrders'},
@@ -49,6 +49,7 @@ const ProfileListSection = ({navigation}) => {
               titleStyle={accountStyles.listIconStyles}
               title={item.title}
               onPress={async () => {
+                  HapticFeedback()
                 if (item.route === 'MyOrders') {
                   navigation.navigate('MyOrders');
                   return;
@@ -98,6 +99,7 @@ const SettingListSection = ({onPressDelete, navigation}) => {
               titleStyle={accountStyles.listIconStyles}
               title={item.title}
               onPress={async () => {
+                  HapticFeedback()
                 if (item.route === 'Privacy') {
                   navigation.navigate('WebView', {
                     url: PRIVACY_POLICY_LINK,

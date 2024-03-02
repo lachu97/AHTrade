@@ -11,6 +11,7 @@ import {getUserDetails} from '../../../Storage/AppLocalStorage/UserStorageData';
 import LottieView from 'lottie-react-native';
 import FastImage from 'react-native-fast-image';
 import {useDispatch, useSelector} from 'react-redux';
+import {HapticFeedback} from '../../../HelperFuntions/helpers';
 const RecommendationScreen = () => {
   const [product, setProduct] = useState('');
   const [user, setUser] = useState({});
@@ -66,6 +67,7 @@ const RecommendationScreen = () => {
                 marginVertical: 5,
               }}
               onPress={() => {
+                HapticFeedback();
                 navigation.goBack();
               }}>
               Go Back
@@ -111,6 +113,8 @@ const RecommendationScreen = () => {
               icon={'book-edit'}
               loading={loading}
               onPress={() => {
+                HapticFeedback();
+
                 setLoading(true);
                 if (product === '') {
                   showBottomFeedBack('Product Name Is Empty');

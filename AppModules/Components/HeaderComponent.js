@@ -14,6 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AHText from './AHText';
 import {useNavigation} from '@react-navigation/native';
 import CountryFlag from 'react-native-country-flag';
+import {HapticFeedback} from '../HelperFuntions/helpers';
 export const HeaderComponent = ({showHeader = false, name = ''}) => {
   const navigation = useNavigation();
   return (
@@ -31,7 +32,11 @@ export const HeaderComponent = ({showHeader = false, name = ''}) => {
           bottom: 10,
           right: 5,
         }}
-        onPress={() => navigation.goBack()}>
+        onPress={() => {
+          HapticFeedback();
+
+          navigation.goBack();
+        }}>
         <MaterialCommunityIcons
           name={'arrow-left'}
           size={30}

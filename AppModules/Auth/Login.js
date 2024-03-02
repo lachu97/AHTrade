@@ -15,7 +15,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AHTextInput from '../Components/AHTextInput';
 import AHButton from '../Components/AHButton';
 import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
-import {validateEmail} from '../HelperFuntions/helpers';
+import {HapticFeedback, validateEmail} from '../HelperFuntions/helpers';
 import {
   showBottomFeedBack,
   showMiddleFeedBack,
@@ -41,10 +41,13 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const handlePassword = useCallback(text => setPassword(text), []);
   const handleSignUp = useCallback(() => {
+    HapticFeedback("impactMedium")
     navigation.navigate('Register');
   }, [navigation]);
   const handleSignIn = useCallback(async () => {
     try {
+      HapticFeedback("impactMedium")
+
       let result = validateEmail(email);
 
       if (!result) {
@@ -145,6 +148,7 @@ const Login = () => {
         <TouchableRipple
           style={styles.guestTextStyles}
           onPress={() => {
+            HapticFeedback("impactMedium")
             storeIsLoggedIn(false);
             setIsGuestUser(true);
             navigation.navigate('Home');

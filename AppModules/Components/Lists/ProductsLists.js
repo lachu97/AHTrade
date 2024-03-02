@@ -12,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import AHButton from '../AHButton';
 import FastImage from 'react-native-fast-image';
 import LottieView from 'lottie-react-native';
+import {HapticFeedback} from '../../HelperFuntions/helpers';
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
 const height = Dimensions.get('window').height;
@@ -22,6 +23,7 @@ const ProductCard = ({item, navigation}) => {
   return (
     <TouchableRipple
       onPress={() => {
+        HapticFeedback();
         navigation.navigate('ProductDetail', {
           item: item,
         });
@@ -78,11 +80,13 @@ const ProductCard = ({item, navigation}) => {
               fontWeight: 'bold',
             }}
             name={'Import'}
-            onPress={() =>
+            onPress={() => {
+              HapticFeedback('impactLight');
+
               navigation.navigate('Import', {
                 item: item,
-              })
-            }
+              });
+            }}
           />
           <AHButton
             icon={'chevron-right-circle-outline'}
@@ -93,11 +97,13 @@ const ProductCard = ({item, navigation}) => {
               fontWeight: 'bold',
             }}
             name={'Place Bid'}
-            onPress={() =>
+            onPress={() => {
+              HapticFeedback('impactLight');
+
               navigation.navigate('PlaceBid', {
                 item: item,
-              })
-            }
+              });
+            }}
           />
         </View>
       </Surface>

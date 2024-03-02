@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Button, Dialog} from 'react-native-paper';
 import AHTextInput from '../../../Components/AHTextInput';
 import {showMiddleFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
+import {HapticFeedback} from "../../../HelperFuntions/helpers";
 
 const BidDialog = ({
   isVisible,
@@ -58,6 +59,7 @@ export const QuantityDialog = ({
       <Dialog.Actions>
         <Button
           onPress={() => {
+              HapticFeedback()
             if (text.toString() === '') {
               showMiddleFeedBack(`${title}`);
               return;

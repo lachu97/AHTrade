@@ -1,5 +1,15 @@
 import {Platform} from 'react-native';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
+// Optional configuration
+const options = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: false,
+};
+export const HapticFeedback = (method = 'impactMedium') => {
+  return ReactNativeHapticFeedback.trigger(method, options);
+};
+// Trigger haptic feedback
 export const isIos = () => {
   return Platform.OS === 'ios';
 };

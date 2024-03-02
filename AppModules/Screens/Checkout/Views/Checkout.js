@@ -15,6 +15,7 @@ import {getUserDetails} from '../../../Storage/AppLocalStorage/UserStorageData';
 import {addOrderDetails} from '../Reducers/CheckoutReducer';
 import PaymentInfoBanner from '../MicroComponents/PaymentInfoBanner';
 import {PaymentBanks} from '../../../Constants/AppConstants';
+import {HapticFeedback} from '../../../HelperFuntions/helpers';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -80,6 +81,8 @@ const CheckoutScreen = () => {
           name={'Pay & Complete Order'}
           icon={'cart-arrow-right'}
           onPress={() => {
+            HapticFeedback('impactMedium');
+
             setLoading(true);
             // dispatch(sendEmailAction())
             let orderObject = {

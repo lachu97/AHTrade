@@ -5,7 +5,7 @@ import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import AHText from '../../../Components/AHText';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {isValidElement} from '../../../HelperFuntions/helpers';
+import {HapticFeedback, isValidElement} from '../../../HelperFuntions/helpers';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BidDialog, {QuantityDialog} from '../MicroComponents/BidDialog';
 import AHButton from '../../../Components/AHButton';
@@ -44,6 +44,8 @@ const PlaceBid = () => {
   const hideDialog = () => setVisible(false);
   const showDialog = () => setVisible(true);
   const onSuccess = text => {
+    HapticFeedback();
+
     if (text === ' ') {
       return;
     }
@@ -56,6 +58,7 @@ const PlaceBid = () => {
   const hideQDialog = () => setQVisible(false);
   const showQDialog = () => setQVisible(true);
   const onQSuccess = text => {
+    HapticFeedback();
     if (text === ' ') {
       return;
     }
@@ -69,6 +72,8 @@ const PlaceBid = () => {
     console.log(item);
   }
   const onLoginSignUp = useCallback(() => {
+    HapticFeedback();
+
     LayoutAnimation.configureNext(layoutAnimConfig);
     navigation.reset({
       index: 0,
@@ -128,6 +133,7 @@ const PlaceBid = () => {
           </Text>
           <TouchableRipple
             onPress={() => {
+              HapticFeedback();
               showDialog();
             }}
             style={{padding: 5}}>
@@ -179,6 +185,8 @@ const PlaceBid = () => {
           </Text>
           <TouchableRipple
             onPress={() => {
+              HapticFeedback();
+
               showQDialog();
             }}
             style={{padding: 5, alignSelf: 'center'}}>
@@ -231,6 +239,8 @@ const PlaceBid = () => {
           icon={'clock-time-eight-outline'}
           name={'Place Bid'}
           onPress={() => {
+            HapticFeedback('impactLight');
+
             if (isGuestUser) {
               showBottomFeedBack('Try Registering and then Place a Bid');
               return;

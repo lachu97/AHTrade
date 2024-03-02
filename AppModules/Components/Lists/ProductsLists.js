@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Dimensions, FlatList, View} from 'react-native';
 import AHText from '../AHText';
 import {
@@ -18,6 +18,7 @@ const height = Dimensions.get('window').height;
 const cardHeight = Math.floor(height / 3);
 
 const ProductCard = ({item, navigation}) => {
+  const [imageLoad, setImageLoad] = useState(false);
   return (
     <TouchableRipple
       onPress={() => {
@@ -41,8 +42,18 @@ const ProductCard = ({item, navigation}) => {
             uri: item.image,
             priority: FastImage.priority.high,
           }}
-          resizeMode={FastImage.resizeMode.contain}
-        />
+          onLoadStart={() => setImageLoad(true)}
+          onLoadEnd={() => setImageLoad(false)}
+          resizeMode={FastImage.resizeMode.contain}>
+          {imageLoad ? (
+            <LottieView
+              autoPlay
+              loop
+              style={{width: cardWidth - 5, height: cardHeight / 2}}
+              source={require('../../assets/anim/myLoading8.json')}
+            />
+          ) : null}
+        </FastImage>
         <AHText
           variant={'bodyLarge'}
           numberOfLines={1}

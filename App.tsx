@@ -1,11 +1,11 @@
 /**
- * AHTrade B2B Commodity Trading App
+ * AHTrade B2B Commodity Trading App for Export of GI Products...
  * https://github.com/lachu97/AHTrade
  *
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Linking, Platform, SafeAreaView, UIManager} from 'react-native';
 import AppNavigation from './AppModules/Navigation/Appnavigation';
 import store from './AppModules/Redux/Store';
@@ -34,10 +34,10 @@ export const LAST_CACHE_UPDATE = 'lastCacheUpdate';
 let CACHE_CONTROL_TIME = Math.floor(24 * 60 * 60 * 1000);
 
 const getDeploymentKey = () => {
-  let productionKey = '7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ';
-  let stagingKey = 'aa_j5MUXS3mrIkwbKB_clv8rYizgMY-NXGnNC';
-  let productKeyIOS = 'mFm5CoS2SdCOlnepTTdfmKp5uDJoAlLkiL4qO';
-  let stagingKeyIOS = 'j4ry2pVx1kj69Gj7SMzwOmNM9F4ycjp7XaWM7';
+  let productionKey = Config.ANDROID_CP_PRODUCTION_KEY;
+  let stagingKey = Config.ANDROID_CP_STAGING_KEY;
+  let productKeyIOS = Config.IOS_CP_PRODUCTION_KEY;
+  let stagingKeyIOS = Config.IOS_CP_STAGING_KEY;
   return productionKey;
 };
 
@@ -64,6 +64,7 @@ function App(): JSX.Element {
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       console.log('NeT Module' + JSON.stringify(state.isConnected));
+      // @ts-ignore
       setNetworkState(state.isConnected);
     });
     return () => {

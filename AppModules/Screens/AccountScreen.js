@@ -19,7 +19,7 @@ import {
   flushEverythingOnLogOut,
   flushUserOnLogOut,
 } from '../Storage/AppLocalStorage/UserStorageData';
-import {HapticFeedback} from "../HelperFuntions/helpers";
+import {HapticFeedback} from '../HelperFuntions/helpers';
 const profileSection = [
   {title: 'My Profile', icon: 'account', route: 'Account'},
   {title: 'My Orders', icon: 'gamma', route: 'MyOrders'},
@@ -49,7 +49,7 @@ const ProfileListSection = ({navigation}) => {
               titleStyle={accountStyles.listIconStyles}
               title={item.title}
               onPress={async () => {
-                  HapticFeedback()
+                HapticFeedback();
                 if (item.route === 'MyOrders') {
                   navigation.navigate('MyOrders');
                   return;
@@ -99,7 +99,7 @@ const SettingListSection = ({onPressDelete, navigation}) => {
               titleStyle={accountStyles.listIconStyles}
               title={item.title}
               onPress={async () => {
-                  HapticFeedback()
+                HapticFeedback();
                 if (item.route === 'Privacy') {
                   navigation.navigate('WebView', {
                     url: PRIVACY_POLICY_LINK,

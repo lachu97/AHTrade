@@ -23,7 +23,12 @@ export function validateEmail(email) {
   // Test the email against the regex
   return email.trim() !== '' && emailRegex.test(email);
 }
-const objectMap = {MT: 'Metric Tonne', QT: 'Quintal', KG: 'Kilogram'};
+const objectMap = {
+  MT: 'Metric Tonne',
+  QT: 'Quintal',
+  KG: 'Kilogram',
+  G: 'grams',
+};
 export function getLongName(value) {
   const key = value.toUpperCase();
 

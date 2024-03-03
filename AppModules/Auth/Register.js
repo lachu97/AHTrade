@@ -89,7 +89,7 @@ const Register = () => {
     } finally {
       setTimeout(() => {
         setLoading(false);
-      }, 1350);
+      }, 1150);
     }
   }, [email, formattedValue, navigation, password, status, value]);
   return (
@@ -102,6 +102,7 @@ const Register = () => {
         }}>
         <Pressable
           onPress={() => {
+            HapticFeedback();
             navigation.goBack();
           }}>
           <MaterialCommunityIcons
@@ -167,7 +168,10 @@ const Register = () => {
         />
         <TouchableRipple
           style={{marginHorizontal: 5}}
-          onPress={() => setStatus(prevState => !prevState)}>
+          onPress={() => {
+            HapticFeedback();
+            setStatus(prevState => !prevState);
+          }}>
           <View style={styles.iAgree}>
             <MaterialCommunityIcons
               name={

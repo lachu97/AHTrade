@@ -6,7 +6,8 @@ import reactotron from 'reactotron-react-native'; // <- From the Library
 import AppReactotron from '../DevConfig/ReactotronConfig';
 import categoryReducer from './Reducers/CategoryReducer';
 import accountReducer from './Reducers/AccountReducer';
-import checkoutReducer from "../Screens/Checkout/Reducers/CheckoutReducer"; // <-- From My Dev File
+import checkoutReducer from '../Screens/Checkout/Reducers/CheckoutReducer';
+import payPalReducer from '../PaymentGateway/PayPal/PayPalReducer'; // <-- From My Dev File
 const sagaMonitor = reactotron.createSagaMonitor();
 const sagaMiddleware = createSagaMiddleware({sagaMonitor});
 
@@ -16,14 +17,15 @@ const rootReducer = {
   category: categoryReducer,
   account: accountReducer,
   checkout: checkoutReducer,
+  paypal: payPalReducer,
 };
 // App Store Declaration down here -->
 const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({thunk: false}).concat(sagaMiddleware),
-   devTools: true, // <- Comment while Taking Build
-   enhancers: [AppReactotron.createEnhancer()], // <- Comment while Taking Build
+  devTools: true, // <- Comment while Taking Build
+  enhancers: [AppReactotron.createEnhancer()], // <- Comment while Taking Build
 });
 // Running And Configuring Saga
 sagaMiddleware.run(combineSaga);

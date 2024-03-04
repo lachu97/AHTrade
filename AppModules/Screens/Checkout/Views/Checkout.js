@@ -16,6 +16,7 @@ import {addOrderDetails} from '../Reducers/CheckoutReducer';
 import PaymentInfoBanner from '../MicroComponents/PaymentInfoBanner';
 import {PaymentBanks} from '../../../Constants/AppConstants';
 import {HapticFeedback} from '../../../HelperFuntions/helpers';
+import {getPayPalAccessToken} from '../../../PaymentGateway/PayPal/PayPalAPIs';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -102,10 +103,11 @@ const CheckoutScreen = () => {
               unit: result.item?.unit,
             };
             dispatch(addOrderDetails(orderObject));
-            dispatch(postOrderToDBAction(orderObject));
+            getPayPalAccessToken();
+            //   dispatch(postOrderToDBAction(orderObject));
             setTimeout(() => {
               setLoading(false);
-              navigation.navigate('Success', {
+              navigation.navigate('PayPal', {
                 item: result,
               });
             }, 3200);

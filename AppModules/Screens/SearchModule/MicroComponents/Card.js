@@ -3,6 +3,7 @@ import {Dimensions, View, StyleSheet} from 'react-native';
 import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 import AHButton from '../../../Components/AHButton';
+import {HapticFeedback} from '../../../HelperFuntions/helpers';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -12,6 +13,7 @@ const SearchCardItem = ({navigation, item}) => {
   return (
     <TouchableRipple
       onPress={() => {
+        HapticFeedback();
         navigation.navigate('ProductDetail', {
           item: item,
         });
@@ -95,8 +97,7 @@ const SearchCardItem = ({navigation, item}) => {
                 style={{borderRadius: 8, marginLeft: 5}}
                 name={'Import'}
                 onPress={() => {
-                  console.log('iam pressed fr import');
-                  console.log(JSON.stringify(item));
+                  HapticFeedback();
                   navigation.navigate('Import', {
                     item: item,
                   });

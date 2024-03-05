@@ -110,7 +110,7 @@ const CheckoutScreen = () => {
               navigation.navigate('PayPal', {
                 item: result,
               });
-            }, 3200);
+            }, 1200);
           }}
           loading={loading}
           style={{width: width * 0.94, margin: 2, borderRadius: 8}}

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import {Button, MD2Colors} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {captureOrders} from './PayPalAPIs';
 import {useDispatch, useSelector} from 'react-redux';
 import WebView from 'react-native-webview';
 import {HeaderComponent} from '../../Components/HeaderComponent';
@@ -12,7 +11,7 @@ const paypalDataAction = () => ({
 const PayPalCheckout = () => {
   const dispatch = useDispatch();
   const paypalData = useSelector(state => state.paypal.payPalData);
-  const [url, setUrl] = useState(null);
+  const url = useSelector(state => state.paypal.approveLink);
   const {width, height} = useWindowDimensions();
   const [id, setID] = useState(null);
   useEffect(() => {
@@ -20,9 +19,16 @@ const PayPalCheckout = () => {
       return;
     }
     setID(paypalData.id);
-    let links = paypalData.links?.filter(item => item.rel === 'approve');
-    setUrl(links.href);
   }, [paypalData]);
+  useEffect(() => {
+    console.log(`URL = ${url}`);
+  }, [url]);
+  const onMessage = data => {
+    console.log('onMessage' + JSON.stringify(data));
+  };
+  const onNavChange = data => {
+    console.log('Nav Change' + JSON.stringify(data));
+  };
   return (
     <View
       style={{
@@ -41,15 +47,22 @@ const PayPalCheckout = () => {
         }}>
         Pay with PayPal
       </Button>
-      <WebView
-        style={{
-          width: width * 0.9,
-          height: height * 0.7,
-        }}
-        source={{
-          uri: url,
-        }}
-      />
+      {url ? (
+        <WebView
+          style={{
+            flex: 1,
+            alignSelf: 'center',
+            width: width * 0.98,
+            height: height * 0.9,
+          }}
+          onMessage={onMessage}
+          onNavigationStateChange={onNavChange}
+          source={{
+            uri: url,
+          }}
+          javaScriptEnabled={true}
+        />
+      ) : null}
     </View>
   );
 };

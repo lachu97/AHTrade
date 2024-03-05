@@ -49,16 +49,20 @@ export const captureOrders = () => {
       {
         amount: {
           currency_code: 'USD',
-          value: '100.00',
+          value: '0.01',
         },
       },
     ],
+    redirect_urls: {
+      return_url: 'https://example.com',
+      cancel_url: 'https://example.com',
+    },
   };
   return axios
     .post(url, JSON.stringify(data), config)
     .then(response => {
       reactotron.log(response.data);
-      return response.data
+      return response.data;
     })
     .catch(err => reactotron.log(err.message));
 };

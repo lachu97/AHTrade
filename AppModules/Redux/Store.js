@@ -7,7 +7,8 @@ import AppReactotron from '../DevConfig/ReactotronConfig';
 import categoryReducer from './Reducers/CategoryReducer';
 import accountReducer from './Reducers/AccountReducer';
 import checkoutReducer from '../Screens/Checkout/Reducers/CheckoutReducer';
-import payPalReducer from '../PaymentGateway/PayPal/PayPalReducer'; // <-- From My Dev File
+import payPalReducer from '../PaymentGateway/PayPal/PayPalReducer';
+import myOrderReducer from '../Screens/MyOrders/MyOrderReducer/MyOrderReducer'; // <-- From My Dev File
 const sagaMonitor = reactotron.createSagaMonitor();
 const sagaMiddleware = createSagaMiddleware({sagaMonitor});
 
@@ -18,6 +19,7 @@ const rootReducer = {
   account: accountReducer,
   checkout: checkoutReducer,
   paypal: payPalReducer,
+  myOrder: myOrderReducer,
 };
 // App Store Declaration down here -->
 const store = configureStore({

@@ -22,7 +22,8 @@ import {
 import {rootEmailSaga} from '../../Email/EmailSaga';
 import {slackRootSaga} from '../../Slack/SlackSaga';
 import {checkoutSaga} from '../../Screens/Checkout/Saga/CheckoutSaga';
-import {payPalRootSaga} from "../../PaymentGateway/PayPal/PaypalSaga";
+import {payPalRootSaga} from '../../PaymentGateway/PayPal/PaypalSaga';
+import {addMyOrdersData} from '../../Screens/MyOrders/MyOrderReducer/MyOrderReducer';
 
 function* addHomeSaga() {
   try {
@@ -169,6 +170,24 @@ function* postRecommendProductSaga(action) {
     yield put(addStatus({status: 201, message: 'Successfully Added Row'}));
   } catch (e) {}
 }
+function* getMyOrdersSaga(action) {
+  try {
+    const user_id = action.payload.user_id;
+    yield delay(240);
+
+    let {data: order_test, error} = yield supaBaseClient
+      .from('order_test')
+      .select('*')
+      .eq('user_id', user_id);
+    if (error) {
+      console.error(`Error ${error.message}`);
+      return;
+    }
+    if (order_test) {
+      yield put(addMyOrdersData(order_test));
+    }
+  } catch (e) {}
+}
 function* rootSaga() {
   yield all([
     takeLatest('ADDHOME', addHomeSaga),
@@ -178,6 +197,7 @@ function* rootSaga() {
     takeLatest('GET_PRODUCT_BY_ID', filterProductsByIDSaga),
     takeLatest('GET_PRICE_DETAILS', getPriceDetailsSage),
     takeLatest('POST_RECOMMEND', postRecommendProductSaga),
+    takeLatest('GET_MY_ORDERS', getMyOrdersSaga),
   ]);
 }
 function* combineSaga() {

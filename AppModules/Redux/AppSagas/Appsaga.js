@@ -22,6 +22,7 @@ import {
 import {rootEmailSaga} from '../../Email/EmailSaga';
 import {slackRootSaga} from '../../Slack/SlackSaga';
 import {checkoutSaga} from '../../Screens/Checkout/Saga/CheckoutSaga';
+import {payPalRootSaga} from "../../PaymentGateway/PayPal/PaypalSaga";
 
 function* addHomeSaga() {
   try {
@@ -186,6 +187,7 @@ function* combineSaga() {
     rootEmailSaga(),
     slackRootSaga(),
     checkoutSaga(),
+    payPalRootSaga(),
   ]);
 }
 export default combineSaga;

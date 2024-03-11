@@ -95,9 +95,12 @@ const CategoryList = ({data}) => {
             source={require('../../assets/anim/myLoading8.json')}
             style={{
               flex: 1,
-              height: 64,
+              height: 70,
             }}
           />
+          <Text style={{color: MD2Colors.teal50, textAlign: 'center'}}>
+            Loading Category...
+          </Text>
         </View>
       )}
     />

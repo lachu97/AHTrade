@@ -34,7 +34,7 @@ export const LAST_CACHE_UPDATE = 'lastCacheUpdate';
 let CACHE_CONTROL_TIME = Math.floor(24 * 60 * 60 * 1000);
 
 const getDeploymentKey = () => {
-  let productionKey = "7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ";
+  let productionKey = '7XodYvyEK7iGkc3jJPc3Rahzz8CaoXC_qgeJZ';
   let stagingKey = Config.ANDROID_CP_STAGING_KEY;
   let productKeyIOS = Config.IOS_CP_PRODUCTION_KEY;
   let stagingKeyIOS = Config.IOS_CP_STAGING_KEY;

@@ -131,10 +131,11 @@ const ProductList = ({data, ListHeader}) => {
             source={require('../../assets/anim/myLoading8.json')}
             style={{
               flex: 1,
-              height: 64,
+              height: 70,
               width: width,
             }}
           />
+          <Text style={{color: MD2Colors.teal50,textAlign:'center'}}>Loading Products...</Text>
         </View>
       )}
       ListFooterComponent={() => (

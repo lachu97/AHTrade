@@ -24,6 +24,10 @@ import {slackRootSaga} from '../../Slack/SlackSaga';
 import {checkoutSaga} from '../../Screens/Checkout/Saga/CheckoutSaga';
 import {payPalRootSaga} from '../../PaymentGateway/PayPal/PaypalSaga';
 import {addMyOrdersData} from '../../Screens/MyOrders/MyOrderReducer/MyOrderReducer';
+import {
+  getFCMTokenDetails,
+  setFCMTokenDetails,
+} from '../../Storage/AppLocalStorage/FCMTokenStorage';
 
 function* addHomeSaga() {
   try {
@@ -188,6 +192,29 @@ function* getMyOrdersSaga(action) {
     }
   } catch (e) {}
 }
+function* postFCMTokenSaga(action) {
+  try {
+    const {token, user_id, os} = action.payload.data;
+    let alreadyInserted = yield getFCMTokenDetails();
+    console.log('FCm Datas=' + alreadyInserted);
+
+    if (alreadyInserted) {
+      return;
+    }
+    let insertData = {
+      token: token,
+      user_id: user_id,
+      os: os,
+    };
+    const {error} = yield supaBaseClient
+      .from('firebase_token')
+      .insert([insertData]);
+    if (!error) {
+      console.log('inserted succesffully');
+      setFCMTokenDetails(true);
+    }
+  } catch (e) {}
+}
 function* rootSaga() {
   yield all([
     takeLatest('ADDHOME', addHomeSaga),
@@ -198,6 +225,7 @@ function* rootSaga() {
     takeLatest('GET_PRICE_DETAILS', getPriceDetailsSage),
     takeLatest('POST_RECOMMEND', postRecommendProductSaga),
     takeLatest('GET_MY_ORDERS', getMyOrdersSaga),
+    takeLatest('POST_FCM_TOKEN', postFCMTokenSaga),
   ]);
 }
 function* combineSaga() {

@@ -12,7 +12,10 @@ import {
   PRIVACY_POLICY_LINK,
   TERMS_AND_CONDITION,
 } from '../Constants/AppConstants';
-import {showBottomFeedBack} from '../Components/Toasts/ToastsFeedBack';
+import {
+  showBottomFeedBack,
+  showMiddleFeedBack,
+} from '../Components/Toasts/ToastsFeedBack';
 import {useDispatch} from 'react-redux';
 import DeleteDialog from './Misc/Views/DeleteDialog';
 import {
@@ -73,6 +76,7 @@ const ProfileListSection = ({navigation}) => {
                       index: 0,
                       routes: [{name: 'AuthStack'}],
                     });
+                    showMiddleFeedBack('Logged Out SuccessFully');
                   }, 899);
                 }
               }}

@@ -9,11 +9,20 @@ import AHText from '../Components/AHText';
 import ProductList from '../Components/Lists/ProductsLists';
 import BottomBar from '../Components/BottomBar/BottomBar';
 import {layoutAnimConfig} from '../Constants/AppConstants';
-import {addUserData} from '../Redux/Reducers/AccountReducer';
+import messaging from '@react-native-firebase/messaging';
+import {isIos} from '../HelperFuntions/helpers';
+import {getUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
+import {getFCMTokenDetails} from '../Storage/AppLocalStorage/FCMTokenStorage';
 const act = () => ({type: 'ADDHOME'});
 const width = Dimensions.get('window').width;
 const getCategoryData = () => ({type: 'GET_CATEGORY'});
 const getProductData = () => ({type: 'GET_PRODUCT'});
+const postFCMToken = data => ({
+  type: 'POST_FCM_TOKEN',
+  payload: {
+    data: data,
+  },
+});
 const HomeScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -21,6 +30,35 @@ const HomeScreen = () => {
 
   let catData = useSelector(state => state.category.categoryData);
   let prodData = useSelector(state => state.category.productData);
+  useEffect(() => {
+    const getFCMToken = async id => {
+      await messaging().registerDeviceForRemoteMessages();
+
+      // Get the token
+      const token = await messaging().getToken();
+      let pastToken = getFCMTokenDetails();
+      if (pastToken === token) {
+        return;
+      }
+      let data = {
+        token: token,
+        user_id: id,
+        os: isIos() ? 'ios' : 'android',
+      };
+
+      dispatch(postFCMToken(data));
+
+      // Save the token
+      // await postToApi('/users/1234/tokens', { token });
+    };
+    if (!isIos()) {
+      getUserDetails().then(r => {
+        if (r.user.id) {
+          getFCMToken(r?.user?.id);
+        }
+      });
+    }
+  }, [dispatch]);
   useEffect(() => {
     const loadCategory = () => {
       try {

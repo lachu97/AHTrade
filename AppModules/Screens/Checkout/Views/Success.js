@@ -22,6 +22,7 @@ import {
   makeMessage,
   sendOrderMessageToSlackAction,
 } from '../../../Slack/SlackMessage';
+import {postOrderToDBAction} from "../Saga/SagaActions";
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
@@ -105,6 +106,7 @@ const Success = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   let item = route.params?.item;
+  let orderDetals = route.params?.orderObject;
   let result = item;
 
   console.log('Fromm Place Order ' + JSON.stringify(result));
@@ -117,7 +119,9 @@ const Success = () => {
   //   };
   //   getContactDetails();
   // }, []);
-
+  useEffect(() => {
+    dispatch(postOrderToDBAction(orderDetals));
+  }, [dispatch, orderDetals]);
   useEffect(() => {
     const showNotification = () => {
       if (isIos()) {

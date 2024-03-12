@@ -15,6 +15,9 @@ import {
   Chip,
   MD3Colors,
   Checkbox,
+  Menu,
+  Button,
+  Divider,
 } from 'react-native-paper';
 import importStyles from '../Styles/ImportStyles';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
@@ -148,6 +151,7 @@ const ImportScreen = () => {
   const [quantity, setQuantity] = useState(item.moq);
   const [showQuantity, setShowQuantity] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
   const [paymentDialog, setPaymentDialog] = useState(false);
   const [contactsDialog, setContactsDialog] = useState(false);
@@ -159,6 +163,9 @@ const ImportScreen = () => {
   const [shipment, setShipment] = useState('');
   const [incotermItem, setIncoterm] = useState({});
   const [checked, setChecked] = React.useState(false);
+  const openMenu = () => setVisible(true);
+
+  const closeMenu = () => setVisible(false);
   const priceDetails = useSelector(state => state.category.priceDetails);
   useEffect(() => {
     if (Object.keys(incotermItem).length === 0) {
@@ -384,6 +391,56 @@ const ImportScreen = () => {
             {/*        />*/}
             {/*      </TouchableRipple>*/}
             {/*    </View>*/}
+            {/*  )}*/}
+            {/*/>*/}
+            {/*<List.Item*/}
+            {/*  title={'Quantity'}*/}
+            {/*  titleStyle={{*/}
+            {/*    color: MD2Colors.white,*/}
+            {/*    marginHorizontal: 25,*/}
+            {/*    fontSize: 14,*/}
+            {/*    fontWeight: '500',*/}
+            {/*  }}*/}
+            {/*  right={() => (*/}
+            {/*    <Menu*/}
+            {/*      visible={visible}*/}
+            {/*      onDismiss={closeMenu}*/}
+            {/*      anchor={*/}
+            {/*        <View*/}
+            {/*          style={{*/}
+            {/*            flexDirection: 'row',*/}
+            {/*            alignItems: 'baseline',*/}
+            {/*            marginHorizontal: 2,*/}
+            {/*          }}>*/}
+            {/*          <TouchableRipple*/}
+            {/*            style={{marginHorizontal: 5}}*/}
+            {/*            onPress={openMenu}>*/}
+            {/*            <Text style={{color: MD2Colors.white}}>*/}
+            {/*              {quantity} {item.unit}*/}
+            {/*            </Text>*/}
+            {/*          </TouchableRipple>*/}
+            {/*          <Text style={{color: MD2Colors.white}}>Edit</Text>*/}
+            {/*          <MaterialCommunityIcons*/}
+            {/*            name={'book-edit'}*/}
+            {/*            size={15}*/}
+            {/*            color={MD2Colors.white}*/}
+            {/*          />*/}
+            {/*        </View>*/}
+            {/*      }>*/}
+            {/*      <Menu.Item onPress={() => {}} title="Item 1" />*/}
+            {/*      <Menu.Item onPress={() => {}} title="Item 2" />*/}
+            {/*      <Divider />*/}
+            {/*      <Menu.Item onPress={() => {}} title="Item 3" />*/}
+            {/*/!*    </Menu>*!/*/}
+            {/*    // <Text*/}
+            {/*    //   style={{*/}
+            {/*    //     color: MD2Colors.white,*/}
+            {/*    //     marginHorizontal: 25,*/}
+            {/*    //     fontSize: 14.5,*/}
+            {/*    //     fontWeight: 'bold',*/}
+            {/*    //   }}>*/}
+            {/*    //   $ {price} / {getLongName(item.unit)}*/}
+            {/*    // </Text>*/}
             {/*  )}*/}
             {/*/>*/}
             <List.Item

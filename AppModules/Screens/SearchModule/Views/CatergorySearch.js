@@ -11,12 +11,12 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import AHText from '../../../Components/AHText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  Text,
-  Chip,
-  MD2Colors,
-  MD3Colors,
-  TouchableRipple,
-  Button,
+    Text,
+    Chip,
+    MD2Colors,
+    MD3Colors,
+    TouchableRipple,
+    Button, Divider,
 } from 'react-native-paper';
 import SearchCardItem from '../MicroComponents/Card';
 import BottomBar, {
@@ -215,6 +215,7 @@ const CategorySearch = () => {
           ListEmptyComponent={ListEmpty}
           refreshing={refresh}
           onRefresh={onRefresh}
+          ItemSeparatorComponent={() => <Divider />}
         />
       </Animated.View>
       <BottomBar navigation={navigation} activeTab={'Category'} />

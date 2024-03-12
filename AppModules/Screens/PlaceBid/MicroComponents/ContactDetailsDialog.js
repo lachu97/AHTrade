@@ -68,9 +68,13 @@ const ContactDetailsDialog = props => {
               containerStyle={styles.phoneInputStyles}
               textContainerStyle={{
                 backgroundColor: Colors.light,
+
+              }}
+              textInputProps={{
+                placeholderTextColor: MD2Colors.black
               }}
               textInputStyle={{
-                height: 40,
+                height: 42,
                 color: MD2Colors.black,
               }}
               defaultCode={'US'}

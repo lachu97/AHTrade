@@ -154,6 +154,9 @@ const Register = () => {
             height: 53,
             color: MD2Colors.black,
           }}
+          textInputProps={{
+            placeholderTextColor: MD2Colors.black
+          }}
           defaultCode={'US'}
           value={value}
           onChangeText={text => {

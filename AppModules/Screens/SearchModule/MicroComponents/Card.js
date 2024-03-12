@@ -3,7 +3,7 @@ import {Dimensions, View, StyleSheet} from 'react-native';
 import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 import AHButton from '../../../Components/AHButton';
-import {HapticFeedback} from '../../../HelperFuntions/helpers';
+import {HapticFeedback, isIos} from '../../../HelperFuntions/helpers';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -46,7 +46,7 @@ const SearchCardItem = ({navigation, item}) => {
             <Text
               style={{
                 width: cardWidth / 2,
-                fontSize: 17,
+                fontSize: 18,
                 fontWeight: 'bold',
                 marginHorizontal: 2,
               }}
@@ -69,11 +69,11 @@ const SearchCardItem = ({navigation, item}) => {
                 marginVertical: 5,
                 marginHorizontal: 2,
               }}>
-              <Text variant={'bodySmall'}>
+              <Text variant={'bodySmall'} style={styles.textStyles}>
                 MOQ :{item.moq}
                 {item.unit}
               </Text>
-              <Text variant={'bodySmall'}>
+              <Text variant={'bodySmall'} style={styles.textStyles}>
                 Price : ${item.price}/{item.unit}
               </Text>
             </View>
@@ -82,7 +82,7 @@ const SearchCardItem = ({navigation, item}) => {
               variant={'bodySmall'}
               ellipsizeMode={'tail'}
               numberOfLines={1}>
-              Shipment by Air or Ocean
+              Shipment by Air / Ocean
             </Text>
             <View
               style={{
@@ -96,6 +96,7 @@ const SearchCardItem = ({navigation, item}) => {
                 icon={'export'}
                 style={{borderRadius: 8, marginLeft: 5}}
                 name={'Import'}
+                labelStyle={styles.textStyles}
                 onPress={() => {
                   HapticFeedback();
                   navigation.navigate('Import', {
@@ -116,6 +117,13 @@ const styles = StyleSheet.create({
     height: cardHeight,
     margin: 3,
     flex: 1,
+    borderColor: MD2Colors.teal700,
+    borderWidth: 0.8,
+    borderRadius: 8,
+  },
+  textStyles: {
+    fontSize: isIos() ? 12.5 : 13.6,
+    fontWeight: 'bold',
   },
 });
 export default React.memo(SearchCardItem);

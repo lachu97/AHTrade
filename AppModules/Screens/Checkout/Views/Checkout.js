@@ -10,13 +10,13 @@ import CheckoutCardComponent, {
 } from '../MicroComponents/CheckoutCardComponent';
 import AHButton from '../../../Components/AHButton';
 import InfoDialoag from '../MicroComponents/InfoDialoag';
-import {postOrderToDBAction} from '../Saga/SagaActions';
 import {getUserDetails} from '../../../Storage/AppLocalStorage/UserStorageData';
 import {addOrderDetails} from '../Reducers/CheckoutReducer';
 import PaymentInfoBanner from '../MicroComponents/PaymentInfoBanner';
 import {PaymentBanks} from '../../../Constants/AppConstants';
 import {HapticFeedback} from '../../../HelperFuntions/helpers';
 import {getPayPalAccessToken} from '../../../PaymentGateway/PayPal/PayPalAPIs';
+import {showBottomFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -105,12 +105,16 @@ const CheckoutScreen = () => {
             dispatch(addOrderDetails(orderObject));
             getPayPalAccessToken();
             //   dispatch(postOrderToDBAction(orderObject));
+            showBottomFeedBack('Order Created Successfully ');
             setTimeout(() => {
               setLoading(false);
-              navigation.navigate('PayPal', {
+              showBottomFeedBack('Moving to Orders Page');
+
+              navigation.navigate('Success', {
                 item: result,
+                orderObject: orderObject,
               });
-            }, 1200);
+            }, 4200);
           }}
           loading={loading}
           style={{width: width * 0.94, margin: 2, borderRadius: 8}}

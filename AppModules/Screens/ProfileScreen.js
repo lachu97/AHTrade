@@ -11,7 +11,7 @@ import {getContactsDetails} from '../Storage/AppLocalStorage/ContactsStorage';
 const ProfileScreen = () => {
   const [user, setUser] = useState({});
   const [address, setAddress] = useState({});
-  const [isGuestUser, setIsGuestUser] = useState(false);
+  const [isGuestUser, setIsGuestUser] = useState(true);
 
   useEffect(() => {
     getIsGuestUser().then(r => {

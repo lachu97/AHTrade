@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Linking, View} from 'react-native';
 import {HeaderComponent} from '../Components/HeaderComponent';
 import accountStyles from '../Styles/AccountStyles';
@@ -6,7 +6,11 @@ import BottomBar from '../Components/BottomBar/BottomBar';
 import {useNavigation} from '@react-navigation/native';
 import {List, MD2Colors, Text, Tooltip} from 'react-native-paper';
 import CountryFlag from 'react-native-country-flag';
-import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
+import {
+  getIsGuestUser,
+  setIsGuestUser,
+  storeIsLoggedIn,
+} from '../Storage/LocalStorage';
 import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 import {
   PRIVACY_POLICY_LINK,
@@ -26,7 +30,7 @@ import {HapticFeedback} from '../HelperFuntions/helpers';
 const profileSection = [
   {title: 'My Profile', icon: 'account', route: 'Account'},
   {title: 'My Orders', icon: 'gamma', route: 'MyOrders'},
-  {title: 'Log out', icon: 'export', route: 'logout'},
+  // {title: 'Log out', icon: 'export', route: 'logout'},
 ];
 const settingsSection = [
   {title: 'Terms & Condition', icon: 'star-settings', route: 'Terms'},
@@ -53,32 +57,32 @@ const ProfileListSection = ({navigation}) => {
               title={item.title}
               onPress={async () => {
                 HapticFeedback();
-                if (item.route === 'MyOrders') {
-                  navigation.navigate('MyOrders');
-                  return;
-                }
                 if (item.route === 'Account') {
                   navigation.navigate('Profile');
                   return;
                 }
-                if (item.route === 'logout') {
-                  const {error} = await supaBaseClient.auth.signOut();
-                  if (error) {
-                    showBottomFeedBack(`Error in Signout ${error.message}`);
-                    return;
-                  }
-                  await storeIsLoggedIn(false);
-                  await setIsGuestUser(true);
-                  flushUserOnLogOut();
-                  flushEverythingOnLogOut();
-                  setTimeout(() => {
-                    navigation.reset({
-                      index: 0,
-                      routes: [{name: 'AuthStack'}],
-                    });
-                    showMiddleFeedBack('Logged Out SuccessFully');
-                  }, 899);
+                if (item.route === 'MyOrders') {
+                  navigation.navigate('MyOrders');
                 }
+
+                // if (item.route === 'logout') {
+                //   const {error} = await supaBaseClient.auth.signOut();
+                //   if (error) {
+                //     showBottomFeedBack(`Error in Signout ${error.message}`);
+                //     return;
+                //   }
+                //   await storeIsLoggedIn(false);
+                //   await setIsGuestUser(true);
+                //   flushUserOnLogOut();
+                //   flushEverythingOnLogOut();
+                //   setTimeout(() => {
+                //     navigation.reset({
+                //       index: 0,
+                //       routes: [{name: 'AuthStack'}],
+                //     });
+                //     showMiddleFeedBack('Logged Out SuccessFully');
+                //   }, 899);
+                // }
               }}
             />
           );
@@ -136,11 +140,49 @@ const SettingListSection = ({onPressDelete, navigation}) => {
 const AccountScreen = () => {
   const navigation = useNavigation();
   const [showDelete, setDelete] = useState(false);
+  const [isGuestUser, setGuestUser] = useState(true);
+  useEffect(() => {
+    getIsGuestUser().then(r => setGuestUser(r));
+  }, []);
 
   return (
     <View style={accountStyles.container}>
       <HeaderComponent />
       <ProfileListSection navigation={navigation} />
+      <List.Item
+        title={isGuestUser ? 'Login' : 'Logout'}
+        style={{marginHorizontal: 25}}
+        titleStyle={accountStyles.listIconStyles}
+        left={() => <List.Icon color={MD2Colors.white} icon={'logout'} />}
+        onPress={async () => {
+          if (isGuestUser) {
+            setTimeout(() => {
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'AuthStack'}],
+              });
+              showMiddleFeedBack('Moving to Login Page');
+            }, 899);
+          } else {
+            const {error} = await supaBaseClient.auth.signOut();
+            if (error) {
+              showBottomFeedBack(`Error in Signout ${error.message}`);
+              return;
+            }
+            await storeIsLoggedIn(false);
+            await setIsGuestUser(true);
+            flushUserOnLogOut();
+            await flushEverythingOnLogOut();
+            setTimeout(() => {
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'AuthStack'}],
+              });
+              showMiddleFeedBack('Logged Out SuccessFully');
+            }, 899);
+          }
+        }}
+      />
       <SettingListSection
         onPressDelete={() => setDelete(true)}
         navigation={navigation}

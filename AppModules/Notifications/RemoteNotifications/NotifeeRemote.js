@@ -1,5 +1,4 @@
 import notifee, {AndroidColor, AndroidImportance} from '@notifee/react-native';
-import {createChannelAndroid} from '../Notifications';
 const createRemoteChannelAndroid = async () => {
   return await notifee.createChannel({
     id: 'Remote',
@@ -17,7 +16,7 @@ export const displayRemoteNotifyAndroid = async data => {
     body: data.body,
     android: {
       channelId,
-      asForegroundService: true,
+      asForegroundService: false,
       color: AndroidColor.CYAN,
       colorized: false,
       sound: 'hollow',

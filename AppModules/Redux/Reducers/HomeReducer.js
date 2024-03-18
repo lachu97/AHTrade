@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   height: null,
   width: null,
   loggedIn: false,
+  isGuestUser: null,
 };
 const homeReducer = createSlice({
   name: 'Home',
@@ -19,8 +20,12 @@ const homeReducer = createSlice({
     addLogIn: (state, action) => {
       state.loggedIn = action.payload;
     },
+    addIsGuestUser: (state, action) => {
+      state.isGuestUser = action.payload;
+    },
   },
 });
 
-export const {addHome, addDimensions, addLogIn} = homeReducer.actions;
+export const {addHome, addIsGuestUser, addDimensions, addLogIn} =
+  homeReducer.actions;
 export default homeReducer.reducer;

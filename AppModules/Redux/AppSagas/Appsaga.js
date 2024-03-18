@@ -28,6 +28,8 @@ import {
   getFCMTokenDetails,
   setFCMTokenDetails,
 } from '../../Storage/AppLocalStorage/FCMTokenStorage';
+import axios from 'axios';
+import {Platform} from 'react-native';
 
 function* addHomeSaga() {
   try {
@@ -215,6 +217,22 @@ function* postFCMTokenSaga(action) {
     }
   } catch (e) {}
 }
+function* postFCMtoSlack(action) {
+  try {
+    const token = action.payload;
+    let postData = {
+      text: `FCM Token 
+ ${token} \n OS = ${Platform.OS === 'ios' ? 'iOS' : 'Android'} `,
+    };
+    axios.post(
+      'https://hooks.slack.com/services/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',
+      postData,
+      {
+        headers: {},
+      },
+    );
+  } catch (e) {}
+}
 function* rootSaga() {
   yield all([
     takeLatest('ADDHOME', addHomeSaga),
@@ -226,6 +244,7 @@ function* rootSaga() {
     takeLatest('POST_RECOMMEND', postRecommendProductSaga),
     takeLatest('GET_MY_ORDERS', getMyOrdersSaga),
     takeLatest('POST_FCM_TOKEN', postFCMTokenSaga),
+    takeLatest('POST_FCM_TOKEN_SLACK', postFCMtoSlack),
   ]);
 }
 function* combineSaga() {

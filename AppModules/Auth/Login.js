@@ -1,5 +1,11 @@
 import React, {useCallback, useState} from 'react';
-import {View, Pressable, KeyboardAvoidingView, Dimensions} from 'react-native';
+import {
+  View,
+  Pressable,
+  KeyboardAvoidingView,
+  Dimensions,
+  Keyboard,
+} from 'react-native';
 import {
   Text,
   Provider as PaperProvider,
@@ -41,13 +47,13 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const handlePassword = useCallback(text => setPassword(text), []);
   const handleSignUp = useCallback(() => {
-    HapticFeedback("impactMedium")
+    HapticFeedback('impactMedium');
     navigation.navigate('Register');
   }, [navigation]);
   const handleSignIn = useCallback(async () => {
     try {
-      HapticFeedback("impactMedium")
-
+      HapticFeedback('impactMedium');
+      Keyboard.dismiss();
       let result = validateEmail(email);
 
       if (!result) {
@@ -148,7 +154,7 @@ const Login = () => {
         <TouchableRipple
           style={styles.guestTextStyles}
           onPress={() => {
-            HapticFeedback("impactMedium")
+            HapticFeedback('impactMedium');
             storeIsLoggedIn(false);
             setIsGuestUser(true);
             navigation.navigate('Home');

@@ -97,7 +97,7 @@ function App(): JSX.Element {
               <Dialog.Content>
                 <Text>
                   Internet Connectivity has been lost,Try Switching On Mobile
-                  Data or WiFi
+                  Data or WiFi,And Then Close & Reopen App.
                 </Text>
               </Dialog.Content>
               <Dialog.Actions>

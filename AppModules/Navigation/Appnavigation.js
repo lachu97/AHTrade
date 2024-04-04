@@ -19,7 +19,8 @@ import RecommendationScreen from '../Screens/Misc/Views/RecommedationScreen';
 import CheckoutScreen from '../Screens/Checkout/Views/Checkout';
 import WebViewScreen from '../Screens/Misc/Views/WebViewScreeen';
 import ProfileScreen from '../Screens/ProfileScreen';
-import PayPalCheckout from "../PaymentGateway/PayPal/PayPalCheckout";
+import PayPalCheckout from '../PaymentGateway/PayPal/PayPalCheckout';
+import CategoriesList from '../Screens/AllCategories/Views/CategoriesList';
 const screenAnimation = {
   animation: 'slide_from_right',
 };
@@ -154,6 +155,7 @@ const AppNavigation = () => {
         <Stack.Screen name={'AuthStack'} component={AuthNavigation} />
         <Stack.Screen name={'WebView'} component={WebViewScreen} />
         <Stack.Screen name={'PayPal'} component={PayPalCheckout} />
+        <Stack.Screen name={'CategoryList'} component={CategoriesList} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -85,7 +85,7 @@ export const HomeHeaderComponent = () => {
                 fontSize: 16.5,
                 fontWeight: 'bold',
               }}>
-              Atlashorizon
+              AHTrade
             </Text>
           </Tooltip>
         </TouchableRipple>

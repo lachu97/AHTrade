@@ -103,7 +103,7 @@ const CheckoutScreen = () => {
               unit: result.item?.unit,
             };
             dispatch(addOrderDetails(orderObject));
-            getPayPalAccessToken();
+            // getPayPalAccessToken();
             //   dispatch(postOrderToDBAction(orderObject));
             showBottomFeedBack('Order Created Successfully ');
             setTimeout(() => {
@@ -114,7 +114,7 @@ const CheckoutScreen = () => {
                 item: result,
                 orderObject: orderObject,
               });
-            }, 4200);
+            }, 1200);
           }}
           loading={loading}
           style={{width: width * 0.94, margin: 2, borderRadius: 8}}

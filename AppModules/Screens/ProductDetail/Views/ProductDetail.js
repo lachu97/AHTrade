@@ -3,16 +3,13 @@ import {HeaderComponent} from '../../../Components/HeaderComponent';
 import {Dimensions, ScrollView, View} from 'react-native';
 import productStyles from '../styles/ProductDetailStyles';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {
-  List,
-  MD2Colors,
-  MD3Colors,
-  Text,
-  TouchableRipple,
-} from 'react-native-paper';
+import {List, MD2Colors, Text, TouchableRipple} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 import AHButton from '../../../Components/AHButton';
-import {showBottomFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
+import {
+  showBottomFeedBack,
+  showMiddleFeedBack,
+} from '../../../Components/Toasts/ToastsFeedBack';
 import {getLongName, HapticFeedback} from '../../../HelperFuntions/helpers';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -22,6 +19,12 @@ const ProductDetail = () => {
   let item = route.params?.item;
   const onImportPress = useCallback(() => {
     HapticFeedback('impactLight');
+    if (!item.isAvailable) {
+      showMiddleFeedBack(
+        'Product Currently not Available,Try Again Sometime Later',
+      );
+      return;
+    }
 
     navigation.navigate('Import', {
       item: item,
@@ -29,6 +32,12 @@ const ProductDetail = () => {
   }, [item, navigation]);
   const onPlaceBidPress = useCallback(() => {
     HapticFeedback('impactLight');
+    if (!item.isAvailable) {
+      showMiddleFeedBack(
+        'Product Currently not Available,Try Again Sometime Later',
+      );
+      return;
+    }
 
     navigation.navigate('PlaceBid', {
       item: item,
@@ -78,6 +87,20 @@ const ProductDetail = () => {
               {item.title}
             </Text>
           </View>
+          <Text
+            style={{
+              color: item.isAvailable ? MD2Colors.tealA100 : MD2Colors.red400,
+              textAlign: 'center',
+              marginVertical: 15,
+              marginHorizontal: 25,
+              alignSelf: 'flex-start',
+              fontSize: 12,
+              fontWeight: 'bold',
+              flexGrow: 0.2,
+            }}
+            variant={'bodyLarge'}>
+            {item.isAvailable ? 'In Stock' : 'Out of Stock'}
+          </Text>
         </View>
         <View
           style={{
@@ -159,13 +182,11 @@ const ProductDetail = () => {
               showBottomFeedBack(`${item.description}`);
             }}
             style={{
-              borderWidth: 1,
-              borderColor: MD3Colors.secondary0,
               flex: 1,
               borderRadius: 8,
               padding: 1,
-              elevation: 4,
-              marginHorizontal: 5,
+              elevation: 1,
+              marginHorizontal: 15,
             }}>
             <Text
               numberOfLines={4}
@@ -193,7 +214,7 @@ const ProductDetail = () => {
               fontWeight: '500',
               color: MD2Colors.white,
               marginHorizontal: 10,
-              fontSize: 15.5,
+              fontSize: 14.5,
               padding: 2,
               textAlign: 'center',
             }}>

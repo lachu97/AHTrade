@@ -19,7 +19,7 @@ import {HapticFeedback} from '../../HelperFuntions/helpers';
 export const BOTTOM_APPBAR_HEIGHT = 70;
 const bottomItems = [
   {name: 'Home', icon: 'home', route: 'Home'},
-  {name: 'Category', icon: 'dots-grid', route: 'CategorySearch'},
+  {name: 'Category', icon: 'dots-grid', route: 'CategoryList'},
   {
     name: 'My Orders',
     icon: 'gamma',

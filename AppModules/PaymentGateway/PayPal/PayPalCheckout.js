@@ -5,11 +5,13 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useDispatch, useSelector} from 'react-redux';
 import WebView from 'react-native-webview';
 import {HeaderComponent} from '../../Components/HeaderComponent';
+import {useRoute} from '@react-navigation/native';
 const paypalDataAction = () => ({
   type: 'GET_PAYPAL_DATA',
 });
 const PayPalCheckout = () => {
   const dispatch = useDispatch();
+  const route = useRoute();
   const paypalData = useSelector(state => state.paypal.payPalData);
   const url = useSelector(state => state.paypal.approveLink);
   const {width, height} = useWindowDimensions();
@@ -25,6 +27,7 @@ const PayPalCheckout = () => {
   }, [url]);
   const onMessage = data => {
     console.log('onMessage' + JSON.stringify(data));
+    console.log(`${JSON.stringify(route.params?.orderObject)}`);
   };
   const onNavChange = data => {
     console.log('Nav Change' + JSON.stringify(data));
@@ -38,31 +41,29 @@ const PayPalCheckout = () => {
         //alignItems: 'center',
       }}>
       <HeaderComponent />
-      <Button
-        textColor={MD2Colors.teal200}
-        style={{borderWidth: 1, borderColor: MD2Colors.teal200}}
-        onPress={() => {
-          // captureOrders();
-          dispatch(paypalDataAction());
-        }}>
-        Pay with PayPal
-      </Button>
-      {url ? (
-        <WebView
-          style={{
-            flex: 1,
-            alignSelf: 'center',
-            width: width * 0.98,
-            height: height * 0.9,
-          }}
-          onMessage={onMessage}
-          onNavigationStateChange={onNavChange}
-          source={{
-            uri: url,
-          }}
-          javaScriptEnabled={true}
-        />
-      ) : null}
+      {/*<Button*/}
+      {/*  textColor={MD2Colors.teal200}*/}
+      {/*  style={{borderWidth: 1, borderColor: MD2Colors.teal200}}*/}
+      {/*  onPress={() => {*/}
+      {/*    // captureOrders();*/}
+      {/*    dispatch(paypalDataAction());*/}
+      {/*  }}>*/}
+      {/*  Pay with PayPal*/}
+      {/*</Button>*/}
+      <WebView
+        style={{
+          flex: 1,
+          alignSelf: 'center',
+          width: width * 0.98,
+          height: height * 0.9,
+        }}
+        onMessage={onMessage}
+        // onNavigationStateChange={onNavChange}
+        source={{
+          uri: 'https://msahtrade.netlify.app/tools/status/success',
+        }}
+        javaScriptEnabled={true}
+      />
     </View>
   );
 };

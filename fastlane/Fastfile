@@ -27,8 +27,7 @@ platform :android do
   end
   desc 'Upload App to PlayStore'
   lane :playstore do
-    gradle(task: 'clean', project_dir: 'android/')
-    gradle(task: 'bundle', build_type: 'release', project_dir: 'android/')
+    build
     upload_to_play_store(track: 'beta')
     slack(
         message: "AHTrade Android App Has been Uploaded Successfully to Google PlayStore.Ready for Deployment",

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ahtrade-android-app",
+  "private_key_id": "b7cc6755d741ec9f12cfe73f24b038e1ce6e8e38",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCwIAo8tkmgV0t1\nrBcyW3WPvltcMIOlRQUhVDfmFQorApP6hJyyC+noTeF/LTXWJdOwRjziQD/C9O5T\nMPQtG5Nih1LHimU4/2/HGPLsSHwCojTQ+ElJICk1argcdNzM95tE+wTmUSkTapnQ\nigdco1E7tGi0t15CVpIff01MqOQ5Aqm0uFLl2bSkbQ3XkgMM7WznrXxuLb+rzceI\ny+3cYJ3aMKTffPJTsK/Mb4m4vmAwogQvSGayjMuv8P8IoWF7C/y2WokTMRGdxu8U\nXZvszyl5qmqTwzwsj5xJV/FGxQ44Oigdn4D8bR9Pq0CTZDy70LF9WxYh9zhYMHWM\n+CkR74SFAgMBAAECggEALGnf+wBi366zxjg/30CGDFoN8tj/EZmumgGBWSF8H212\ngImZdCKh+SVOlIIDnf2K/NwxdUKLca/PO6ZQJOHb0FBctRn2vaFYgCYP+DqtHwLl\ne77oyCp2idRgGjj0BzH3czUzvpq/13gd0qNECP3cOcicUNoeyG7JSW0SQp8icieI\nU+Wv0BNWsgx3xBEV5gb7Kc5SwNO3XpD/Fd3DMGinaCYtNXoROZi/Lh4/7KfrfGLB\nePqPTj9XbaKQBEYbIzUxbfrRL8iOy5Ll8NaAwdeEPEamrAswpQMuo4L2NGKlDB6m\nRkYYnJrj7CbjGNNv8OtREe3Zh4ZBCzUWvXyTUNuYvwKBgQDwiRi3/VyDhFTxkvGF\nuxrUAUO718lI8Z2v12rbKP2CubYKiltcFjzc05wV11uigrAygsvPCr9OJ74wsKnc\nAOUfzFYbbqnpq4ClbwEasryTMDAgEpEFLJfYU/1uihKzdKPtH8gzT3Lfarkabs4K\nS6Hv2TgoEwlT/Ot2kCY74MHGwwKBgQC7ctT/MCkBfJ10HOWLs1ns0mhZeWEvPjim\nCP6ZvAp3OjMAU2xJHIc+n6w9BegMS62mBruGZQGgveVIWPjLABlMkLpAI3GXpQt4\ni/04/4PfvMQMfIE2WpirF/EYland7nnyY8zNg4iFAuJAivQiNuFQHewWVcEP5niG\ndt7pEp4jFwKBgDvdczh/p2HYMqf5MYFeIvw24FvFBgTQlbVpAOBQ4F+Dxwnyi3Bs\n3HL9e7B37AeTTTUVFpKOEzTpcU1++peV5XC3k4q6TTGqDJef+/9gEszzRlcFJ/DI\nu3YM2VuEo8jkM9RVf6c9k9KFJlKs1zz6u/AM+QwISN8NaLEWiV2Hv9KvAoGAG4Pb\nqCnVmxZDtouXVk5ZYN3x21Bp55lmj1i6pq5niuDMI7wbJRA++f5ONhbr3QIu1zQd\nyriA6Kt3QItu2b2F+Ss1a7zIK85aRLOn0/oNzYXT8VFFVkkuJ8834Lf3W1BqLh5g\nLbqlC4FE3NyIwYz0veHmidDEqiTWhEZmqifFdrkCgYEAndVjEcs0VtVVm6Bl3CTk\nvLzi+Q2fEJ7l5M9QBs5xp72wjeWMvMGLW+hvnzby428+mPjJ6OmFjPSgNTcdjZVi\nrXVZnZ+Vn0j1PBM2ABh+YKcA3nnXSCAnxKdoIVsgDvvKXgfAU9oEz/MEKKv7z0fH\nr2aiWCekIpiKIyb32S3M584=\n-----END PRIVATE KEY-----\n",
+  "client_email": "appcenter-android@ahtrade-android-app.iam.gserviceaccount.com",
+  "client_id": "112116095065936585260",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/appcenter-android%40ahtrade-android-app.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

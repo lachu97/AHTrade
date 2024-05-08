@@ -38,7 +38,7 @@ platform :android do
     payload: {
         "Build Date" => Time.new.to_s,
         "Built By" => "FastLane Android Pipeline",
-        "OS" => "Android"
+        "OS" => "Android OS"
     }
   )
   end

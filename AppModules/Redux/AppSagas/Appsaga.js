@@ -30,6 +30,7 @@ import {
 } from '../../Storage/AppLocalStorage/FCMTokenStorage';
 import axios from 'axios';
 import {Platform} from 'react-native';
+import {nowPaymentsSaga} from '../../PaymentGateway/CryptoPayment/NowPaymentsPG/NowpaymentsSaga';
 
 function* addHomeSaga() {
   try {
@@ -255,6 +256,7 @@ function* combineSaga() {
     slackRootSaga(),
     checkoutSaga(),
     payPalRootSaga(),
+    nowPaymentsSaga(),
   ]);
 }
 export default combineSaga;

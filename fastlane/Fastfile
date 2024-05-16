@@ -1,4 +1,21 @@
 platform :android do
+
+  desc 'Generate Android APK'
+  lane :generateBuild do
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'bundle', build_type: 'release', project_dir: 'android/')
+     slack(
+        message: "AHTrade Android App APK Has been Generated Successfully.",
+        success: true,
+        slack_url: "https://hooks.slack.com/services/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",
+        default_payloads: [:git_branch, :git_branch, :git_author, :last_git_commit, :last_git_commit_hash],
+        payload: {
+            "Build Date" => Time.new.to_s,
+            "Built By" => "FastLane Android Build Pipeline",
+            "OS" => "Android"
+        }
+      )
+  end
   desc 'Build the Android application.'
   lane :build do
     gradle(task: 'clean', project_dir: 'android/')
@@ -21,7 +38,7 @@ platform :android do
     payload: {
         "Build Date" => Time.new.to_s,
         "Built By" => "FastLane Android Pipeline",
-        "OS" => "Android"
+        "OS" => "Android OS"
     }
   )
   end

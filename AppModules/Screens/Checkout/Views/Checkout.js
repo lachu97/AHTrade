@@ -69,7 +69,7 @@ const CheckoutScreen = () => {
             marginVertical: 2,
           }}>
           <Text style={{color: MD2Colors.white, margin: 1, fontWeight: 'bold'}}>
-            We charge a Processing Fee of $ 4.99,
+            We charge a Processing Fee of $ 9.99,
           </Text>
           <TouchableRipple
             onPress={() => {
@@ -105,12 +105,12 @@ const CheckoutScreen = () => {
             dispatch(addOrderDetails(orderObject));
             // getPayPalAccessToken();
             //   dispatch(postOrderToDBAction(orderObject));
-            showBottomFeedBack('Order Created Successfully ');
+            //showBottomFeedBack('Order Created Successfully ');
             setTimeout(() => {
               setLoading(false);
-              showBottomFeedBack('Moving to Orders Page');
+              showBottomFeedBack('Moving to Payments');
 
-              navigation.navigate('Success', {
+              navigation.navigate('NowPayments', {
                 item: result,
                 orderObject: orderObject,
               });

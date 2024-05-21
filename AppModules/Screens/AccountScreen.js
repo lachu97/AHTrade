@@ -13,7 +13,10 @@ import {
 } from '../Storage/LocalStorage';
 import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 import {
+  CONTACT_US,
   PRIVACY_POLICY_LINK,
+  REFUND_RETURNS_POLICY_LINK,
+  SHIPPING_POLICY,
   TERMS_AND_CONDITION,
 } from '../Constants/AppConstants';
 import {
@@ -35,6 +38,9 @@ const profileSection = [
 const settingsSection = [
   {title: 'Terms & Condition', icon: 'star-settings', route: 'Terms'},
   {title: 'Privacy Policy', icon: 'powershell', route: 'Privacy'},
+  {title: 'Shipping Policy', icon: 'ship-wheel', route: 'Shipping'},
+  {title: 'Returns & Refund Policy', icon: 'cash-refund', route: 'returns'},
+  {title: 'Contact US', icon: 'phone', route: 'contact'},
   {title: 'App Version', icon: 'target', route: 'Version'},
   {title: 'Delete My Account', icon: 'delete', route: 'Delete'},
 ];
@@ -119,6 +125,27 @@ const SettingListSection = ({onPressDelete, navigation}) => {
                   navigation.navigate('WebView', {
                     url: TERMS_AND_CONDITION,
                     title: 'Terms & Condition',
+                  });
+                  return;
+                }
+                if (item.route === 'contact') {
+                  navigation.navigate('WebView', {
+                    url: CONTACT_US,
+                    title: 'Contact Us',
+                  });
+                  return;
+                }
+                if (item.route === 'Shipping') {
+                  navigation.navigate('WebView', {
+                    url: SHIPPING_POLICY,
+                    title: 'Shipping Policy',
+                  });
+                  return;
+                }
+                if (item.route === 'returns') {
+                  navigation.navigate('WebView', {
+                    url: REFUND_RETURNS_POLICY_LINK,
+                    title: 'Returns & Refund Policy',
                   });
                   return;
                 }

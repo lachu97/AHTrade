@@ -237,15 +237,15 @@ const ProductDetail = () => {
         <AHButton
           style={{flex: 1, margin: 2, borderRadius: 8}}
           icon={'import'}
-          name={'Import'}
+          name={'Import Item'}
           onPress={onImportPress}
         />
-        <AHButton
-          style={{flex: 1, margin: 2, borderRadius: 8}}
-          icon={'chevron-right-circle-outline'}
-          name={'Place Bid'}
-          onPress={onPlaceBidPress}
-        />
+        {/*<AHButton*/}
+        {/*  style={{flex: 1, margin: 2, borderRadius: 8}}*/}
+        {/*  icon={'chevron-right-circle-outline'}*/}
+        {/*  name={'Place Bid'}*/}
+        {/*  onPress={onPlaceBidPress}*/}
+        {/*/>*/}
       </View>
     </View>
   );

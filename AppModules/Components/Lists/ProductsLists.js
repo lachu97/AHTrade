@@ -122,6 +122,7 @@ const ProductList = ({data, ListHeader}) => {
       data={data}
       renderItem={renderItems}
       numColumns={2}
+      showsVerticalScrollIndicator={false}
       ListHeaderComponent={ListHeader}
       ListEmptyComponent={() => (
         <View style={{width: width}}>
@@ -135,7 +136,9 @@ const ProductList = ({data, ListHeader}) => {
               width: width,
             }}
           />
-          <Text style={{color: MD2Colors.teal50,textAlign:'center'}}>Loading Products...</Text>
+          <Text style={{color: MD2Colors.teal50, textAlign: 'center'}}>
+            Loading Products...
+          </Text>
         </View>
       )}
       ListFooterComponent={() => (

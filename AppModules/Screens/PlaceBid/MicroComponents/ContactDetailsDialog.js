@@ -38,7 +38,9 @@ const ContactDetailsDialog = props => {
   );
   return (
     <Dialog visible={isVisible} onDismiss={hideDialog}>
-      <Dialog.Title>Enter your Contact Details</Dialog.Title>
+      <Dialog.Title style={{fontSize: 15, fontWeight: '400'}}>
+        Enter Contact Details
+      </Dialog.Title>
       <Dialog.ScrollArea>
         <ScrollView contentContainerStyle={{paddingHorizontal: 1}}>
           <KeyboardAvoidingView>
@@ -68,10 +70,9 @@ const ContactDetailsDialog = props => {
               containerStyle={styles.phoneInputStyles}
               textContainerStyle={{
                 backgroundColor: Colors.light,
-
               }}
               textInputProps={{
-                placeholderTextColor: MD2Colors.black
+                placeholderTextColor: MD2Colors.black,
               }}
               textInputStyle={{
                 height: 42,
@@ -112,8 +113,9 @@ const ContactDetailsDialog = props => {
       </Dialog.ScrollArea>
       <Dialog.Actions>
         <Button
+          icon={'arrow-left-bottom'}
           onPress={() => {
-            HapticFeedback()
+            HapticFeedback();
             typeData.current = {
               name,
               email,
@@ -163,6 +165,9 @@ const ContactDetailsDialog = props => {
             }
           }}>
           Done
+        </Button>
+        <Button icon={'cancel'} onPress={() => hideDialog()}>
+          Cancel
         </Button>
       </Dialog.Actions>
     </Dialog>

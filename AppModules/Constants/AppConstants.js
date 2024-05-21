@@ -2,9 +2,15 @@ import {LayoutAnimation} from 'react-native';
 
 export const INFO_TEXT =
   'Due to High Demand,the Maximum Quantity is limited to 10 MT(Metric Tonne) per Order per User';
-export const PRIVACY_POLICY_LINK = 'https://atlashorizon.in/privacypolicy/';
+export const PRIVACY_POLICY_LINK =
+  'https://atlashorizon.in/privacy-policy-ahtrade/';
 
 export const TERMS_AND_CONDITION = 'https://atlashorizon.in/termsandconditons/';
+
+export const REFUND_RETURNS_POLICY_LINK =
+  'https://atlashorizon.in/returns-refunds-policy/';
+export const CONTACT_US = 'https://atlashorizon.in/contact/';
+export const SHIPPING_POLICY = 'https://atlashorizon.in/shipping-policy/';
 export const DELETION_LINK = '';
 
 export const PaymentBanks =

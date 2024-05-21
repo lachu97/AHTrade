@@ -16,7 +16,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useRef, useState} from 'react';
 import {HapticFeedback} from '../../HelperFuntions/helpers';
 
-export const BOTTOM_APPBAR_HEIGHT = 70;
+export const BOTTOM_APPBAR_HEIGHT = 55;
 const bottomItems = [
   {name: 'Home', icon: 'home', route: 'Home'},
   {name: 'Category', icon: 'dots-grid', route: 'CategoryList'},
@@ -41,10 +41,10 @@ const BottomBar = ({navigation, activeTab}) => {
         <TouchableRipple
           key={idx}
           hitSlop={{
-            top: 10,
-            left: 12,
-            right: 12,
-            bottom: 10,
+            top: 5,
+            left: 6,
+            right: 6,
+            bottom: 5,
           }}
           onPress={() => {
             HapticFeedback('impactMedium');
@@ -57,11 +57,11 @@ const BottomBar = ({navigation, activeTab}) => {
             }
             navigation.navigate(itm.route);
           }}
-          style={{padding: 5}}>
+          style={{padding: 3}}>
           <View style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
             <MaterialCommunityIcons
               name={itm.icon}
-              size={itm.name === activeTab ? 28 : 25}
+              size={itm.name === activeTab ? 25 : 21}
               color={
                 itm.name === activeTab ? MD2Colors.pink50 : MD2Colors.grey50
               }
@@ -69,10 +69,10 @@ const BottomBar = ({navigation, activeTab}) => {
             <Text
               style={{
                 alignSelf: 'center',
-                marginVertical: 5,
+                marginVertical: 3,
                 color:
                   itm.name === activeTab ? MD2Colors.pink50 : MD2Colors.white,
-                fontSize: itm.name === activeTab ? 14 : 11,
+                fontSize: itm.name === activeTab ? 13 : 10,
               }}>
               {itm.name}
             </Text>

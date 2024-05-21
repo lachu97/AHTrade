@@ -42,7 +42,7 @@ const SearchCardItem = ({navigation, item}) => {
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
-          <View style={{}}>
+          <View style={{marginHorizontal: 6}}>
             <Text
               style={{
                 width: cardWidth / 2,

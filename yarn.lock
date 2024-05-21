@@ -6633,6 +6633,11 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+payu-non-seam-less-react@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/payu-non-seam-less-react/-/payu-non-seam-less-react-3.1.1.tgz#b00ba8f107e7ac4bdce8294085685eb7ebe3e582"
+  integrity sha512-UIy8k9KSC1WgFQYbw6MqWN9QelvSb3iOqz7LkWQPn7052XZsowJHDFJMMEzUOjry2RZ76HuM85Grk3Hw0bP+kg==
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"

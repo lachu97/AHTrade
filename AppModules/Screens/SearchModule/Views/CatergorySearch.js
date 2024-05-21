@@ -11,12 +11,13 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import AHText from '../../../Components/AHText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-    Text,
-    Chip,
-    MD2Colors,
-    MD3Colors,
-    TouchableRipple,
-    Button, Divider,
+  Text,
+  Chip,
+  MD2Colors,
+  MD3Colors,
+  TouchableRipple,
+  Button,
+  Divider,
 } from 'react-native-paper';
 import SearchCardItem from '../MicroComponents/Card';
 import BottomBar, {
@@ -114,14 +115,20 @@ const CategorySearch = () => {
       <>
         {filterData.length === 0 ? (
           <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginVertical: height * 0.18,
+            }}>
             <Text
               style={{
                 flex: 1,
                 color: MD2Colors.white,
                 textAlign: 'center',
-                fontSize: 15,
+                fontSize: 17,
                 alignSelf: 'center',
+                marginHorizontal: 5,
                 padding: 8,
               }}>
               No Product Available for this Category,Try Selecting Other
@@ -136,6 +143,7 @@ const CategorySearch = () => {
                 alignSelf: 'center',
                 marginVertical: 5,
               }}
+              textColor={MD2Colors.teal100}
               icon={'book-edit'}
               onPress={() => {
                 HapticFeedback();

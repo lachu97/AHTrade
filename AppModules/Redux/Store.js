@@ -5,6 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import reactotron from 'reactotron-react-native'; // <- From the Library
 import AppReactotron from '../DevConfig/ReactotronConfig';
 import categoryReducer from './Reducers/CategoryReducer';
+import selectProductDetailReducer from './Reducers/ProductDetailReducer';
 import accountReducer from './Reducers/AccountReducer';
 import checkoutReducer from '../Screens/Checkout/Reducers/CheckoutReducer';
 import payPalReducer from '../PaymentGateway/PayPal/PayPalReducer';
@@ -12,7 +13,10 @@ import myOrderReducer from '../Screens/MyOrders/MyOrderReducer/MyOrderReducer';
 import nowpaymentReducer from '../PaymentGateway/CryptoPayment/NowPaymentsPG/NowpaymentReducer'; // <-- From My Dev File
 const sagaMonitor = reactotron.createSagaMonitor();
 const sagaMiddleware = createSagaMiddleware({sagaMonitor});
-
+let isDev = false;
+if (__DEV__) {
+  isDev = true;
+}
 // Overall RootReducer
 const rootReducer = {
   home: homeReducer,
@@ -22,14 +26,15 @@ const rootReducer = {
   paypal: payPalReducer,
   myOrder: myOrderReducer,
   nowPayment: nowpaymentReducer,
+  product: selectProductDetailReducer,
 };
 // App Store Declaration down here -->
 const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({thunk: false}).concat(sagaMiddleware),
-  devTools: true, // <- Comment while Taking Build
-  enhancers: [AppReactotron.createEnhancer()], // <- Comment while Taking Build
+  devTools: isDev, // <- Comment while Taking Build
+  enhancers: isDev ? [AppReactotron.createEnhancer()] : [], // <- Comment while Taking Build
 });
 // Running And Configuring Saga
 sagaMiddleware.run(combineSaga);

@@ -28,8 +28,8 @@
     "appcenter-crashes": "5.0.1",
     "axios": "^1.6.7",
     "base-64": "^1.0.0",
-    "lottie-react-native": "^6.6.0",
-    "payu-non-seam-less-react": "^3.1.1",
+    "lottie-ios": "4.4.1",
+    "lottie-react-native": "6.7.2",
     "react": "18.2.0",
     "react-native": "0.72.1",
     "react-native-code-push": "^8.2.1",
@@ -75,5 +75,6 @@
   },
   "engines": {
     "node": ">=16"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

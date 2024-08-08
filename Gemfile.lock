@@ -168,6 +168,9 @@ GEM
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
     fastlane-plugin-appcenter (2.1.2)
+    fastlane-plugin-get_version_code (0.2.0)
+    fastlane-plugin-get_version_name (0.2.2)
+    fastlane-plugin-increment_version_code (0.4.3)
     ffi (1.16.3)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
@@ -288,6 +291,9 @@ DEPENDENCIES
   cocoapods (~> 1.12)
   fastlane
   fastlane-plugin-appcenter
+  fastlane-plugin-get_version_code
+  fastlane-plugin-get_version_name
+  fastlane-plugin-increment_version_code
 
 RUBY VERSION
    ruby 3.3.0p0

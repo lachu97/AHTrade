@@ -2,9 +2,10 @@ platform :android do
 
   desc 'Generate Android APK'
   lane :generateBuild do
+    incrementVersionCode
     gradle(task: 'clean', project_dir: 'android/')
     gradle(task: 'bundle', build_type: 'release', project_dir: 'android/')
-     slack(
+    slack(
         message: "AHTrade Android App APK Has been Generated Successfully.",
         success: true,
         slack_url: "https://hooks.slack.com/services/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",
@@ -16,8 +17,34 @@ platform :android do
         }
       )
   end
+ desc "Increment Version Code"
+  lane :incrementVersionCode do
+   increment_version_code(
+              gradle_file_path: "./android/app/build.gradle",
+              #ext_constant_name: "test"
+              #app_folder_name:"app"
+        )
+    end
+  desc "Get Version Name"
+    lane :getVersionName do
+      value = get_version_name(
+               gradle_file_path:"./app/build.gradle",
+               #ext_constant_name:"versionName"
+               )
+      value
+  end
+  desc "Get Version Code"
+    lane :getVersionCode do
+       code =  get_version_code(
+                        #app_folder_name:"project"
+                        gradle_file_path:"./app/build.gradle",
+                        #ext_constant_name:"versionName"
+       )
+      code
+  end
   desc 'Build the Android application.'
   lane :build do
+    incrementVersionCode
     gradle(task: 'clean', project_dir: 'android/')
     gradle(task: 'bundle', build_type: 'release', project_dir: 'android/')
   end
@@ -45,7 +72,9 @@ platform :android do
   desc 'Upload App to PlayStore'
   lane :playstore do
     build
-    upload_to_play_store(track: 'beta')
+    upload_to_play_store(track: 'fastlane')
+    vName = getVersionName
+    vCode = getVersionCode
     slack(
         message: "AHTrade Android App Has been Uploaded Successfully to Google PlayStore.Ready for Deployment",
         success: true,
@@ -54,7 +83,9 @@ platform :android do
         payload: {
             "Build Date" => Time.new.to_s,
             "Built By" => "FastLane Android Pipeline",
-            "OS" => "Android"
+            "OS" => "Android",
+            "VersionName" => vName,
+            "VersionCode" => vCode
         }
     )
   end

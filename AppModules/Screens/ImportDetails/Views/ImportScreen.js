@@ -142,6 +142,7 @@ const Sections = ({value, name, onPress}) => {
   );
 };
 const getPriceDetailsAction = () => ({type: 'GET_PRICE_DETAILS'});
+const menuItems = Array.from({length: 15}, (_, i) => i + 1);
 const ImportScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
@@ -152,6 +153,7 @@ const ImportScreen = () => {
   const [showQuantity, setShowQuantity] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
   const [paymentDialog, setPaymentDialog] = useState(false);
   const [contactsDialog, setContactsDialog] = useState(false);
@@ -163,9 +165,9 @@ const ImportScreen = () => {
   const [shipment, setShipment] = useState('');
   const [incotermItem, setIncoterm] = useState({});
   const [checked, setChecked] = React.useState(false);
-  const openMenu = () => setVisible(true);
+  const openMenu = () => setShowMenu(true);
+  const closeMenu = () => setShowMenu(false);
 
-  const closeMenu = () => setVisible(false);
   const priceDetails = useSelector(state => state.category.priceDetails);
   useEffect(() => {
     if (Object.keys(incotermItem).length === 0) {
@@ -347,52 +349,79 @@ const ImportScreen = () => {
             <List.Subheader style={importStyles.titleStyles}>
               Commodity Name : {item.title.toUpperCase()}
             </List.Subheader>
-            <Sections
-              value={quantity}
-              name={`Quantity(${item.unit})`}
-              onPress={() => {
-                HapticFeedback();
-                showDialog();
-              }}
-            />
-            {/*<List.Item*/}
-            {/*  title={`Quantity(${item.unit})`}*/}
-            {/*  titleStyle={{*/}
-            {/*    color: MD2Colors.white,*/}
-            {/*    marginHorizontal: 25,*/}
-            {/*    fontSize: 14,*/}
-            {/*    fontWeight: '500',*/}
+            {/*<Sections*/}
+            {/*  value={quantity}*/}
+            {/*  name={`Quantity(${item.unit})`}*/}
+            {/*  onPress={() => {*/}
+            {/*    HapticFeedback();*/}
+            {/*    showDialog();*/}
             {/*  }}*/}
-            {/*  right={() => (*/}
-            {/*    <View style={{flexDirection: 'row', alignItems: 'center'}}>*/}
-            {/*      <TouchableRipple onPress={() => {}}>*/}
-            {/*        <MaterialIcons*/}
-            {/*          size={24}*/}
-            {/*          color={MD2Colors.white}*/}
-            {/*          name={'add-circle'}*/}
-            {/*        />*/}
-            {/*      </TouchableRipple>*/}
-            {/*      <Text*/}
-            {/*        style={{*/}
-            {/*          color: MD2Colors.white,*/}
-            {/*          marginHorizontal: 25,*/}
-            {/*          fontSize: 14.5,*/}
-            {/*          fontWeight: 'bold',*/}
-            {/*        }}>*/}
-            {/*        {quantity} {item.unit}*/}
-            {/*      </Text>*/}
-            {/*      <TouchableRipple*/}
-            {/*        style={{alignSelf: 'center'}}*/}
-            {/*        onPress={() => {}}>*/}
-            {/*        <MaterialCommunityIcons*/}
-            {/*          size={24}*/}
-            {/*          color={MD2Colors.white}*/}
-            {/*          name={'minus'}*/}
-            {/*        />*/}
-            {/*      </TouchableRipple>*/}
-            {/*    </View>*/}
-            {/*  )}*/}
             {/*/>*/}
+            <List.Item
+              title={`Quantity(${item.unit})`}
+              titleStyle={{
+                color: MD2Colors.white,
+                marginHorizontal: 25,
+                fontSize: 14,
+                fontWeight: '500',
+              }}
+              right={() => (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginHorizontal: 10,
+                  }}>
+                  <Menu
+                    visible={showMenu}
+                    style={{marginTop: isIos() ? -25 : 18}}
+                    onDismiss={closeMenu}
+                    anchor={
+                      <TouchableRipple
+                        onPress={openMenu}
+                        style={{padding: 5}}
+                        hitSlop={{
+                          top: 10,
+                          bottom: 10,
+                          left: 10,
+                          right: 10,
+                        }}>
+                        <View
+                          style={{flexDirection: 'row', alignItems: 'center'}}>
+                          <Text
+                            style={{
+                              color: MD2Colors.white,
+                              marginHorizontal: 10,
+                              fontSize: 15.5,
+                              fontWeight: 'bold',
+                            }}>
+                            {quantity} {item.unit}
+                          </Text>
+                          <MaterialIcons
+                            size={21}
+                            color={MD2Colors.yellow500}
+                            name={showMenu ? 'close' : 'edit'}
+                          />
+                        </View>
+                      </TouchableRipple>
+                    }>
+                    <ScrollView style={{maxHeight: 270}}>
+                      {menuItems.map(number => (
+                        <Menu.Item
+                          key={number}
+                          onPress={() => {
+                            console.log(number);
+                            setQuantity(number);
+                            closeMenu();
+                          }}
+                          title={number.toString()}
+                        />
+                      ))}
+                    </ScrollView>
+                  </Menu>
+                </View>
+              )}
+            />
             {/*<List.Item*/}
             {/*  title={'Quantity'}*/}
             {/*  titleStyle={{*/}

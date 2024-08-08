@@ -31,15 +31,16 @@ const SearchCardItem = ({navigation, item}) => {
               style={{
                 flex: 1,
                 margin: 1,
-                borderColor: MD2Colors.white,
+                // borderColor: MD2Colors.white,
                 borderWidth: 0.7,
                 borderRadius: 10,
+                padding: 1,
               }}
               source={{
                 uri: item.image,
                 priority: FastImage.priority.high,
               }}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={FastImage.resizeMode.cover}
             />
           </View>
           <View style={{marginHorizontal: 6}}>

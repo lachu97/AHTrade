@@ -13,17 +13,21 @@ import AHButton from '../AHButton';
 import FastImage from 'react-native-fast-image';
 import LottieView from 'lottie-react-native';
 import {HapticFeedback} from '../../HelperFuntions/helpers';
+import {useDispatch} from 'react-redux';
+import {addSelectedProduct} from '../../Redux/Reducers/ProductDetailReducer';
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
 const height = Dimensions.get('window').height;
 const cardHeight = Math.floor(height / 3);
 
 const ProductCard = ({item, navigation}) => {
+  const dispatch = useDispatch();
   const [imageLoad, setImageLoad] = useState(false);
   return (
     <TouchableRipple
       onPress={() => {
         HapticFeedback();
+        dispatch(addSelectedProduct(item));
         navigation.navigate('ProductDetail', {
           item: item,
         });
@@ -39,14 +43,19 @@ const ProductCard = ({item, navigation}) => {
         }}
         elevation={4}>
         <FastImage
-          style={{width: cardWidth - 5, height: cardHeight / 2}}
+          style={{
+            width: cardWidth - 5,
+            height: cardHeight / 2,
+            marginHorizontal: 2,
+            borderRadius: 7,
+          }}
           source={{
             uri: item.image,
             priority: FastImage.priority.high,
           }}
           onLoadStart={() => setImageLoad(true)}
           onLoadEnd={() => setImageLoad(false)}
-          resizeMode={FastImage.resizeMode.contain}>
+          resizeMode={FastImage.resizeMode.cover}>
           {imageLoad ? (
             <LottieView
               autoPlay
@@ -59,7 +68,7 @@ const ProductCard = ({item, navigation}) => {
         <AHText
           variant={'bodyLarge'}
           numberOfLines={1}
-          style={{marginVertical: 3, fontSize: 16.5, fontWeight: '500'}}
+          style={{marginVertical: 6, fontSize: 17.5, fontWeight: 'bold'}}
           name={item.title}
         />
         <View
@@ -73,7 +82,11 @@ const ProductCard = ({item, navigation}) => {
           }}>
           <AHButton
             icon={'import'}
-            style={{borderRadius: 8, marginVertical: 3}}
+            style={{
+              borderRadius: 8,
+              marginVertical: 3,
+              backgroundColor: MD2Colors.teal200,
+            }}
             labelStyle={{
               color: MD2Colors.black,
               fontSize: 17,

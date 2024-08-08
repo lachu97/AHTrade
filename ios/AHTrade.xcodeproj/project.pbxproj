@@ -509,6 +509,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AHTrade/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AHTrade;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -537,6 +538,7 @@
 				CODE_SIGN_ENTITLEMENTS = AHTrade/AHTrade.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = AHTrade/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AHTrade;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

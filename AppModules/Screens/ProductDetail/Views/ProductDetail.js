@@ -168,7 +168,7 @@ const ProductDetail = () => {
               color: MD2Colors.white,
               textAlign: 'center',
               marginVertical: 10,
-              marginHorizontal: 25,
+              marginHorizontal: 32,
               alignSelf: 'flex-start',
               fontSize: 16,
               fontWeight: 'bold',
@@ -186,7 +186,7 @@ const ProductDetail = () => {
               borderRadius: 8,
               padding: 1,
               elevation: 1,
-              marginHorizontal: 15,
+              marginHorizontal: 25,
             }}>
             <Text
               numberOfLines={4}
@@ -206,6 +206,7 @@ const ProductDetail = () => {
               color: MD2Colors.white,
               padding: 5,
               fontSize: 16,
+              marginHorizontal: 15,
             }}
           />
           <Text
@@ -225,7 +226,7 @@ const ProductDetail = () => {
       <View
         style={{
           flexDirection: 'row',
-          width: width * 0.94,
+          width: width * 0.95,
           flex: 1,
           bottom: 8,
           position: 'absolute',
@@ -235,9 +236,10 @@ const ProductDetail = () => {
           marginHorizontal: 10,
         }}>
         <AHButton
-          style={{flex: 1, margin: 2, borderRadius: 8}}
+          style={{flex: 1, margin: 2, borderRadius: 6}}
           icon={'import'}
           name={'Import Item'}
+          mode={'contained'}
           onPress={onImportPress}
         />
         {/*<AHButton*/}

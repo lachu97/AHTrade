@@ -1,19 +1,8 @@
 import * as React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {
-  Appbar,
-  FAB,
-  Icon,
-  MD2Colors,
-  Surface,
-  Text,
-  TouchableRipple,
-  useTheme,
-} from 'react-native-paper';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useRef, useState} from 'react';
 import {HapticFeedback} from '../../HelperFuntions/helpers';
 
 export const BOTTOM_APPBAR_HEIGHT = 55;
@@ -41,10 +30,10 @@ const BottomBar = ({navigation, activeTab}) => {
         <TouchableRipple
           key={idx}
           hitSlop={{
-            top: 5,
-            left: 6,
-            right: 6,
-            bottom: 5,
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: 10,
           }}
           onPress={() => {
             HapticFeedback('impactMedium');
@@ -57,7 +46,7 @@ const BottomBar = ({navigation, activeTab}) => {
             }
             navigation.navigate(itm.route);
           }}
-          style={{padding: 3}}>
+          style={{flex: 1, padding: 5}}>
           <View style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
             <MaterialCommunityIcons
               name={itm.icon}

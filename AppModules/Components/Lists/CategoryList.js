@@ -51,7 +51,7 @@ const CardComponent = ({image, title, onPress}) => {
             numberOfLines={1}
             userSelect={'text'}
             style={{
-              color: isIos() ? MD2Colors.black : MD2Colors.white,
+              color: isIos() ? MD2Colors.black : MD2Colors.grey900,
               marginVertical: 10,
               textAlign: 'center',
               fontWeight: 'bold',

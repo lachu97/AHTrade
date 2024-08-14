@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet} from "react-native";
+import {StyleSheet} from 'react-native';
 import {MD2Colors, Text} from 'react-native-paper';
+import {isIos} from '../HelperFuntions/helpers';
 const AHText = props => <Text {...props}>{props.name}</Text>;
 export const AHWhiteText = props => (
   <Text

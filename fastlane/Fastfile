@@ -28,7 +28,7 @@ platform :android do
   desc "Get Version Name"
     lane :getVersionName do
       value = get_version_name(
-               gradle_file_path:"./app/build.gradle",
+               gradle_file_path:"./android/app/build.gradle",
                #ext_constant_name:"versionName"
                )
       value
@@ -37,7 +37,7 @@ platform :android do
     lane :getVersionCode do
        code =  get_version_code(
                         #app_folder_name:"project"
-                        gradle_file_path:"./app/build.gradle",
+                        gradle_file_path:"./android/app/build.gradle",
                         #ext_constant_name:"versionName"
        )
       code
@@ -72,7 +72,7 @@ platform :android do
   desc 'Upload App to PlayStore'
   lane :playstore do
     build
-    upload_to_play_store(track: 'fastlane')
+    upload_to_play_store
     vName = getVersionName
     vCode = getVersionCode
     slack(

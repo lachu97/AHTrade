@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {View, LayoutAnimation, Dimensions} from 'react-native';
+import React, {useCallback, useEffect, useState, useRef} from 'react';
+import {View, LayoutAnimation, Dimensions, Animated} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../Styles/HomeStyles';
@@ -33,7 +33,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [categoryLoading, setCategoryLoading] = useState(false);
-
+  const scrollY = useRef(new Animated.Value(0)).current;
   let catData = useSelector(state => state.category.categoryData);
   let prodData = useSelector(state => state.category.productData);
   useEffect(() => {
@@ -43,6 +43,17 @@ const HomeScreen = () => {
       })
       .catch(er => console.error(er.message));
   }, [dispatch]);
+  const headerTranslateY = scrollY.interpolate({
+    inputRange: [0, 50],
+    outputRange: [0, -50],
+    extrapolate: 'clamp',
+  });
+
+  const bottomBarTranslateY = scrollY.interpolate({
+    inputRange: [0, 50],
+    outputRange: [0, 50],
+    extrapolate: 'clamp',
+  });
   useEffect(() => {
     const getFCMToken = async id => {
       await messaging().registerDeviceForRemoteMessages();
@@ -98,14 +109,25 @@ const HomeScreen = () => {
   }, [catData]);
   return (
     <View style={styles.container}>
-      <HomeHeaderComponent />
+      <Animated.View>
+        <HomeHeaderComponent />
+      </Animated.View>
 
       <View style={{marginVertical: 1, padding: 1, flex: 1}}>
-        <ProductList data={prodData} ListHeader={ListHeader} />
+        <ProductList
+          data={prodData}
+          ListHeader={ListHeader}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            {useNativeDriver: true},
+          )}
+          scrollEventThrottle={16}
+        />
       </View>
-      <View style={{flex: 0.05}}>
+      <Animated.View
+        style={[{flex: 0.05, transform: [{translateY: bottomBarTranslateY}]}]}>
         <BottomBar navigation={navigation} activeTab={'Home'} />
-      </View>
+      </Animated.View>
     </View>
   );
 };

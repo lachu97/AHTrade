@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, FlatList, View} from 'react-native';
+import {Animated, Dimensions, FlatList, View} from 'react-native';
 import AHText from '../AHText';
 import {
   Surface,
@@ -19,7 +19,7 @@ const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
 const height = Dimensions.get('window').height;
 const cardHeight = Math.floor(height / 3);
-
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const ProductCard = ({item, navigation}) => {
   const dispatch = useDispatch();
   const [imageLoad, setImageLoad] = useState(false);
@@ -124,17 +124,19 @@ const ProductCard = ({item, navigation}) => {
   );
 };
 
-const ProductList = ({data, ListHeader}) => {
+const ProductList = ({data, ListHeader, onScroll, scrollEventThrottle}) => {
   const navigation = useNavigation();
   const renderItems = ({item}) => (
     <ProductCard item={item} navigation={navigation} />
   );
   return (
-    <FlatList
+    <AnimatedFlatList
       style={{margin: 1, backgroundColor: MD2Colors.transparent}}
       data={data}
       renderItem={renderItems}
       numColumns={2}
+      onScroll={onScroll}
+      scrollEventThrottle={scrollEventThrottle}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={ListHeader}
       ListEmptyComponent={() => (

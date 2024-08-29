@@ -7,7 +7,7 @@ import {
   Text,
   TouchableRipple,
 } from 'react-native-paper';
-import {Dimensions, FlatList, View} from 'react-native';
+import {Dimensions, FlatList, useColorScheme, View} from 'react-native';
 import AHText from '../AHText';
 import {useNavigation} from '@react-navigation/native';
 import {HapticFeedback, isIos} from '../../HelperFuntions/helpers';
@@ -16,6 +16,7 @@ import LottieView from 'lottie-react-native';
 const width = Dimensions.get('window').width;
 
 const CardComponent = ({image, title, onPress}) => {
+  const darkTheme = useColorScheme() === 'dark';
   return (
     <TouchableRipple
       onPress={onPress}
@@ -51,7 +52,11 @@ const CardComponent = ({image, title, onPress}) => {
             numberOfLines={1}
             userSelect={'text'}
             style={{
-              color: isIos() ? MD2Colors.black : MD2Colors.grey900,
+              color: isIos()
+                ? MD2Colors.black
+                : darkTheme
+                ? MD2Colors.white
+                : MD2Colors.grey900,
               marginVertical: 10,
               textAlign: 'center',
               fontWeight: 'bold',

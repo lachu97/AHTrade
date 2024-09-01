@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet} from "react-native";
+import {StyleSheet} from 'react-native';
 import {MD2Colors, TextInput} from 'react-native-paper';
 import {Dimensions} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen'; // Import your color definitions
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {textTheme} from '../Themes/themes'; // Import your color definitions
 const width = Dimensions.get('window').width;
 
 const AHTextInput = props => {
@@ -23,6 +24,9 @@ const AHTextInput = props => {
       mode={'outlined'}
       outlineColor={MD2Colors.black}
       autoCorrect
+      contentStyle={{
+        fontFamily: textTheme.regular.fontFamily,
+      }}
       style={StyleSheet.compose(props.style, inputStyles)}
       textColor={MD2Colors.black}
       activeOutlineColor={MD2Colors.black}

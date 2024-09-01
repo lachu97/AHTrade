@@ -4,7 +4,7 @@ import {MD2Colors, Text} from 'react-native-paper';
 import myOrdersStyles from '../styles/MyOrdersStyles';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
 import LottieView from 'lottie-react-native';
-import AHText from '../../../Components/AHText';
+import AHText, {TextView} from '../../../Components/AHText';
 import {getIsGuestUser} from '../../../Storage/LocalStorage';
 import {useDispatch, useSelector} from 'react-redux';
 import {getUserDetails} from '../../../Storage/AppLocalStorage/UserStorageData';
@@ -58,7 +58,7 @@ const MyOrdersScreen = () => {
             <FlatList
               ListHeaderComponent={() => {
                 return (
-                  <Text
+                  <TextView
                     style={{
                       color: MD2Colors.white,
                       padding: 5,
@@ -66,7 +66,7 @@ const MyOrdersScreen = () => {
                       fontSize: 15,
                     }}>
                     Your Past Orders
-                  </Text>
+                  </TextView>
                 );
               }}
               initialNumToRender={10}
@@ -81,7 +81,7 @@ const MyOrdersScreen = () => {
                         fontSize: 22,
                       }}
                     />
-                    <AHText
+                    <TextView
                       name={' Try Placing an Order !!'}
                       style={{
                         color: MD2Colors.white,

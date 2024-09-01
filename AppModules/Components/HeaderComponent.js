@@ -11,7 +11,7 @@ import {
 } from 'react-native-paper';
 import {Pressable, View, StyleSheet} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AHText from './AHText';
+import AHText, {TextView} from './AHText';
 import {useNavigation} from '@react-navigation/native';
 import CountryFlag from 'react-native-country-flag';
 import {HapticFeedback} from '../HelperFuntions/helpers';
@@ -76,7 +76,7 @@ export const HomeHeaderComponent = () => {
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
           <Tooltip title={'Title'} enterTouchDelay={1}>
-            <Text
+            <TextView
               style={{
                 color: MD2Colors.grey50,
                 marginHorizontal: 8,
@@ -86,7 +86,7 @@ export const HomeHeaderComponent = () => {
                 fontWeight: 'bold',
               }}>
               AHTrade
-            </Text>
+            </TextView>
           </Tooltip>
         </TouchableRipple>
       </View>

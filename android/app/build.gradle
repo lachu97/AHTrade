@@ -87,7 +87,7 @@ android {
         applicationId "com.ahtrade"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 123
+        versionCode 124
         versionName "2.0.0"
     }
     signingConfigs {

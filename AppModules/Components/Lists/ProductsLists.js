@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Animated, Dimensions, FlatList, View} from 'react-native';
-import AHText from '../AHText';
+import AHText, {TextView} from '../AHText';
 import {
   Surface,
   Text,
@@ -15,6 +15,7 @@ import LottieView from 'lottie-react-native';
 import {HapticFeedback} from '../../HelperFuntions/helpers';
 import {useDispatch} from 'react-redux';
 import {addSelectedProduct} from '../../Redux/Reducers/ProductDetailReducer';
+import {textTheme} from '../../Themes/themes';
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
 const height = Dimensions.get('window').height;
@@ -68,7 +69,13 @@ const ProductCard = ({item, navigation}) => {
         <AHText
           variant={'bodyLarge'}
           numberOfLines={1}
-          style={{marginVertical: 6, fontSize: 17.5, fontWeight: 'bold'}}
+          style={{
+            marginVertical: 6,
+            fontSize: 17.5,
+            fontWeight: 'bold',
+            color: MD2Colors.black,
+            fontFamily: textTheme.regular.fontFamily,
+          }}
           name={item.title}
         />
         <View
@@ -91,6 +98,7 @@ const ProductCard = ({item, navigation}) => {
               color: MD2Colors.black,
               fontSize: 17,
               fontWeight: 'bold',
+              fontFamily: textTheme.regular.fontFamily,
             }}
             name={'Import'}
             onPress={() => {
@@ -108,6 +116,7 @@ const ProductCard = ({item, navigation}) => {
               color: MD2Colors.black,
               fontSize: 17,
               fontWeight: 'bold',
+              fontFamily: textTheme.regular.fontFamily,
             }}
             name={'Place Bid'}
             onPress={() => {
@@ -151,9 +160,9 @@ const ProductList = ({data, ListHeader, onScroll, scrollEventThrottle}) => {
               width: width,
             }}
           />
-          <Text style={{color: MD2Colors.teal50, textAlign: 'center'}}>
+          <TextView style={{color: MD2Colors.teal50, textAlign: 'center'}}>
             Loading Products...
-          </Text>
+          </TextView>
         </View>
       )}
       ListFooterComponent={() => (
@@ -166,9 +175,9 @@ const ProductList = ({data, ListHeader, onScroll, scrollEventThrottle}) => {
           }}>
           {data.length > 0 ? (
             <>
-              <Text style={{color: MD2Colors.white}}>
+              <TextView style={{color: MD2Colors.white}}>
                 We are Expanding,Try Suggesting Products
-              </Text>
+              </TextView>
               <Button
                 style={{
                   width: width * 0.51,

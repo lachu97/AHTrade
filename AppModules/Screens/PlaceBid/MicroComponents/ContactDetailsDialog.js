@@ -11,6 +11,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {showMiddleFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
 import PhoneInput from 'react-native-phone-number-input';
 import {HapticFeedback, validateEmail} from '../../../HelperFuntions/helpers';
+import {textTheme} from '../../../Themes/themes';
 const width = Dimensions.get('window').width;
 
 const ContactDetailsDialog = props => {
@@ -38,7 +39,12 @@ const ContactDetailsDialog = props => {
   );
   return (
     <Dialog visible={isVisible} onDismiss={hideDialog}>
-      <Dialog.Title style={{fontSize: 15, fontWeight: '400'}}>
+      <Dialog.Title
+        style={{
+          fontSize: 15,
+          fontWeight: '400',
+          fontFamily: textTheme.regular.fontFamily,
+        }}>
         Enter Contact Details
       </Dialog.Title>
       <Dialog.ScrollArea>
@@ -114,6 +120,12 @@ const ContactDetailsDialog = props => {
       <Dialog.Actions>
         <Button
           icon={'arrow-left-bottom'}
+          style={{
+            fontFamily: textTheme.regular.fontFamily,
+          }}
+          labelStyle={{
+            fontFamily: textTheme.regular.fontFamily,
+          }}
           onPress={() => {
             HapticFeedback();
             typeData.current = {
@@ -166,7 +178,13 @@ const ContactDetailsDialog = props => {
           }}>
           Done
         </Button>
-        <Button icon={'cancel'} onPress={() => hideDialog()}>
+        <Button
+          labelStyle={{
+            fontFamily: textTheme.regular.fontFamily,
+          }}
+          style={{fontFamily: textTheme.regular.fontFamily}}
+          icon={'cancel'}
+          onPress={() => hideDialog()}>
           Cancel
         </Button>
       </Dialog.Actions>

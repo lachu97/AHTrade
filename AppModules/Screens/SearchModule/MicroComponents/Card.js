@@ -4,6 +4,8 @@ import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 import AHButton from '../../../Components/AHButton';
 import {HapticFeedback, isIos} from '../../../HelperFuntions/helpers';
+import {TextView} from '../../../Components/AHText';
+import {textTheme} from '../../../Themes/themes';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -44,18 +46,19 @@ const SearchCardItem = ({navigation, item}) => {
             />
           </View>
           <View style={{marginHorizontal: 6}}>
-            <Text
+            <TextView
               style={{
                 width: cardWidth / 2,
                 fontSize: 18,
                 fontWeight: 'bold',
                 marginHorizontal: 2,
+                color: MD2Colors.black,
               }}
               variant={'headlineMedium'}
               ellipsizeMode={'tail'}
               numberOfLines={1}>
               {item.title}
-            </Text>
+            </TextView>
             {/*<Text*/}
             {/*  style={{width: cardWidth / 2}}*/}
             {/*  variant={'bodyMedium'}*/}
@@ -70,21 +73,21 @@ const SearchCardItem = ({navigation, item}) => {
                 marginVertical: 5,
                 marginHorizontal: 2,
               }}>
-              <Text variant={'bodySmall'} style={styles.textStyles}>
+              <TextView variant={'bodySmall'} style={styles.textStyles}>
                 MOQ :{item.moq}
                 {item.unit}
-              </Text>
-              <Text variant={'bodySmall'} style={styles.textStyles}>
+              </TextView>
+              <TextView variant={'bodySmall'} style={styles.textStyles}>
                 Price : ${item.price}/{item.unit}
-              </Text>
+              </TextView>
             </View>
-            <Text
+            <TextView
               style={{width: cardWidth / 2, marginHorizontal: 2}}
               variant={'bodySmall'}
               ellipsizeMode={'tail'}
               numberOfLines={1}>
               Shipment by Air / Ocean
-            </Text>
+            </TextView>
             <View
               style={{
                 flex: 1,
@@ -125,6 +128,7 @@ const styles = StyleSheet.create({
   textStyles: {
     fontSize: isIos() ? 12.5 : 13.6,
     fontWeight: 'bold',
+    fontFamily: textTheme.regular.fontFamily,
   },
 });
 export default React.memo(SearchCardItem);

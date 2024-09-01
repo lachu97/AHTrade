@@ -11,7 +11,7 @@ import styles from './Authstyles/RegisterStyles';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AHText from '../Components/AHText';
+import AHText, {TextView} from '../Components/AHText';
 import AHTextInput from '../Components/AHTextInput';
 import AHButton from '../Components/AHButton';
 import LoadingModal from '../Components/Modals/LoadingModal';
@@ -25,6 +25,7 @@ import {setUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
 import {setIsGuestUser, storeIsLoggedIn} from '../Storage/LocalStorage';
 import PhoneInput from 'react-native-phone-number-input';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {textTheme} from '../Themes/themes';
 const Register = () => {
   const dispatch = useDispatch();
   const emailRef = useRef(null);
@@ -125,6 +126,9 @@ const Register = () => {
           placeholderTextColor={MD2Colors.black}
           inputMode={'email'}
           keyboardType={'email-address'}
+          contentStyle={{
+            fontFamily: textTheme.regular.fontFamily,
+          }}
           autoComplete={'email'}
           textColor={MD2Colors.black}
           activeOutlineColor={MD2Colors.black}
@@ -153,9 +157,10 @@ const Register = () => {
           textInputStyle={{
             height: 53,
             color: MD2Colors.black,
+            fontFamily: textTheme.regular.fontFamily,
           }}
           textInputProps={{
-            placeholderTextColor: MD2Colors.black
+            placeholderTextColor: MD2Colors.black,
           }}
           defaultCode={'US'}
           value={value}
@@ -183,9 +188,9 @@ const Register = () => {
               size={24}
               color={MD2Colors.white}
             />
-            <Text style={styles.iAgreeText}>
+            <TextView style={styles.iAgreeText}>
               I, agree to Privacy Policy & T&C
-            </Text>
+            </TextView>
           </View>
         </TouchableRipple>
 
@@ -193,6 +198,9 @@ const Register = () => {
           name={'Submit'}
           onPress={handleSubmit}
           loading={loading}
+          labelStyle={{
+            fontFamily: textTheme.regular.fontFamily,
+          }}
           style={styles.buttonStyles}
         />
       </KeyboardAvoidingView>

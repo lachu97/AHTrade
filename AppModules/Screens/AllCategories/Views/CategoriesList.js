@@ -9,6 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import BottomBar from '../../../Components/BottomBar/BottomBar';
 import {HapticFeedback} from '../../../HelperFuntions/helpers';
 import FastImage from 'react-native-fast-image';
+import {textTheme} from '../../../Themes/themes';
 
 const CategoriesList = () => {
   let catData = useSelector(state => state.category.categoryData);
@@ -20,7 +21,12 @@ const CategoriesList = () => {
         <List.Item
           style={{height: 56}}
           title={item.name.toUpperCase()}
-          titleStyle={{color: MD2Colors.white, fontWeight: '500', fontSize: 17}}
+          titleStyle={{
+            color: MD2Colors.white,
+            fontWeight: '500',
+            fontSize: 17,
+            fontFamily: textTheme.bold.fontFamily,
+          }}
           onPress={() => {
             HapticFeedback();
             navigation.navigate('CategorySearch', {

@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {MD2Colors} from 'react-native-paper';
+import {textTheme} from '../Themes/themes';
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -11,6 +12,7 @@ export default StyleSheet.create({
   },
   listIconStyles: {
     color: MD2Colors.white,
+    fontFamily: textTheme.bold.fontFamily,
   },
   bottomContainer: {
     flexDirection: 'row',

@@ -29,6 +29,8 @@ import {
 import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 import LoadingModal from '../Components/Modals/LoadingModal';
 import {setUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
+import {TextView} from '../Components/AHText';
+import {textTheme} from '../Themes/themes';
 const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -95,7 +97,7 @@ const Login = () => {
   }, [email, navigation, password]);
   return (
     <View style={styles.container}>
-      <Text style={styles.textStyles}>Login</Text>
+      <TextView style={styles.textStyles}>Login</TextView>
       <KeyboardAvoidingView behavior={'padding'} style={styles.formContainer}>
         <AHTextInput
           // label="Email"
@@ -139,6 +141,9 @@ const Login = () => {
           onPress={handleSignIn}
           loading={loading}
           mode={'contained'}
+          labelStyle={{
+            fontFamily: textTheme.bold.fontFamily,
+          }}
           style={{width: width * 0.8, marginVertical: 15, borderRadius: 8}}
           textColor={MD2Colors.black}
           buttonColor={MD2Colors.purple100}
@@ -147,6 +152,9 @@ const Login = () => {
           name={'Sign Up'}
           onPress={handleSignUp}
           mode={'contained'}
+          labelStyle={{
+            fontFamily: textTheme.bold.fontFamily,
+          }}
           style={{width: width * 0.8, borderRadius: 8}}
           textColor={MD2Colors.black}
           buttonColor={MD2Colors.purple100}
@@ -159,7 +167,7 @@ const Login = () => {
             setIsGuestUser(true);
             navigation.navigate('Home');
           }}>
-          <Text style={styles.guestText}>Continue as Guest</Text>
+          <TextView style={styles.guestText}>Continue as Guest</TextView>
         </TouchableRipple>
       </KeyboardAvoidingView>
     </View>

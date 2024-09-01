@@ -4,6 +4,7 @@ import {MD2Colors, Surface, Text, TouchableRipple} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {HapticFeedback} from '../../HelperFuntions/helpers';
+import {TextView} from '../AHText';
 
 export const BOTTOM_APPBAR_HEIGHT = 55;
 const bottomItems = [
@@ -55,7 +56,7 @@ const BottomBar = ({navigation, activeTab}) => {
                 itm.name === activeTab ? MD2Colors.pink50 : MD2Colors.grey50
               }
             />
-            <Text
+            <TextView
               style={{
                 alignSelf: 'center',
                 marginVertical: 3,
@@ -64,7 +65,7 @@ const BottomBar = ({navigation, activeTab}) => {
                 fontSize: itm.name === activeTab ? 13 : 10,
               }}>
               {itm.name}
-            </Text>
+            </TextView>
           </View>
         </TouchableRipple>
       ))}

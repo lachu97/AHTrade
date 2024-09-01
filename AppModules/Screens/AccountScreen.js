@@ -30,6 +30,7 @@ import {
   flushUserOnLogOut,
 } from '../Storage/AppLocalStorage/UserStorageData';
 import {HapticFeedback} from '../HelperFuntions/helpers';
+import {textTheme} from '../Themes/themes';
 const profileSection = [
   {title: 'My Profile', icon: 'account', route: 'Account'},
   {title: 'My Orders', icon: 'gamma', route: 'MyOrders'},
@@ -100,7 +101,10 @@ const ProfileListSection = ({navigation}) => {
 const SettingListSection = ({onPressDelete, navigation}) => {
   return (
     <List.Section style={{marginHorizontal: 10}}>
-      <List.Subheader style={{color: MD2Colors.white}}>Settings</List.Subheader>
+      <List.Subheader
+        style={{color: MD2Colors.white, fontFamily: textTheme.bold.fontFamily}}>
+        Settings
+      </List.Subheader>
       <FlatList
         data={settingsSection}
         renderItem={({item}) => {

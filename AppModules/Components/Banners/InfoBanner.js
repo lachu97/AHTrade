@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Banner, Icon, Text, MD2Colors} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {TextView} from '../AHText';
 
 const InfoBanner = ({isVisible, message, onDismiss}) => {
   return (
@@ -21,7 +22,7 @@ const InfoBanner = ({isVisible, message, onDismiss}) => {
       icon={() => (
         <Icon source={'information'} size={24} color={MD2Colors.blueA700} />
       )}>
-      <Text style={{color: MD2Colors.black}}>{message}</Text>
+      <TextView style={{color: MD2Colors.black}}>{message}</TextView>
     </Banner>
   );
 };

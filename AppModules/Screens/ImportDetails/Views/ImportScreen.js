@@ -50,6 +50,8 @@ import {INFO_TEXT, layoutAnimConfig} from '../../../Constants/AppConstants';
 import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {TextView} from '../../../Components/AHText';
+import {textTheme} from '../../../Themes/themes';
 const width = Dimensions.get('window').width;
 const incoTermsList = [
   {
@@ -364,6 +366,7 @@ const ImportScreen = () => {
                 marginHorizontal: 25,
                 fontSize: 14,
                 fontWeight: '500',
+                fontFamily: textTheme.regular.fontFamily,
               }}
               right={() => (
                 <View
@@ -388,7 +391,7 @@ const ImportScreen = () => {
                         }}>
                         <View
                           style={{flexDirection: 'row', alignItems: 'center'}}>
-                          <Text
+                          <TextView
                             style={{
                               color: MD2Colors.white,
                               marginHorizontal: 10,
@@ -396,7 +399,7 @@ const ImportScreen = () => {
                               fontWeight: 'bold',
                             }}>
                             {quantity} {item.unit}
-                          </Text>
+                          </TextView>
                           <MaterialIcons
                             size={21}
                             color={MD2Colors.yellow500}
@@ -413,6 +416,9 @@ const ImportScreen = () => {
                             console.log(number);
                             setQuantity(number);
                             closeMenu();
+                          }}
+                          titleStyle={{
+                            fontFamily: textTheme.regular.fontFamily,
                           }}
                           title={number.toString()}
                         />
@@ -479,9 +485,10 @@ const ImportScreen = () => {
                 marginHorizontal: 25,
                 fontSize: 14,
                 fontWeight: '500',
+                fontFamily: textTheme.regular.fontFamily,
               }}
               right={() => (
-                <Text
+                <TextView
                   style={{
                     color: MD2Colors.white,
                     marginHorizontal: 25,
@@ -489,7 +496,7 @@ const ImportScreen = () => {
                     fontWeight: 'bold',
                   }}>
                   $ {price} / {getLongName(item.unit)}
-                </Text>
+                </TextView>
               )}
             />
           </List.Section>
@@ -513,6 +520,7 @@ const ImportScreen = () => {
                   uncheckedColor: MD2Colors.white,
                   style: {
                     borderRadius: 8,
+                    fontFamily: textTheme.regular.fontFamily,
                   },
                   showSelectedCheck: true,
                 },
@@ -534,6 +542,7 @@ const ImportScreen = () => {
                   uncheckedColor: MD2Colors.white,
                   style: {
                     borderRadius: 8,
+                    fontFamily: textTheme.regular.fontFamily,
                   },
                   showSelectedCheck: true,
                 },
@@ -609,6 +618,7 @@ const ImportScreen = () => {
                           ? 'bold'
                           : '400',
                       color: isIos() ? MD2Colors.blue900 : MD2Colors.white,
+                      fontFamily: textTheme.regular.fontFamily,
                     }}
                     icon={
                       incotermItem.incoterm === item.incoterm
@@ -746,9 +756,9 @@ const ImportScreen = () => {
                       title={itm.title}
                       right={() => {
                         return (
-                          <Text style={importStyles.titleStyles}>
+                          <TextView style={importStyles.titleStyles}>
                             {itm.value}
-                          </Text>
+                          </TextView>
                         );
                       }}
                     />
@@ -788,9 +798,9 @@ const ImportScreen = () => {
                   color={checked ? MD2Colors.green300 : MD2Colors.white}
                   style={{marginHorizontal: 2}}
                 />
-                <Text style={importStyles.titleStyles}>
+                <TextView style={importStyles.titleStyles}>
                   I have verified my Order Details
-                </Text>
+                </TextView>
               </View>
             </TouchableRipple>
           </View>

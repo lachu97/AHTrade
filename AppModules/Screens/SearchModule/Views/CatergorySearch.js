@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import styles from '../styles/CategorySearchStyles';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import AHText from '../../../Components/AHText';
+import AHText, {TextView} from '../../../Components/AHText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Text,
@@ -30,6 +30,7 @@ import LottieView from 'lottie-react-native';
 import {cleanFilterProductData} from '../../../Redux/Reducers/CategoryReducer';
 import AHButton from '../../../Components/AHButton';
 import {layoutAnimConfig} from '../../../Constants/AppConstants';
+import {textTheme} from '../../../Themes/themes';
 const searchByIDAction = id => ({
   type: 'GET_PRODUCT_BY_ID',
   payload: {
@@ -52,6 +53,7 @@ const CategoryListChip = ({select, onChipPress, categories}) => {
           fontSize: select === item.name ? 15.2 : 14.3,
           fontWeight: select === item.name ? 'bold' : 500,
           color: isIos() ? MD2Colors.blue900 : MD2Colors.white,
+          fontFamily: textTheme.regular.fontFamily,
         }}
         icon={select === item.name ? 'check-decagram' : null}
         onPress={() => onChipPress(item)}>
@@ -121,7 +123,7 @@ const CategorySearch = () => {
               justifyContent: 'center',
               marginVertical: height * 0.18,
             }}>
-            <Text
+            <TextView
               style={{
                 flex: 1,
                 color: MD2Colors.white,
@@ -133,7 +135,7 @@ const CategorySearch = () => {
               }}>
               No Product Available for this Category,Try Selecting Other
               Category
-            </Text>
+            </TextView>
             <Button
               style={{
                 width: width * 0.51,
@@ -144,6 +146,9 @@ const CategorySearch = () => {
                 marginVertical: 5,
               }}
               textColor={MD2Colors.teal100}
+              labelStyle={{
+                fontFamily: textTheme.regular.fontFamily,
+              }}
               icon={'book-edit'}
               onPress={() => {
                 HapticFeedback();

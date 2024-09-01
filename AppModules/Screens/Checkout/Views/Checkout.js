@@ -17,6 +17,7 @@ import {PaymentBanks} from '../../../Constants/AppConstants';
 import {HapticFeedback} from '../../../HelperFuntions/helpers';
 import {getPayPalAccessToken} from '../../../PaymentGateway/PayPal/PayPalAPIs';
 import {showBottomFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
+import {TextView} from '../../../Components/AHText';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -68,14 +69,15 @@ const CheckoutScreen = () => {
             justifyContent: 'space-around',
             marginVertical: 2,
           }}>
-          <Text style={{color: MD2Colors.white, margin: 1, fontWeight: 'bold'}}>
+          <TextView
+            style={{color: MD2Colors.white, margin: 1, fontWeight: 'bold'}}>
             We charge a Processing Fee of $ 9.99,
-          </Text>
+          </TextView>
           <TouchableRipple
             onPress={() => {
               setInfo(true);
             }}>
-            <Text style={{color: MD2Colors.tealA200}}> Why ?</Text>
+            <TextView style={{color: MD2Colors.tealA200}}> Why ?</TextView>
           </TouchableRipple>
         </View>
         <AHButton

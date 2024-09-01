@@ -1,6 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {MD2Colors} from 'react-native-paper';
+import {textTheme} from '../../Themes/themes';
 const width = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
@@ -15,6 +16,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     marginVertical: 10,
+    fontFamily: textTheme.bold.fontFamily,
   },
   textInput: {
     backgroundColor: Colors.light,
@@ -35,7 +37,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
   },
-  iAgreeText: {color: MD2Colors.white, textAlign: 'center', fontSize: 15,marginHorizontal:2},
+  iAgreeText: {
+    color: MD2Colors.white,
+    textAlign: 'center',
+    fontSize: 15,
+    marginHorizontal: 2,
+  },
   buttonStyles: {
     width: width * 0.835,
     marginVertical: 8,

@@ -11,6 +11,8 @@ import {
   showMiddleFeedBack,
 } from '../../../Components/Toasts/ToastsFeedBack';
 import {getLongName, HapticFeedback} from '../../../HelperFuntions/helpers';
+import {TextView} from '../../../Components/AHText';
+import {textTheme} from '../../../Themes/themes';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 const ProductDetail = () => {
@@ -72,7 +74,7 @@ const ProductDetail = () => {
             flex: 0.2,
           }}>
           <View>
-            <Text
+            <TextView
               style={{
                 flexGrow: 0.7,
                 color: MD2Colors.white,
@@ -85,9 +87,9 @@ const ProductDetail = () => {
               numberOfLines={2}
               variant={'headlineSmall'}>
               {item.title}
-            </Text>
+            </TextView>
           </View>
-          <Text
+          <TextView
             style={{
               color: item.isAvailable ? MD2Colors.tealA100 : MD2Colors.red400,
               textAlign: 'center',
@@ -100,7 +102,7 @@ const ProductDetail = () => {
             }}
             variant={'bodyLarge'}>
             {item.isAvailable ? 'In Stock' : 'Out of Stock'}
-          </Text>
+          </TextView>
         </View>
         <View
           style={{
@@ -119,9 +121,10 @@ const ProductDetail = () => {
               padding: 5,
               fontSize: 14,
               marginHorizontal: 10,
+              fontFamily: textTheme.bold.fontFamily,
             }}
             right={() => (
-              <Text
+              <TextView
                 style={{
                   color: MD2Colors.white,
                   textAlign: 'center',
@@ -134,7 +137,7 @@ const ProductDetail = () => {
                 }}
                 variant={'bodyLarge'}>
                 $ {item.price} / {getLongName(item.unit)}
-              </Text>
+              </TextView>
             )}
           />
           <List.Item
@@ -145,9 +148,10 @@ const ProductDetail = () => {
               padding: 5,
               fontSize: 14,
               marginHorizontal: 10,
+              fontFamily: textTheme.bold.fontFamily,
             }}
             right={() => (
-              <Text
+              <TextView
                 style={{
                   color: MD2Colors.white,
                   textAlign: 'center',
@@ -160,10 +164,10 @@ const ProductDetail = () => {
                 }}
                 variant={'bodyLarge'}>
                 {item.moq} {getLongName(item.unit)}
-              </Text>
+              </TextView>
             )}
           />
-          <Text
+          <TextView
             style={{
               color: MD2Colors.white,
               textAlign: 'center',
@@ -176,7 +180,7 @@ const ProductDetail = () => {
             }}
             variant={'bodyLarge'}>
             Description:
-          </Text>
+          </TextView>
           <TouchableRipple
             onPress={() => {
               showBottomFeedBack(`${item.description}`);
@@ -188,7 +192,7 @@ const ProductDetail = () => {
               elevation: 1,
               marginHorizontal: 25,
             }}>
-            <Text
+            <TextView
               numberOfLines={4}
               style={{
                 flex: 1,
@@ -197,7 +201,7 @@ const ProductDetail = () => {
                 padding: 5,
               }}>
               {item.description}
-            </Text>
+            </TextView>
           </TouchableRipple>
           <List.Item
             title={'Delivery :'}
@@ -207,9 +211,10 @@ const ProductDetail = () => {
               padding: 5,
               fontSize: 16,
               marginHorizontal: 15,
+              fontFamily: textTheme.bold.fontFamily,
             }}
           />
-          <Text
+          <TextView
             numberOfLines={5}
             style={{
               fontWeight: '500',
@@ -220,7 +225,7 @@ const ProductDetail = () => {
               textAlign: 'center',
             }}>
             {item.delivery}
-          </Text>
+          </TextView>
         </View>
       </ScrollView>
       <View
@@ -239,6 +244,9 @@ const ProductDetail = () => {
           style={{flex: 1, margin: 2, borderRadius: 6}}
           icon={'import'}
           name={'Import Item'}
+          labelStyle={{
+            fontFamily: textTheme.bold.fontFamily,
+          }}
           mode={'contained'}
           onPress={onImportPress}
         />

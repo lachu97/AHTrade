@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import styles from '../Styles/HomeStyles';
 import {HomeHeaderComponent} from '../Components/HeaderComponent';
 import CategoryList from '../Components/Lists/CategoryList';
-import AHText from '../Components/AHText';
+import AHText, {TextView} from '../Components/AHText';
 import ProductList from '../Components/Lists/ProductsLists';
 import BottomBar from '../Components/BottomBar/BottomBar';
 import {layoutAnimConfig} from '../Constants/AppConstants';
@@ -101,9 +101,9 @@ const HomeScreen = () => {
   const ListHeader = useCallback(() => {
     return (
       <View style={{marginVertical: 5, padding: 2}}>
-        <AHText style={styles.textStyle} name={'Category'} />
+        <TextView style={styles.textStyle} name={'Category'} />
         <CategoryList data={catData} />
-        <AHText style={styles.textStyle} name={'Products'} />
+        <TextView style={styles.textStyle} name={'Products'} />
       </View>
     );
   }, [catData]);

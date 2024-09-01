@@ -8,11 +8,12 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 import {Dimensions, FlatList, useColorScheme, View} from 'react-native';
-import AHText from '../AHText';
+import AHText, {TextView} from '../AHText';
 import {useNavigation} from '@react-navigation/native';
 import {HapticFeedback, isIos} from '../../HelperFuntions/helpers';
 import FastImage from 'react-native-fast-image';
 import LottieView from 'lottie-react-native';
+import {textTheme} from '../../Themes/themes';
 const width = Dimensions.get('window').width;
 
 const CardComponent = ({image, title, onPress}) => {
@@ -48,7 +49,7 @@ const CardComponent = ({image, title, onPress}) => {
             }}
             resizeMode={FastImage.resizeMode.contain}
           />
-          <Text
+          <TextView
             numberOfLines={1}
             userSelect={'text'}
             style={{
@@ -60,9 +61,10 @@ const CardComponent = ({image, title, onPress}) => {
               marginVertical: 10,
               textAlign: 'center',
               fontWeight: 'bold',
+              fontFamily: textTheme.bold.fontFamily,
             }}>
             {title}
-          </Text>
+          </TextView>
         </View>
       </Surface>
     </TouchableRipple>
@@ -103,9 +105,9 @@ const CategoryList = ({data}) => {
               height: 70,
             }}
           />
-          <Text style={{color: MD2Colors.teal50, textAlign: 'center'}}>
+          <TextView style={{color: MD2Colors.teal50, textAlign: 'center'}}>
             Loading Category...
-          </Text>
+          </TextView>
         </View>
       )}
     />

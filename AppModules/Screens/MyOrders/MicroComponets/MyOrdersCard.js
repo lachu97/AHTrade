@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, Text} from 'react-native-paper';
 import {useWindowDimensions} from 'react-native';
+import {TextView} from '../../../Components/AHText';
 
 const MyOrdersCard = ({item}) => {
   const {width} = useWindowDimensions();
@@ -11,20 +12,20 @@ const MyOrdersCard = ({item}) => {
         subtitle={`Product Code : ${item.productID}`}
       />
       <Card.Content>
-        <Text>
+        <TextView>
           Quantity : {item.quantity}
           {item.unit}
-        </Text>
-        <Text>
+        </TextView>
+        <TextView>
           Price : ${item.price} / {item.unit}
-        </Text>
-        <Text>
+        </TextView>
+        <TextView>
           Incoterm : {item.incoterm}({item.destination})
-        </Text>
+        </TextView>
         <Text>Payment Term : {item.payment}</Text>
-        <Text>
+        <TextView>
           Contact Person :{item.user_name} Email:{item.email}
-        </Text>
+        </TextView>
       </Card.Content>
     </Card>
   );

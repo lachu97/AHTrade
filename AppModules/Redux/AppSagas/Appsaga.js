@@ -10,7 +10,10 @@ import {
   addProductData,
   addStatus,
 } from '../Reducers/CategoryReducer';
-import {showBottomFeedBack} from '../../Components/Toasts/ToastsFeedBack';
+import {
+  showBottomFeedBack,
+  showToastError,
+} from '../../Components/Toasts/ToastsFeedBack';
 import {
   getCategoryDetails,
   getPriceDetails,
@@ -50,12 +53,7 @@ function* addSomething(action) {
     yield delay(100);
 
     yield put(addHome(data));
-    reactotron.log('Iam inside saga and i ran');
-  } catch (e) {
-    reactotron.error(
-      'Iam inside saga and i ran with a problem == \n' + e.message,
-    );
-  }
+  } catch (e) {}
 }
 function* getCategoryDataSaga() {
   try {
@@ -70,7 +68,7 @@ function* getCategoryDataSaga() {
       .from('category')
       .select('*');
     if (error) {
-      showBottomFeedBack(`error in fetching ${error.message}`);
+      showToastError(`error in fetching ${error.message}`);
       return;
     }
     // const data = [
@@ -116,7 +114,7 @@ function* getProductDataSaga() {
       .select('*')
       .range(0, 10);
     if (error) {
-      showBottomFeedBack(`error in fetching ${error.message}`);
+      showToastError(`error in fetching ${error.message}`);
       return;
     }
     if (products) {
@@ -155,7 +153,7 @@ function* getPriceDetailsSage() {
       .from('priceDetails')
       .select('*');
     if (error) {
-      showBottomFeedBack(`error in fetching ${error.message}`);
+      showToastError(`error in fetching ${error.message}`);
       return;
     }
     if (priceDetails) {

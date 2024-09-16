@@ -19,6 +19,9 @@ import {HapticFeedback, validateEmail} from '../HelperFuntions/helpers';
 import {
   showBottomFeedBack,
   showMiddleFeedBack,
+  showToastError,
+  showToastInfo,
+  showToastSuccess,
 } from '../Components/Toasts/ToastsFeedBack';
 import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 import {setUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
@@ -41,26 +44,23 @@ const Register = () => {
   const handleSubmit = useCallback(async () => {
     try {
       HapticFeedback('impactMedium');
-      if (!status) {
-        showMiddleFeedBack('Agree to Privacy Policy');
-        return;
-      }
-
       let result = validateEmail(email);
-
       if (!result) {
-        console.log('Not a valid email');
-        showMiddleFeedBack('Provide a Valid Email');
+        showToastInfo('Provide a Valid Email');
         emailRef.current.focus();
         return;
       }
       if (password === '') {
-        showMiddleFeedBack('Provide a Valid Password');
+        showToastInfo('Provide a Valid Password');
+        return;
+      }
+      if (!status) {
+        showToastInfo('Agree to Privacy Policy');
         return;
       }
       const checkValid = phoneInput.current?.isValidNumber(value);
       if (!checkValid) {
-        showMiddleFeedBack('Enter a Valid Phone');
+        showToastInfo('Enter a Valid Phone');
         return;
       }
       console.log(`Value-${formattedValue}`);
@@ -72,7 +72,7 @@ const Register = () => {
         phone: formattedValue,
       });
       if (error) {
-        showBottomFeedBack('UnExpected Error Occurred,Try Again');
+        showToastError('UnExpected Error Occurred,Try Again');
         return;
       }
       console.log('Success' + JSON.stringify(data));
@@ -84,7 +84,7 @@ const Register = () => {
           index: 0,
           routes: [{name: 'Home'}],
         });
-        showBottomFeedBack('SignUp SuccessFull');
+        showToastSuccess('SignUp SuccessFull');
       }
     } catch (e) {
     } finally {
@@ -199,7 +199,7 @@ const Register = () => {
           onPress={handleSubmit}
           loading={loading}
           labelStyle={{
-            fontFamily: textTheme.regular.fontFamily,
+            fontFamily: textTheme.bold.fontFamily,
           }}
           style={styles.buttonStyles}
         />

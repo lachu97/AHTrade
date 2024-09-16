@@ -22,6 +22,9 @@ import {
 import {
   showBottomFeedBack,
   showMiddleFeedBack,
+  showToastError,
+  showToastInfo,
+  showToastSuccess,
 } from '../Components/Toasts/ToastsFeedBack';
 import {useDispatch} from 'react-redux';
 import DeleteDialog from './Misc/Views/DeleteDialog';
@@ -154,7 +157,7 @@ const SettingListSection = ({onPressDelete, navigation}) => {
                   return;
                 }
                 if (item.route === 'Version') {
-                  showBottomFeedBack('App Version is 1.0.1');
+                  showToastSuccess('App Version is 1.0.1');
                   return;
                 }
                 if (item.route === 'Delete') {
@@ -192,12 +195,12 @@ const AccountScreen = () => {
                 index: 0,
                 routes: [{name: 'AuthStack'}],
               });
-              showMiddleFeedBack('Moving to Login Page');
+              showToastInfo('Moving to Login Page');
             }, 899);
           } else {
             const {error} = await supaBaseClient.auth.signOut();
             if (error) {
-              showBottomFeedBack(`Error in Signout ${error.message}`);
+              showToastError(`Error in Signout ${error.message}`);
               return;
             }
             await storeIsLoggedIn(false);
@@ -209,7 +212,7 @@ const AccountScreen = () => {
                 index: 0,
                 routes: [{name: 'AuthStack'}],
               });
-              showMiddleFeedBack('Logged Out SuccessFully');
+              showToastSuccess('Logged Out SuccessFully');
             }, 899);
           }
         }}

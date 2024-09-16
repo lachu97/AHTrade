@@ -134,7 +134,7 @@ const CategorySearch = () => {
                 padding: 8,
               }}>
               No Product Available for this Category,Try Selecting Other
-              Category
+              Category / Try Suggesting Products to Us
             </TextView>
             <Button
               style={{
@@ -145,7 +145,7 @@ const CategorySearch = () => {
                 alignSelf: 'center',
                 marginVertical: 5,
               }}
-              textColor={MD2Colors.teal100}
+              textColor={MD2Colors.tealA100}
               labelStyle={{
                 fontFamily: textTheme.regular.fontFamily,
               }}

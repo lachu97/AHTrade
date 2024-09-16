@@ -25,6 +25,8 @@ import {HapticFeedback, validateEmail} from '../HelperFuntions/helpers';
 import {
   showBottomFeedBack,
   showMiddleFeedBack,
+  showToastInfo,
+  showToastSuccess,
 } from '../Components/Toasts/ToastsFeedBack';
 import {supaBaseClient} from '../SupaBase/Client/supabaseClient';
 import LoadingModal from '../Components/Modals/LoadingModal';
@@ -60,11 +62,11 @@ const Login = () => {
 
       if (!result) {
         console.log('Not a valid email');
-        showMiddleFeedBack('Provide a Valid Email');
+        showToastInfo('Provide a Valid Email');
         return;
       }
       if (password === '') {
-        showMiddleFeedBack('Provide a Valid Password');
+        showToastInfo('Provide a Valid Password');
         return;
       }
       setLoading(true);
@@ -73,7 +75,7 @@ const Login = () => {
         password: password,
       });
       if (error) {
-        showBottomFeedBack(error.message.toString());
+        showToastInfo(error.message.toString());
         console.log(`Error = ${JSON.stringify(error)}`);
         return;
       }
@@ -85,7 +87,7 @@ const Login = () => {
           index: 0,
           routes: [{name: 'Home'}],
         });
-        showBottomFeedBack('Login SuccessFull');
+        showToastSuccess('Login SuccessFull');
 
         console.log(`Result data = ${JSON.stringify(data)}`);
       }

@@ -3478,6 +3478,7 @@ __metadata:
     react-native-safe-area-context: ^4.6.4
     react-native-screens: ^3.22.1
     react-native-simple-toast: ^3.2.0
+    react-native-toast-notifications: ^3.4.0
     react-native-url-polyfill: ^2.0.0
     react-native-vector-icons: ^9.2.0
     react-native-webview: ^13.8.1
@@ -9456,6 +9457,16 @@ __metadata:
     react: "*"
     react-native: ">=0.71.0"
   checksum: 0f535a469b9519f761ee0224828df8e531fb92ad5e9accefdc04aafcd896da4c6fead488fe6911ccc11592f325707499f4b696768afd8c20cefe06fa6cdac50f
+  languageName: node
+  linkType: hard
+
+"react-native-toast-notifications@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "react-native-toast-notifications@npm:3.4.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 734a54111e3657859d3cca9505a197bc6eb486e473e655d8aa087157de8f5e8b819083963f28e5e9155110be9a17774296bbfd721749f670c5f4e093557bd88f
   languageName: node
   linkType: hard
 

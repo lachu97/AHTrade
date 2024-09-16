@@ -241,7 +241,12 @@ const ProductDetail = () => {
           marginHorizontal: 10,
         }}>
         <AHButton
-          style={{flex: 1, margin: 2, borderRadius: 6}}
+          style={{
+            flex: 1,
+            margin: 2,
+            borderRadius: 6,
+            backgroundColor: MD2Colors.tealA100,
+          }}
           icon={'import'}
           name={'Import Item'}
           labelStyle={{

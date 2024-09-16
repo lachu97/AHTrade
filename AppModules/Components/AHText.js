@@ -1,20 +1,28 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {MD2Colors, Text} from 'react-native-paper';
 import {isIos} from '../HelperFuntions/helpers';
 import {textTheme} from '../Themes/themes';
-const AHText = props => (
-  <Text
-    style={[
-      {
-        fontFamily: textTheme.regular.fontFamily,
-      },
-      props.style,
-    ]}
-    {...props}>
-    {props.name}
-  </Text>
-);
+const AHText = props => {
+  const darkTheme = useColorScheme() === 'dark';
+  return (
+    <Text
+      style={[
+        {
+          fontFamily: textTheme.regular.fontFamily,
+          color: isIos()
+            ? MD2Colors.black
+            : darkTheme
+            ? MD2Colors.white
+            : MD2Colors.grey900,
+        },
+        props.style,
+      ]}
+      {...props}>
+      {props.name}
+    </Text>
+  );
+};
 export const TextView = props => {
   return (
     <Text

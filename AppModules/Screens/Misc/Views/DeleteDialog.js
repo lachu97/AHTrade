@@ -4,7 +4,10 @@ import {getUserDetails} from '../../../Storage/AppLocalStorage/UserStorageData';
 import {getIsGuestUser} from '../../../Storage/LocalStorage';
 import {View} from 'react-native';
 import {supaBaseClient} from '../../../SupaBase/Client/supabaseClient';
-import {showBottomFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
+import {
+  showBottomFeedBack,
+  showToastInfo,
+} from '../../../Components/Toasts/ToastsFeedBack';
 
 const DeleteDialog = ({isVisible, onDismiss}) => {
   const [isGuestUser, setIsGuestUser] = useState(false);
@@ -46,7 +49,7 @@ const DeleteDialog = ({isVisible, onDismiss}) => {
         <Button onPress={onDismiss}>Cancel</Button>
         <Button
           onPress={() => {
-            showBottomFeedBack(
+            showToastInfo(
               'Delete Request Submitted Successfully,will be deleted in 2-3 business days',
             );
             setTimeout(() => {

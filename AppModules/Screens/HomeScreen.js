@@ -101,9 +101,9 @@ const HomeScreen = () => {
   const ListHeader = useCallback(() => {
     return (
       <View style={{marginVertical: 5, padding: 2}}>
-        <TextView style={styles.textStyle} name={'Category'} />
+        <TextView style={styles.textStyle}>Category</TextView>
         <CategoryList data={catData} />
-        <TextView style={styles.textStyle} name={'Products'} />
+        <TextView style={styles.textStyle}>Products</TextView>
       </View>
     );
   }, [catData]);

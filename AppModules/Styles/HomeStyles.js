@@ -1,27 +1,28 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {textTheme} from '../Themes/themes';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.dark,
-  //  alignItems: 'center',
-  //  justifyContent: 'center',
+    //  alignItems: 'center',
+    //  justifyContent: 'center',
   },
   textStyle: {
-    fontFamily: 'sans-serif',
+    fontFamily: textTheme.bold.fontFamily,
     color: Colors.light,
-    fontSize:24,
-    margin:10,
-    fontWeight:'bold'
+    fontSize: 24,
+    margin: 10,
+    fontWeight: 'bold',
   },
   buttonContainer: {
     width: 150,
     height: 33,
-    alignSelf:'center'
+    alignSelf: 'center',
   },
-  categoryListHeader:{
-    marginTop:20,
-    marginVertical:10
-  }
+  categoryListHeader: {
+    marginTop: 20,
+    marginVertical: 10,
+  },
 });

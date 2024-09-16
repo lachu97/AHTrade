@@ -15,9 +15,9 @@ import {addOrderDetails} from '../Reducers/CheckoutReducer';
 import PaymentInfoBanner from '../MicroComponents/PaymentInfoBanner';
 import {PaymentBanks} from '../../../Constants/AppConstants';
 import {HapticFeedback} from '../../../HelperFuntions/helpers';
-import {getPayPalAccessToken} from '../../../PaymentGateway/PayPal/PayPalAPIs';
-import {showBottomFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
+import {showToastSuccess} from '../../../Components/Toasts/ToastsFeedBack';
 import {TextView} from '../../../Components/AHText';
+import {textTheme} from '../../../Themes/themes';
 
 const CheckoutScreen = () => {
   const route = useRoute();
@@ -110,7 +110,7 @@ const CheckoutScreen = () => {
             //showBottomFeedBack('Order Created Successfully ');
             setTimeout(() => {
               setLoading(false);
-              showBottomFeedBack('Moving to Payments');
+              showToastSuccess('Moving to Payments');
 
               navigation.navigate('NowPayments', {
                 item: result,
@@ -119,7 +119,15 @@ const CheckoutScreen = () => {
             }, 1200);
           }}
           loading={loading}
-          style={{width: width * 0.94, margin: 2, borderRadius: 8}}
+          style={{
+            width: width * 0.94,
+            margin: 2,
+            borderRadius: 8,
+            backgroundColor: MD2Colors.tealA100,
+          }}
+          labelStyle={{
+            fontFamily: textTheme.bold.fontFamily,
+          }}
         />
       </View>
       <InfoDialoag isVisible={showInfo} onDismiss={() => setInfo(false)} />

@@ -44,6 +44,9 @@ import {
 import {
   showBottomFeedBack,
   showMiddleFeedBack,
+  showToastError,
+  showToastInfo,
+  showToastSuccess,
 } from '../../../Components/Toasts/ToastsFeedBack';
 import InfoBanner from '../../../Components/Banners/InfoBanner';
 import {INFO_TEXT, layoutAnimConfig} from '../../../Constants/AppConstants';
@@ -238,7 +241,7 @@ const ImportScreen = () => {
   const onQuantitySuccess = item => {
     HapticFeedback();
     if (item > 10) {
-      showBottomFeedBack('Maximum Quantity is 10 MT per user per order');
+      showToastInfo('Maximum Quantity is 10 MT per user per order');
       return;
     }
     setQuantity(item);
@@ -246,7 +249,7 @@ const ImportScreen = () => {
   const onPriceSuccess = itm => {
     HapticFeedback();
     if (itm < item.price) {
-      showBottomFeedBack(
+      showToastError(
         `Enter Price greater than Minimum price of $${item.price}`,
       );
       return;
@@ -287,7 +290,7 @@ const ImportScreen = () => {
       return result;
     }, {});
     if (Object.keys(contactObject).length === 0) {
-      showMiddleFeedBack('Provide Contact Details');
+      showToastInfo('Provide Contact Details');
       return;
     }
     let resultItem = {
@@ -303,11 +306,11 @@ const ImportScreen = () => {
     };
     const isEmpty = checkForEmptyProperties(resultItem);
     if (isEmpty) {
-      showMiddleFeedBack('Provide All Details to Place an Order');
+      showToastInfo('Provide All Details to Place an Order');
       return;
     }
     if (!checked) {
-      showBottomFeedBack('Please verify your Details,');
+      showToastInfo('Please verify your Details,');
       return;
     }
 
@@ -821,6 +824,10 @@ const ImportScreen = () => {
               marginHorizontal: 5,
               alignSelf: 'center',
               borderRadius: 8,
+              backgroundColor: MD2Colors.tealA100,
+            }}
+            labelStyle={{
+              fontFamily: textTheme.bold.fontFamily,
             }}
             onPress={onPressPlaceOrder}
           />

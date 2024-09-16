@@ -5,13 +5,19 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {HeaderComponent} from '../../../Components/HeaderComponent';
 import AHButton from '../../../Components/AHButton';
 import {useNavigation} from '@react-navigation/native';
-import {showBottomFeedBack} from '../../../Components/Toasts/ToastsFeedBack';
+import {
+  showBottomFeedBack,
+  showToastError,
+} from '../../../Components/Toasts/ToastsFeedBack';
 import {getIsGuestUser} from '../../../Storage/LocalStorage';
 import {getUserDetails} from '../../../Storage/AppLocalStorage/UserStorageData';
 import LottieView from 'lottie-react-native';
 import FastImage from 'react-native-fast-image';
 import {useDispatch, useSelector} from 'react-redux';
 import {HapticFeedback} from '../../../HelperFuntions/helpers';
+import {TextView} from '../../../Components/AHText';
+import AHTextInput from '../../../Components/AHTextInput';
+import {textTheme} from '../../../Themes/themes';
 const RecommendationScreen = () => {
   const [product, setProduct] = useState('');
   const [user, setUser] = useState({});
@@ -33,7 +39,7 @@ const RecommendationScreen = () => {
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: Colors.dark}}>
-      <HeaderComponent name={'Product Recommendation'} />
+      <HeaderComponent name={'Recommend Product'} showHeader={false} />
       <View
         style={{
           flex: 1,
@@ -52,11 +58,11 @@ const RecommendationScreen = () => {
               resizeMode={FastImage.resizeMode.contain}
               source={require('../../../assets/Images/checked.png')}
             />
-            <Text
+            <TextView
               style={{color: MD2Colors.white, padding: 5, alignSelf: 'center'}}>
               Product Recommendation for {product} is Successful,We will Review
               it and add it to marketplace
-            </Text>
+            </TextView>
             <Button
               style={{
                 width: width * 0.71,
@@ -65,6 +71,9 @@ const RecommendationScreen = () => {
                 borderWidth: 1,
                 alignSelf: 'center',
                 marginVertical: 5,
+              }}
+              labelStyle={{
+                fontFamily: textTheme.bold.fontFamily,
               }}
               onPress={() => {
                 HapticFeedback();
@@ -76,15 +85,15 @@ const RecommendationScreen = () => {
         ) : (
           <>
             <KeyboardAvoidingView behavior={'padding'}>
-              <Text
+              <TextView
                 style={{
                   color: MD2Colors.white,
                   fontSize: 18,
                   alignSelf: 'center',
                 }}>
                 Product Recommendation
-              </Text>
-              <TextInput
+              </TextView>
+              <AHTextInput
                 value={product}
                 placeholder={'Product Name'}
                 onChangeText={e => setProduct(e)}
@@ -110,6 +119,10 @@ const RecommendationScreen = () => {
                 alignSelf: 'center',
                 marginVertical: 5,
               }}
+              textColor={MD2Colors.tealA100}
+              labelStyle={{
+                fontFamily: textTheme.bold.fontFamily,
+              }}
               icon={'book-edit'}
               loading={loading}
               onPress={() => {
@@ -117,7 +130,7 @@ const RecommendationScreen = () => {
 
                 setLoading(true);
                 if (product === '') {
-                  showBottomFeedBack('Product Name Is Empty');
+                  showToastError('Product Name Is Empty');
                   setLoading(false);
                   return;
                 }
@@ -125,7 +138,7 @@ const RecommendationScreen = () => {
                   type: 'POST_RECOMMEND',
                   payload: {
                     name: product,
-                    user_id: user.id,
+                    user_id: user?.id,
                   },
                 });
                 if (status?.status === 201) {
@@ -134,7 +147,7 @@ const RecommendationScreen = () => {
                 }
                 //  navigation.goBack();
               }}>
-              Suggest Product
+              Suggest This Product
             </Button>
           </>
         )}

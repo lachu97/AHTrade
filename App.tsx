@@ -24,6 +24,7 @@ import {
   flushCache,
   storage,
 } from './AppModules/Storage/AppLocalStorage/ProductsStorage';
+import {ToastProvider} from 'react-native-toast-notifications';
 if (
   Platform.OS === 'android' &&
   UIManager.setLayoutAnimationEnabledExperimental
@@ -88,30 +89,32 @@ function App(): JSX.Element {
   }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.dark}}>
-      <Provider store={store}>
-        <PaperProvider>
-          <AppNavigation />
-          {!netWorkState ? (
-            <Dialog visible={!netWorkState}>
-              <Dialog.Title>Internet Connection Lost</Dialog.Title>
-              <Dialog.Content>
-                <Text>
-                  Internet Connectivity has been lost,Try Switching On Mobile
-                  Data or WiFi,And Then Close & Reopen App.
-                </Text>
-              </Dialog.Content>
-              <Dialog.Actions>
-                <Button
-                  onPress={() => {
-                    Linking.openSettings().then(r => console.log(r));
-                  }}>
-                  Go to Settings
-                </Button>
-              </Dialog.Actions>
-            </Dialog>
-          ) : null}
-        </PaperProvider>
-      </Provider>
+      <ToastProvider>
+        <Provider store={store}>
+          <PaperProvider>
+            <AppNavigation />
+            {!netWorkState ? (
+              <Dialog visible={!netWorkState}>
+                <Dialog.Title>Internet Connection Lost</Dialog.Title>
+                <Dialog.Content>
+                  <Text>
+                    Internet Connectivity has been lost,Try Switching On Mobile
+                    Data or WiFi,And Then Close & Reopen App.
+                  </Text>
+                </Dialog.Content>
+                <Dialog.Actions>
+                  <Button
+                    onPress={() => {
+                      Linking.openSettings().then(r => console.log(r));
+                    }}>
+                    Go to Settings
+                  </Button>
+                </Dialog.Actions>
+              </Dialog>
+            ) : null}
+          </PaperProvider>
+        </Provider>
+      </ToastProvider>
     </SafeAreaView>
   );
 }

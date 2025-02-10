@@ -13,6 +13,7 @@ export default StyleSheet.create({
     color: Colors.light,
     fontSize: 27,
     fontWeight: 'bold',
+    fontFamily: 'Lato-Regular',
   },
   formContainer: {
     justifyContent: 'center',
@@ -26,6 +27,7 @@ export default StyleSheet.create({
     fontSize: 19,
     width: width * 0.8,
     height: 54,
+    fontFamily: 'Lato-Regular',
   },
   guestTextStyles: {
     marginVertical: 15,
@@ -39,6 +41,6 @@ export default StyleSheet.create({
     fontWeight: '500',
     padding: 1,
     alignSelf: 'center',
-    fontFamily: 'sans-serif',
+    fontFamily: 'Lato-Bold',
   },
 });

@@ -11,7 +11,8 @@
     "clean": "npx react-native start --reset-cache",
     "reactotron": "adb reverse tcp:9090 tcp:9090",
     "production-android": "appcenter codepush release-react -a Atlashorizon/AHTrade -d Production",
-    "ios-dev": "npx react-native run-ios --mode Debug"
+    "ios-dev": "npx react-native run-ios --mode Debug",
+    "i15": "npx react-native run-ios --simulator=`iPhone 15`"
   },
   "dependencies": {
     "@notifee/react-native": "^7.8.2",

@@ -24,11 +24,18 @@ const AHText = props => {
   );
 };
 export const TextView = props => {
+  const darkTheme = useColorScheme() === 'dark';
   return (
     <Text
       style={[
         {
-          color: props.style?.color ? props.style?.color : MD2Colors.black,
+          color: props.style?.color
+            ? props.style?.color
+            : isIos()
+            ? MD2Colors.black
+            : darkTheme
+            ? MD2Colors.white
+            : MD2Colors.grey900,
           fontFamily: props.style?.fontFamily
             ? props.style?.fontFamily
             : textTheme.regular.fontFamily,

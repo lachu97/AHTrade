@@ -15,6 +15,7 @@ export default StyleSheet.create({
     fontSize: 24,
     margin: 10,
     fontWeight: 'bold',
+    marginBottom: 10,
   },
   buttonContainer: {
     width: 150,

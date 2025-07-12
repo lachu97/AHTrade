@@ -3,7 +3,10 @@ import {View, LayoutAnimation, Dimensions, Animated} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../Styles/HomeStyles';
-import {HomeHeaderComponent} from '../Components/HeaderComponent';
+import {
+  HeaderComponent,
+  HomeHeaderComponent,
+} from '../Components/HeaderComponent';
 import CategoryList from '../Components/Lists/CategoryList';
 import AHText, {TextView} from '../Components/AHText';
 import ProductList from '../Components/Lists/ProductsLists';
@@ -15,6 +18,9 @@ import {getUserDetails} from '../Storage/AppLocalStorage/UserStorageData';
 import {getFCMTokenDetails} from '../Storage/AppLocalStorage/FCMTokenStorage';
 import {getIsGuestUser} from '../Storage/LocalStorage';
 import {addIsGuestUser} from '../Redux/Reducers/HomeReducer';
+import CustomCarousel from '../Components/Corousel/CustomCorousel';
+import TrendingList from '../Components/Lists/TrendingList';
+import PartnerCTA from './BecomePartner/MicroComponents/PartnerCTA';
 const act = () => ({type: 'ADDHOME'});
 const width = Dimensions.get('window').width;
 const getCategoryData = () => ({type: 'GET_CATEGORY'});
@@ -46,6 +52,11 @@ const HomeScreen = () => {
   const headerTranslateY = scrollY.interpolate({
     inputRange: [0, 50],
     outputRange: [0, -50],
+    extrapolate: 'clamp',
+  });
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, 50],
+    outputRange: [1, 0],
     extrapolate: 'clamp',
   });
 
@@ -100,19 +111,22 @@ const HomeScreen = () => {
   }, [dispatch]);
   const ListHeader = useCallback(() => {
     return (
-      <View style={{marginVertical: 5, padding: 2}}>
-        <TextView style={styles.textStyle}>Category</TextView>
-        <CategoryList data={catData} />
-        <TextView style={styles.textStyle}>Products</TextView>
-      </View>
+      <>
+        <View style={{marginVertical: 5, padding: 2}}>
+          <CustomCarousel />
+          <TextView style={styles.textStyle}>
+            Become our Trading Partner
+          </TextView>
+          <PartnerCTA />
+          <TextView style={styles.textStyle}>Category</TextView>
+          <CategoryList data={catData} />
+          <TextView style={styles.textStyle}>Products</TextView>
+        </View>
+      </>
     );
   }, [catData]);
   return (
     <View style={styles.container}>
-      <Animated.View>
-        <HomeHeaderComponent />
-      </Animated.View>
-
       <View style={{marginVertical: 1, padding: 1, flex: 1}}>
         <ProductList
           data={prodData}
@@ -125,7 +139,14 @@ const HomeScreen = () => {
         />
       </View>
       <Animated.View
-        style={[{flex: 0.05, transform: [{translateY: bottomBarTranslateY}]}]}>
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1,
+          transform: [{translateY: bottomBarTranslateY}],
+        }}>
         <BottomBar navigation={navigation} activeTab={'Home'} />
       </Animated.View>
     </View>

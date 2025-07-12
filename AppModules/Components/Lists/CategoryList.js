@@ -94,6 +94,8 @@ const CategoryList = ({data}) => {
       keyExtractor={(item, index) => `${index}`}
       renderItem={renderItem}
       horizontal
+      initialNumToRender={8}
+      windowSize={3}
       ListEmptyComponent={() => (
         <View style={{width: width}}>
           <LottieView

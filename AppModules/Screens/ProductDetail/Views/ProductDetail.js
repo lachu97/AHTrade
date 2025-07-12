@@ -13,6 +13,7 @@ import {
 import {getLongName, HapticFeedback} from '../../../HelperFuntions/helpers';
 import {TextView} from '../../../Components/AHText';
 import {textTheme} from '../../../Themes/themes';
+import {lightBlue100} from 'react-native-paper/src/styles/themes/v2/colors';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 const ProductDetail = () => {
@@ -245,7 +246,7 @@ const ProductDetail = () => {
             flex: 1,
             margin: 2,
             borderRadius: 6,
-            backgroundColor: MD2Colors.tealA100,
+            backgroundColor: MD2Colors.lightBlue100,
           }}
           icon={'import'}
           name={'Import Item'}

@@ -22,6 +22,14 @@ import {HapticFeedback, isIos} from '../../HelperFuntions/helpers';
 import {useDispatch} from 'react-redux';
 import {addSelectedProduct} from '../../Redux/Reducers/ProductDetailReducer';
 import {textTheme} from '../../Themes/themes';
+import {
+  cyan100,
+  cyanA200,
+  lightBlue200,
+  lightBlue300,
+  lightBlueA700,
+} from 'react-native-paper/src/styles/themes/v2/colors';
+import CustomCarousel from '../Corousel/CustomCorousel';
 const width = Dimensions.get('window').width;
 const cardWidth = width * 0.47;
 const height = Dimensions.get('window').height;
@@ -105,7 +113,7 @@ const ProductCard = ({item, navigation}) => {
               style={{
                 borderRadius: 8,
                 marginVertical: 3,
-                backgroundColor: MD2Colors.tealA100,
+                backgroundColor: MD2Colors.lightBlue200,
               }}
               labelStyle={{
                 color: MD2Colors.black,
@@ -159,6 +167,8 @@ const ProductList = ({data, ListHeader, onScroll, scrollEventThrottle}) => {
       renderItem={renderItems}
       numColumns={2}
       onScroll={onScroll}
+      initialNumToRender={5}
+      windowSize={5}
       scrollEventThrottle={scrollEventThrottle}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={ListHeader}

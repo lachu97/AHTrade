@@ -23,6 +23,7 @@ import PayPalCheckout from '../PaymentGateway/PayPal/PayPalCheckout';
 import CategoriesList from '../Screens/AllCategories/Views/CategoriesList';
 import NowpaymentScreen from '../PaymentGateway/CryptoPayment/NowPaymentsPG/NowpaymentScreen';
 import PayuScreen from '../PaymentGateway/PayU/PayuScreen';
+import BecomePartner from '../Screens/BecomePartner/Views/BecomePartner';
 const screenAnimation = {
   animation: 'slide_from_right',
 };
@@ -158,6 +159,7 @@ const AppNavigation = () => {
         <Stack.Screen name={'WebView'} component={WebViewScreen} />
         <Stack.Screen name={'PayPal'} component={PayPalCheckout} />
         <Stack.Screen name={'CategoryList'} component={CategoriesList} />
+        <Stack.Screen name={'BecomePartner'} component={BecomePartner} />
         <Stack.Screen name={'NowPayments'} component={NowpaymentScreen} />
         <Stack.Screen name={'Payu'} component={PayuScreen} />
       </Stack.Navigator>
